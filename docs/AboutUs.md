@@ -52,7 +52,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Justin Cheng
 
-<img src="images/justin.jpg" width="200px">
+<img src="images/justin.png" width="200px">
 
 [[github](http://github.com/justatin555)]
 [[portfolio](team/johndoe.md)]
