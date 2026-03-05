@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# B2B4U Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -274,64 +274,156 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* consultant of a medium-sized consulting or PR agency
+* has a need to manage long term relationships with big companies and clients
+* has a need to manage long term relationships with various services in order to best assist their clients
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI (Command Line Interface) apps
+* is reasonably comfortable using CLI apps
+* tends to work by themselves
+* does not share their computer with others
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Allow better management of long term relationships with big companies and clients through a simple, unified interface. Provide users with quick, up-to-date access to clients’ data and relevant services necessary for quick and on-point responses.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new contact             |                                                                        |
-| `* * *`  | user                                       | delete a contact              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a contact by name        | locate details of contacts without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many contacts in the address book | sort contacts by name         | locate a contact easily                                                 |
+| Priority | As a …​                 | I want to …​                                                                                                | So that I can…​                                                                                         |
+|----------|-------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| `* * *`  | consultant              | record clients' contact details                                                                             | retrieve them later                                                                                     |
+| `* * *`  | consultant              | retrieve clients' contact details                                                                           | contact them again                                                                                      |
+| `* * *`  | consultant              | delete client's contact details                                                                             | curate contacts and comply with data protection laws                                                    |
+| `* * *`  | existing user           | check how to do a task / action                                                                             | use the app                                                                                             |
+| `* *`    | user with many clients  | find a person's contact by entering their name                                                              | easily contact them again even amongst an ocean of contacts                                             |
+| `* *`    | user with many clients  | manually organise clients by importance / relevance                                                         | check up on them first                                                                                  |
+| `* *`    | user with many clients  | sort profile data by last updated                                                                           | check for outdated profiles that require updating                                                       |
+| `* *`    | security-conscious user | password-protect some sensitive information                                                                 | ensure privacy for profiles                                                                             |
+| `* *`    | potential user          | review its functionalities without spending too much time                                                   | understand how the app will help me                                                                     |
+| `* *`    | migrating user          | load existing client data as a file                                                                         | easily migrate clients over to the app                                                                  |
+| `* *`    | migrating user          | create incomplete data profiles to be updated later                                                         | migrate existing clients over more gradually                                                            |
+| `* *`    | consultant              | search for profiles by tags such as industry, occupation, company etc.                                      | quickly find contacts of services that may be useful to my client                                       |
+| `* *`    | consultant              | be reminded of upcoming appointments                                                                        | do not miss them                                                                                        |
+| `* *`    | consultant              | edit client's contact details                                                                               | correct mistakes and comply with data protection laws                                                   |
+| `* *`    | consultant              | sort contacts by relationship level or commission fees                                                      | find the most suitable help for my clients while balancing other factors such as budget                 |
+| `* *`    | consultant              | update existing business information                                                                        | correct mistakes / obsolete data and comply with data protection laws                                   |
+| `* *`    | consultant              | delete existing business information                                                                        | remove obsolete data and comply with data protection laws                                               |
+| `* *`    | consultant              | store relevant business information to a client                                                             | save time looking it up in a separate app / physically                                                  |
+| `* *`    | consultant              | retrieve relevant business information to a client                                                          | save time looking it up in a separate app / physically                                                  |
+| `* *`    | consultant              | sort contacts by last contacted                                                                             | keep track of cold contacts                                                                             |
+| `* *`    | busy consultant         | see a clear dashboard overview of recently contacted clients                                                | get straight to work without navigating through complex menus.                                          |
+| `*`      | user                    | undo accidental actions                                                                                     | prevent permanent data loss from mistakes                                                               |
+| `*`      | user                    | attach PDF contracts or brand guidelines to a client profile                                                | quickly retrieve them for reference                                                                     |
+| `*`      | typing user             | easily input clients' data through file-editing                                                             | speed up my workflow                                                                                    |
+| `*`      | proficient user         | archive old projects                                                                                        | my active workspace remains uncluttered                                                                 |
+| `*`      | power user              | use keyboard shortcuts or task automation                                                                   | efficiently execute repeated tasks                                                                      |
+| `*`      | potential user          | simulate my usual workflow with mock data                                                                   | get hands-on experience with the functionalities                                                        |
+| `*`      | new user                | follow a simple guided setup                                                                                | customize the app to my needs and preferences                                                           |
+| `*`      | forgetful user          | utilise fuzzy search even within commands                                                                   | easily use the retrieve data without clear memory of the commands or target details                     |
+| `*`      | dark-mode user          | set the app to dark mode                                                                                    | reduce eye strain during late-night event planning                                                      |
+| `*`      | light-mode user         | set the app to light mode                                                                                   | improve readability in well-lit environments                                                            |
+| `*`      | consultant              | take down minutes during a discussion                                                                       | remember and reference them later                                                                       |
+| `*`      | consultant              | cross reference tool which vendors have worked with which clients before                                    | understand relationships quickly                                                                        |
+| `*`      | consultant              | automatically send emails to old clients                                                                    | follow up and keep contacts warm                                                                        |
+| `*`      | consultant              | save availability information for selected contacts as a calendar and filter contacts based on availability | later on, I know when they can be contacted in person rather than needing to double-check ahead of time |
+| `*`      | beginner user           | pick up advanced functionalities gradually                                                                  | utilize more of the features provided                                                                   |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `B2B4U` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a contact**
+**Use case: UC1 - Check User Guide**
 
 **MSS**
 
-1.  User requests to list contacts
-2.  AddressBook shows a list of contacts
-3.  User requests to delete a specific contact in the list
-4.  AddressBook deletes the contact
+1. User requests user guide
+2. B2B4U provides user guide
+
+    Use case ends
+
+**Use case: UC2 - Add a contact**
+
+**MSS**
+
+1. User requests to create a new contact with certain parameters
+2. B2B4U saves the new contact
+3. B2B4U displays confirmation that the new contact is saved
+
+    Use case ends
+
+**Extensions**
+
+* 1a. The new contact is invalid
+  * 1a1. B2B4U shows an error message
+
+    Use case ends.
+
+**Use case: UC3 - View all contacts**
+
+**MSS**
+
+1. User requests to list contacts
+2. B2B4U shows a list of all stored contacts
+
+    Use case ends.
+
+**Use case: UC4 - Delete a contact**
+
+**MSS**
+
+1. User requests to <u>view contacts (UC3)</u>
+2. User requests to delete a specific contact in the list
+3. B2B4U deletes the contact
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. The list is empty.
 
   Use case ends.
 
-* 3a. The given request is invalid (e.g. referenced contact does not exist).
+* 2a. The given index is invalid.
+  * 2a1. B2B4U shows an error message.
 
-    * 3a1. AddressBook shows an error message.
+    Use case resumes at step 1.
 
-      Use case resumes at step 2.
+**Use case: UC5 - Filter contacts by criterion**
+
+**MSS**
+1. User requests to list contacts which fulfill given criteria
+2. B2B4U shows a list of all contacts which fulfill given criteria
+
+    Use case ends.
+
+**Use case: UC6 - Sort contacts by criterion**
+
+**MSS**
+1. User requests to list contacts sorted by a given criteria
+2. B2B4U shows a list of all contacts in order of given criteria
+
+    Use case ends.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 contacts in storage.
+3. Should always respond to user input within 250 milliseconds.
+4. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+5. Should only be accessible to a single user.
+6. Data should be stored locally and in a human editable text file.
+7. Should work without requiring an installer.
+8. Should work without reliance on a remote server.
+9. Should only contain third-party frameworks/libraries/services which are free, open-source, and have permissive license terms (if any).
+10. GUI should work well for standard screen resolutions 1920x1080 and higher, and for screen scales 100% and 125%.
+11. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
+12. Should be packaged in a single JAR file of 100MB or less in size.
 
 *{More to be added}*
 
