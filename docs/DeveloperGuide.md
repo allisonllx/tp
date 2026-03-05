@@ -274,13 +274,17 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* consultant of a medium-sized consulting or PR agency
+* has a need to manage long term relationships with big companies and clients
+* has a need to manage long term relationships with various services in order to best assist their clients
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* tends to work by themselves
+* does not share their computer with others
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Allow better management of long term relationships with big companies and clients through a simple, unified interface. Provide users with quick, up-to-date access to clients’ data and relevant services necessary for quick and on-point responses.
 
 
 ### User stories
