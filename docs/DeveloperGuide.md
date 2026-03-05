@@ -338,9 +338,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **JSON (JavaScript Object Notation)**: A lightweight text format used to store and transfer structured data.
+* **API (Application Programming Interface)**: A defined set of methods that allows one component of the system to interact with another component.
+* **GUI (Graphical User Interface)**: The visual interface through which the user interacts with the application, built using JavaFX.
+* **CLI (Command Line Interface)**: A text-based interface where users interact with the application by typing commands.
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Command**: A structured line of text entered by the user to instruct the application to perform a specific action.
-* **Contact**: A single contact entry stored in the address book, containing one or more pieces of contact information such as name, phone number, email, or address.
+* **Contact**: A single entry stored in the address book, containing one or more pieces of contact information such as name, phone number, email, or address.
+* **Filtered list**: A subset of contacts displayed after applying a search or filtering operation.
 
 --------------------------------------------------------------------------------------------------------------------
 
