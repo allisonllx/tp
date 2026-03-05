@@ -324,10 +324,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. The new contact is invalid
+  * 1a1. AddressBook shows an error message
 
-    * 1a1. AddressBook shows an error message
-
-      Use case ends.
+    Use case ends.
 
 **Use case: UC3 - View all contacts**
 
@@ -355,10 +354,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 * 2a. The given index is invalid.
+  * 2a1. AddressBook shows an error message.
 
-    * 2a1. AddressBook shows an error message.
+    Use case resumes at step 1.
 
-      Use case resumes at step 1.
+**Use case: UC5 - Filter contacts by criterion**
+
+**MSS**
+1. User requests to list contacts sorted by criteria
+2. AddressBook shows a list of all contacts which fulfill given criteria
+
+    Use case ends.
+
+**Use case: UC6 - Sort contacts by criterion**
+
+**MSS**
+1. User requests to list contacts sorted by a given criteria
+2. AddressBook shows a list of all contacts in order of given criteria
+
+    Use case ends.
 
 *{More to be added}*
 
