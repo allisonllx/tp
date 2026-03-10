@@ -15,7 +15,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
-import seedu.address.model.contact.Remark;
+import seedu.address.model.contact.Notes;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,7 +29,7 @@ class JsonAdaptedContact {
     private final String phone;
     private final String email;
     private final String address;
-    private final String remark;
+    private final String notes;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -38,11 +38,11 @@ class JsonAdaptedContact {
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") String remark, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("notes") String notes, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.remark = remark;
+        this.notes = notes;
         this.address = address;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -57,7 +57,7 @@ class JsonAdaptedContact {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        remark = source.getRemark().value;
+        notes = source.getNotes().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -106,13 +106,13 @@ class JsonAdaptedContact {
         }
         final Address modelAddress = new Address(address);
 
-        if (remark == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
+        if (notes == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Notes.class.getSimpleName()));
         }
-        final Remark modelRemark = new Remark(remark);
+        final Notes modelNotes = new Notes(notes);
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelNotes, modelTags);
     }
 
 }

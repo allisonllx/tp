@@ -4,13 +4,13 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
-    "remark": "",
+    "notes": "",
     "tags": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "remark": "",
+    "notes": "",
     "address": "4th street"
   } ]
 }

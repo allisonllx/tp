@@ -3,20 +3,20 @@ package seedu.address.model.contact;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Contact's remark in the address book.
+ * Represents a Contact's notes in the address book.
  * Guarantees: immutable; is always valid
  */
-public class Remark {
+public class Notes {
     public final String value;
 
     /**
-     * Constructs a {@code Remark}.
+     * Constructs a {@code Notes}.
      *
-     * @param remark A valid remark.
+     * @param notes A valid notes.
      */
-    public Remark(String remark) {
-        requireNonNull(remark);
-        value = remark;
+    public Notes(String notes) {
+        requireNonNull(notes);
+        value = notes;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class Remark {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof Remark && value.equals(((Remark) other).value));
+        return other == this || (other instanceof Notes && value.equals(((Notes) other).value));
     }
 
     @Override

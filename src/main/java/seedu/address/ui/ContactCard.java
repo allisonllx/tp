@@ -39,7 +39,7 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label remark;
+    private Label notes;
     @FXML
     private FlowPane tags;
 
@@ -54,7 +54,7 @@ public class ContactCard extends UiPart<Region> {
         phone.setText(contact.getPhone().value);
         address.setText(contact.getAddress().value);
         email.setText(contact.getEmail().value);
-        remark.setText(contact.getRemark().value);
+        notes.setText(contact.getNotes().value);
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
