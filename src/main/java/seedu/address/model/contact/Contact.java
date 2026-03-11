@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Contact {
 
     // Data fields
     private final Optional<Address> address;
-    private final Notes notes;
+    private final List<Note> notes;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -32,7 +33,7 @@ public class Contact {
      */
     public Contact(
             Name name, Optional<Phone> phone, Optional<Email> email,
-            Optional<Address> address, Notes notes, Set<Tag> tags) {
+            Optional<Address> address, List<Note> notes, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -58,7 +59,7 @@ public class Contact {
         return address;
     }
 
-    public Notes getNotes() {
+    public List<Note> getNotes() {
         return notes;
     }
 

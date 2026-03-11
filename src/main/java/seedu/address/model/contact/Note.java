@@ -6,17 +6,17 @@ import static java.util.Objects.requireNonNull;
  * Represents a Contact's notes in the address book.
  * Guarantees: immutable; is always valid
  */
-public class Notes {
+public class Note {
     public final String value;
 
     /**
-     * Constructs a {@code Notes}.
+     * Constructs a {@code Note}.
      *
-     * @param notes A valid notes.
+     * @param note A valid note.
      */
-    public Notes(String notes) {
-        requireNonNull(notes);
-        value = notes;
+    public Note(String note) {
+        requireNonNull(note);
+        value = note;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class Notes {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof Notes && value.equals(((Notes) other).value));
+        return other == this || (other instanceof Note && value.equals(((Note) other).value));
     }
 
     @Override
