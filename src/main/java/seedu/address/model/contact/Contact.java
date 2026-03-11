@@ -30,7 +30,9 @@ public class Contact {
     /**
      * Every field must be present and not null.
      */
-    public Contact(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address, Notes notes, Set<Tag> tags) {
+    public Contact(
+            Name name, Optional<Phone> phone, Optional<Email> email,
+            Optional<Address> address, Notes notes, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;

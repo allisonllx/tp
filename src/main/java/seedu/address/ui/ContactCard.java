@@ -63,10 +63,11 @@ public class ContactCard extends UiPart<Region> {
             notes.getParent().setManaged(false);
         }
         if (!contact.getTags().isEmpty()) {
-          contact.getTags().stream()
-                  .sorted(Comparator.comparing(tag -> tag.tagName))
-                  .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            contact.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         } else {
+            tags.setVisible(false);
             tags.setManaged(false);
         }
     }
