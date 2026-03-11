@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +39,8 @@ public class FindCommandParserTest {
     @Test
     public void parse_tagKeywordsOnly_returnsFindCommand() {
         FindCommand expectedFindCommand =
-                new FindCommand(new NameAndTagContainsKeywordsPredicate(List.of(), Arrays.asList("friends", "teammate")));
+                new FindCommand(new NameAndTagContainsKeywordsPredicate(
+                        List.of(), Arrays.asList("friends", "teammate")));
         assertParseSuccess(parser, " " + PREFIX_TAG + "friends " + PREFIX_TAG + "teammate", expectedFindCommand);
     }
 
