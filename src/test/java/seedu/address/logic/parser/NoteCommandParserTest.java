@@ -5,14 +5,14 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.NotesCommand;
+import seedu.address.logic.commands.NoteCommand;
 
-public class NotesCommandParserTest {
+public class NoteCommandParserTest {
     private static final String NOTES_STRING = "To follow up on Wednesday";
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NotesCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE);
 
-    private NotesCommandParser parser = new NotesCommandParser();
+    private NoteCommandParser parser = new NoteCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

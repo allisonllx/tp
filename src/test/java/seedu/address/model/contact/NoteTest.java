@@ -6,18 +6,18 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class NotesTest {
+public class NoteTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Notes(null));
+        assertThrows(NullPointerException.class, () -> new Note(null));
     }
 
     @Test
     public void equals() {
-        Notes notes = new Notes("To meet on February");
+        Note notes = new Note("To meet on February");
 
         // same values -> returns true
-        assertTrue(notes.equals(new Notes("To meet on February")));
+        assertTrue(notes.equals(new Note("To meet on February")));
 
         // same object -> returns true
         assertTrue(notes.equals(notes));
@@ -29,6 +29,6 @@ public class NotesTest {
         assertFalse(notes.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(notes.equals(new Notes("Likes ice cream")));
+        assertFalse(notes.equals(new Note("Likes ice cream")));
     }
 }

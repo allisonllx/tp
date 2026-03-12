@@ -22,12 +22,12 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.NotesCommand;
+import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactMatchesKeywordsPredicate;
-import seedu.address.model.contact.Notes;
+import seedu.address.model.contact.Note;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
 import seedu.address.testutil.EditContactDescriptorBuilder;
@@ -94,9 +94,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_note() throws Exception {
-        NotesCommand command = (NotesCommand) parser.parseCommand(NotesCommand.COMMAND_WORD + " 1 information");
-        assertTrue(command instanceof NotesCommand);
-        assertEquals(new NotesCommand(INDEX_FIRST_CONTACT, new Notes("information")), command);
+        NoteCommand command = (NoteCommand) parser.parseCommand(NoteCommand.COMMAND_WORD + " 1 information");
+        assertTrue(command instanceof NoteCommand);
+        assertEquals(new NoteCommand(INDEX_FIRST_CONTACT, new Note("information")), command);
     }
 
     @Test

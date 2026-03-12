@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -8,7 +10,7 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Notes;
+import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -22,13 +24,12 @@ public class ContactBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_NOTES = "She likes something";
 
     private Name name;
     private Optional<Phone> phone;
     private Optional<Email> email;
     private Optional<Address> address;
-    private Notes notes;
+    private List<Note> notes;
     private Set<Tag> tags;
 
     /**
@@ -39,7 +40,7 @@ public class ContactBuilder {
         phone = Optional.of(new Phone(DEFAULT_PHONE));
         email = Optional.of(new Email(DEFAULT_EMAIL));
         address = Optional.of(new Address(DEFAULT_ADDRESS));
-        notes = new Notes(DEFAULT_NOTES);
+        notes = new ArrayList<>();
         tags = new HashSet<>();
     }
 
@@ -98,8 +99,8 @@ public class ContactBuilder {
     /**
      * Sets the {@code Notes} of the {@code Contact} that we are building.
      */
-    public ContactBuilder withNotes(String notes) {
-        this.notes = new Notes(notes);
+    public ContactBuilder withNotes(String ... notes) {
+        this.notes = SampleDataUtil.getNoteList(notes);
         return this;
     }
 

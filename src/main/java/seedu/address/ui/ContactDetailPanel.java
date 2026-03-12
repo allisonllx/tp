@@ -91,8 +91,8 @@ public class ContactDetailPanel extends UiPart<Region> {
         }
 
         // Notes
-        if (!contact.getNotes().value.isEmpty()) {
-            notes.setText(contact.getNotes().value);
+        if (!contact.getNotes().isEmpty()) {
+            notes.setText(contact.getNotesString());
             notesContainer.setVisible(true);
             notesContainer.setManaged(true);
         } else {

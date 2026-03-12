@@ -29,7 +29,9 @@ public class JsonAdaptedContactTest {
     private static final Optional<String> VALID_PHONE = BENSON.getPhone().map(Phone::toString);
     private static final Optional<String> VALID_EMAIL = BENSON.getEmail().map(Email::toString);
     private static final Optional<String> VALID_ADDRESS = BENSON.getAddress().map(Address::toString);
-    private static final String VALID_NOTES = BENSON.getNotes().toString();
+    private static final List<String> VALID_NOTES = BENSON.getNotes().stream()
+            .map(note -> note.value)
+            .collect(Collectors.toList());
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
