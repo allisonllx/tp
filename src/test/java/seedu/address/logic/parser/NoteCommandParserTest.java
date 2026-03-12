@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.NoteCommand;
 
-public class NotesCommandParserTest {
+public class NoteCommandParserTest {
     private static final String NOTES_STRING = "To follow up on Wednesday";
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE);

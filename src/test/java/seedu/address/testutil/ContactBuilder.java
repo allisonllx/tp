@@ -100,7 +100,7 @@ public class ContactBuilder {
      * Sets the {@code Notes} of the {@code Contact} that we are building.
      */
     public ContactBuilder withNotes(String ... notes) {
-        this.notes = SampleDataUtil.getNotesList(notes);
+        this.notes = SampleDataUtil.getNoteList(notes);
         return this;
     }
 

@@ -23,7 +23,7 @@ import seedu.address.model.contact.Note;
 
 
 
-public class NotesCommandTest {
+public class NoteCommandTest {
     private static final Note NOTE = new Note("Lorem ipsum");
     private static final List<Note> NOTES = List.of(NOTE);
 

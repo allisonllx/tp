@@ -109,9 +109,6 @@ class JsonAdaptedContact {
         }
         final Optional<Address> modelAddress = address.map(address -> new Address(address));
 
-        if (notes == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
-        }
         final List<Note> modelNotes = notes.stream().map(Note::new).collect(Collectors.toList());
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);

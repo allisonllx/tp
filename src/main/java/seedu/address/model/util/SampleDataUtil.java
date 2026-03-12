@@ -78,7 +78,7 @@ public class SampleDataUtil {
     /**
      * Returns a notes list containing the list of strings given.
      */
-    public static List<Note> getNotesList(String... strings) {
+    public static List<Note> getNoteList(String... strings) {
         return Arrays.stream(strings)
                 .map(Note::new)
                 .collect(Collectors.toList());

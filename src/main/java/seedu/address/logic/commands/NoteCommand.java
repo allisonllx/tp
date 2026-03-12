@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CONTACTS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -52,7 +53,7 @@ public class NoteCommand extends Command {
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
-        List<Note> newNotes = contactToEdit.getNotes();
+        List<Note> newNotes = new ArrayList<>(contactToEdit.getNotes());
         newNotes.add(note);
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
                 contactToEdit.getAddress(), newNotes, contactToEdit.getTags());

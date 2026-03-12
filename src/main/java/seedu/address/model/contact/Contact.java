@@ -40,7 +40,7 @@ public class Contact {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.notes = notes;
+        this.notes = List.copyOf(notes);
         this.tags.addAll(tags);
     }
 
@@ -65,7 +65,7 @@ public class Contact {
      * Use {@code getNotesString()} instead for the notes in string format.
      */
     public List<Note> getNotes() {
-        return notes;
+        return Collections.unmodifiableList(notes);
     }
 
     /**
