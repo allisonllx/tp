@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.NoteCommand.PREFIX_CLEAR;
+import static seedu.address.logic.commands.NoteCommand.PREFIX_REMOVE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.NoteCommandParser.PREFIX_CLEAR;
-import static seedu.address.logic.parser.NoteCommandParser.PREFIX_REMOVE;
 
 import org.junit.jupiter.api.Test;
 

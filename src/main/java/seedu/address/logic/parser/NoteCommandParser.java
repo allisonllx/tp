@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.NoteCommand.PREFIX_CLEAR;
+import static seedu.address.logic.commands.NoteCommand.PREFIX_REMOVE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -16,13 +18,10 @@ import seedu.address.model.contact.Note;
  * Parses input arguments and creates a new {@code NotesCommand} object
  */
 public class NoteCommandParser implements Parser<NoteCommand> {
-
-    public static final Prefix PREFIX_REMOVE = new Prefix("c/");
-    public static final Prefix PREFIX_CLEAR = new Prefix("ca/");
-
     /**
      * Parses the given {@code String} of arguments in the context of the {@code NotesCommand}
      * and returns a {@code NotesCommand} object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public NoteCommand parse(String args) throws ParseException {
@@ -56,6 +55,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     /**
      * Parses the given {@code ArgumentMultimap} in the context of the {@code NoteRemoveCommand}
      * and returns a {@code NoteRemoveCommand} object for execution.
+     *
      * @param argMultimap The ArgumentMultimap containing an {@code Index} preamble
      *                    and a prefixed number of lines to remove.
      * @return A {@code NoteRemoveCommand} object with the specified index and number of lines to remove.
@@ -69,6 +69,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     /**
      * Parses the given {@code ArgumentMultimap} in the context of the {@code NoteClearCommand}
      * and returns a {@code NoteClearCommand} object for execution.
+     *
      * @param argMultimap The ArgumentMultimap containing an {@code Index} preamble.
      * @return A {@code NoteClearCommand} object with the specified index.
      */
@@ -80,6 +81,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     /**
      * Parses the given {@code String} in the context of the {@code NoteAddCommand}
      * and returns a {@code NoteAddCommand} object for execution.
+     *
      * @param args The {@code String} preamble containing an {@code Index} and {@code String} note.
      * @return A {@code NoteAddCommand} object with the specified index and new note.
      */
@@ -99,6 +101,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
 
     /**
      * Parses a {@code String} into an {@code Index}.
+     *
      * @param index A {@code String} index.
      * @return A parsed {@code Index}.
      */
@@ -112,6 +115,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
 
     /**
      * Parses a {@code String} into an {@code int} number of lines.
+     *
      * @param numLines A {@code String} number of lines.
      * @return A parsed {@code int} number of lines.
      */
