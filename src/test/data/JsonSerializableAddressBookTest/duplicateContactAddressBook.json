@@ -9,7 +9,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
-    "notes": "",
+    "notes": [],
     "address": "4th street"
   } ]
 }
