@@ -14,10 +14,6 @@ public abstract class ContactPredicateSet implements Predicate<Contact> {
         this.contactPredicates = new HashSet<>();
     }
 
-    public ContactPredicateSet(Set<Predicate<Contact>> contactPredicates) {
-        this.contactPredicates = new HashSet<>(contactPredicates);
-    }
-
     public void addPredicate(Predicate<Contact> predicate) {
         contactPredicates.add(predicate);
     }

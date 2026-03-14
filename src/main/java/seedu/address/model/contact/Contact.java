@@ -93,7 +93,7 @@ public class Contact {
                 || containsInEmail(string)
                 || containsInAddress(string)
                 || containsInNotes(string)
-                || containsInTag(string);
+                || containsInTags(string);
     }
 
     /**
@@ -146,7 +146,7 @@ public class Contact {
      * Returns true if at least one {@code Tag} of this contact contains the given string.
      * @param string {@code String} to check against this contact.
      */
-    public boolean containsInTag(String string) {
+    public boolean containsInTags(String string) {
         if (string.isEmpty()) {
             return true;
         }
