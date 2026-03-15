@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private ContactDetailPanel contactDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ReminderWindow reminderWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -139,6 +140,11 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        if (ReminderWindow.hasDueReminders(logic.getFilteredContactList())) {
+            reminderWindow = new ReminderWindow(logic.getFilteredContactList());
+            reminderWindow.show();
+        }
     }
 
     /**

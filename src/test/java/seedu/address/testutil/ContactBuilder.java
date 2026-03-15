@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -112,8 +113,15 @@ public class ContactBuilder {
      * Sets the {@code Reminder} of the {@code Contact} that we are building.
      */
     public ContactBuilder withReminders(String ... reminders) {
-
         this.reminders = SampleDataUtil.getReminderList(reminders);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Reminder} of the {@code Contact} that we are building using {@code Reminder}s as input.
+     */
+    public ContactBuilder withReminders(Reminder ... reminders) {
+        this.reminders = Arrays.asList(reminders);
         return this;
     }
 
