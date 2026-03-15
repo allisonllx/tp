@@ -13,18 +13,18 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
 /**
- * Remove lines of notes from an existing contact in the address book.
+ * Remove all reminders from an existing contact in the address book.
  */
-public class NoteClearCommand extends NoteCommand {
+public class ReminderClearCommand extends ReminderCommand {
 
-    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Removed notes from Contact: %1$s";
+    public static final String MESSAGE_REMOVE_REMINDERS_SUCCESS = "Removed reminders from Contact: %1$s";
 
     private final Index index;
 
     /**
      * @param index Index of the contact in the filtered contact list.
      */
-    public NoteClearCommand(Index index) {
+    public ReminderClearCommand(Index index) {
         requireAllNonNull(index);
 
         this.index = index;
@@ -41,7 +41,7 @@ public class NoteClearCommand extends NoteCommand {
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-            contactToEdit.getAddress(), new ArrayList<>(), contactToEdit.getTags(), contactToEdit.getReminders());
+                contactToEdit.getAddress(), contactToEdit.getNotes(), contactToEdit.getTags(), new ArrayList<>());
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
@@ -54,7 +54,7 @@ public class NoteClearCommand extends NoteCommand {
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        return String.format(MESSAGE_REMOVE_NOTES_SUCCESS, Messages.format(contactToEdit));
+        return String.format(MESSAGE_REMOVE_REMINDERS_SUCCESS, Messages.format(contactToEdit));
     }
 
     @Override
@@ -65,12 +65,11 @@ public class NoteClearCommand extends NoteCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NoteClearCommand)) {
+        if (!(other instanceof ReminderClearCommand e)) {
             return false;
         }
 
         // state check
-        NoteClearCommand e = (NoteClearCommand) other;
         return index.equals(e.index);
     }
 }

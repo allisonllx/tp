@@ -11,23 +11,27 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Reminder;
 
 /**
  * Remove lines of notes from an existing contact in the address book.
  */
-public class NoteClearCommand extends NoteCommand {
+public class ReminderRemoveCommand extends ReminderCommand {
 
-    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Removed notes from Contact: %1$s";
+    public static final String MESSAGE_REMOVE_REMINDERS_SUCCESS = "Removed reminders from Contact: %1$s";
 
     private final Index index;
+    private final int numReminders;
 
     /**
-     * @param index Index of the contact in the filtered contact list.
+     * @param index    Index of the contact in the filtered contact list.
+     * @param numReminders How many reminders to remove.
      */
-    public NoteClearCommand(Index index) {
+    public ReminderRemoveCommand(Index index, int numReminders) {
         requireAllNonNull(index);
 
         this.index = index;
+        this.numReminders = numReminders;
     }
 
     @Override
@@ -40,8 +44,13 @@ public class NoteClearCommand extends NoteCommand {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
+        List<Reminder> newReminders = new ArrayList<>(contactToEdit.getReminders());
+
+        int numExistingLines = newReminders.size();
+        newReminders = newReminders.subList(Math.min(numReminders, numExistingLines), numExistingLines);
+
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-            contactToEdit.getAddress(), new ArrayList<>(), contactToEdit.getTags(), contactToEdit.getReminders());
+                contactToEdit.getAddress(), contactToEdit.getNotes(), contactToEdit.getTags(), newReminders);
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
@@ -54,7 +63,7 @@ public class NoteClearCommand extends NoteCommand {
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        return String.format(MESSAGE_REMOVE_NOTES_SUCCESS, Messages.format(contactToEdit));
+        return String.format(MESSAGE_REMOVE_REMINDERS_SUCCESS, Messages.format(contactToEdit));
     }
 
     @Override
@@ -65,12 +74,12 @@ public class NoteClearCommand extends NoteCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NoteClearCommand)) {
+        if (!(other instanceof ReminderRemoveCommand e)) {
             return false;
         }
 
         // state check
-        NoteClearCommand e = (NoteClearCommand) other;
-        return index.equals(e.index);
+        return index.equals(e.index)
+                && numReminders == e.numReminders;
     }
 }

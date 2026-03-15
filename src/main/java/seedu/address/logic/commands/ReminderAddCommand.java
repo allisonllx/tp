@@ -11,25 +11,28 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Reminder;
 
 /**
- * Remove lines of notes from an existing contact in the address book.
+ * Adds a reminder to an existing contact in the address book.
  */
-public class NoteClearCommand extends NoteCommand {
+public class ReminderAddCommand extends ReminderCommand {
 
-    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Removed notes from Contact: %1$s";
+    public static final String MESSAGE_ADD_REMINDERS_SUCCESS = "Added reminder to Contact: %1$s";
 
     private final Index index;
+    private final Reminder reminder;
 
     /**
-     * @param index Index of the contact in the filtered contact list.
+     * @param index of the contact in the filtered contact list to edit the reminder
+     * @param reminder of the contact to be updated to
      */
-    public NoteClearCommand(Index index) {
-        requireAllNonNull(index);
+    public ReminderAddCommand(Index index, Reminder reminder) {
+        requireAllNonNull(index, reminder);
 
         this.index = index;
+        this.reminder = reminder;
     }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Contact> lastShownList = model.getFilteredContactList();
@@ -39,9 +42,10 @@ public class NoteClearCommand extends NoteCommand {
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
-
+        List<Reminder> newReminders = new ArrayList<>(contactToEdit.getReminders());
+        newReminders.add(reminder);
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
-            contactToEdit.getAddress(), new ArrayList<>(), contactToEdit.getTags(), contactToEdit.getReminders());
+                contactToEdit.getAddress(), contactToEdit.getNotes(), contactToEdit.getTags(), newReminders);
 
         model.setContact(contactToEdit, editedContact);
         model.updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
@@ -50,11 +54,11 @@ public class NoteClearCommand extends NoteCommand {
     }
 
     /**
-     * Generates a command execution success message.
+     * Generates a command execution success message based on whether the Reminders are added to or removed from
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        return String.format(MESSAGE_REMOVE_NOTES_SUCCESS, Messages.format(contactToEdit));
+        return String.format(MESSAGE_ADD_REMINDERS_SUCCESS, Messages.format(contactToEdit));
     }
 
     @Override
@@ -65,12 +69,12 @@ public class NoteClearCommand extends NoteCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NoteClearCommand)) {
+        if (!(other instanceof ReminderAddCommand e)) {
             return false;
         }
 
         // state check
-        NoteClearCommand e = (NoteClearCommand) other;
-        return index.equals(e.index);
+        return index.equals(e.index)
+                && reminder.equals(e.reminder);
     }
 }

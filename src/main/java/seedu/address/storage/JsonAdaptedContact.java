@@ -17,6 +17,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.contact.Reminder;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,6 +33,7 @@ class JsonAdaptedContact {
     private final Optional<String> address;
     private final List<String> notes = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<String> reminders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedContact} with the given contact details.
@@ -39,7 +41,8 @@ class JsonAdaptedContact {
     @JsonCreator
     public JsonAdaptedContact(@JsonProperty("name") String name, @JsonProperty("phone") Optional<String> phone,
             @JsonProperty("email") Optional<String> email, @JsonProperty("address") Optional<String> address,
-            @JsonProperty("notes") List<String> notes, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("notes") List<String> notes, @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("reminders") List<String> reminders) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -49,6 +52,9 @@ class JsonAdaptedContact {
         this.address = address;
         if (tags != null) {
             this.tags.addAll(tags);
+        }
+        if (reminders != null) {
+            this.reminders.addAll(reminders);
         }
     }
 
@@ -64,6 +70,10 @@ class JsonAdaptedContact {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        reminders.addAll(
+                source.getReminders().stream()
+                        .map(reminder -> reminder.note + " on/" + reminder.timePoint.toString())
+                        .collect(Collectors.toList()));
     }
 
     /**
@@ -112,7 +122,9 @@ class JsonAdaptedContact {
         final List<Note> modelNotes = notes.stream().map(Note::new).collect(Collectors.toList());
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
-        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelNotes, modelTags);
-    }
 
+        final List<Reminder> modelReminders =
+                reminders.stream().map(Reminder :: parseReminder).collect(Collectors.toList());
+        return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelNotes, modelTags, modelReminders);
+    }
 }

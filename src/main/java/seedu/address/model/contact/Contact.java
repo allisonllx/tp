@@ -28,13 +28,14 @@ public class Contact {
     private final Optional<Address> address;
     private final List<Note> notes;
     private final Set<Tag> tags = new HashSet<>();
+    private final List<Reminder> reminders;
 
     /**
      * Every field must be present and not null.
      */
     public Contact(
             Name name, Optional<Phone> phone, Optional<Email> email,
-            Optional<Address> address, List<Note> notes, Set<Tag> tags) {
+            Optional<Address> address, List<Note> notes, Set<Tag> tags, List<Reminder> reminders) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -42,6 +43,7 @@ public class Contact {
         this.address = address;
         this.notes = List.copyOf(notes);
         this.tags.addAll(tags);
+        this.reminders = List.copyOf(reminders);
     }
 
     public Name getName() {
@@ -81,6 +83,10 @@ public class Contact {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public List<Reminder> getReminders() {
+        return Collections.unmodifiableList(reminders);
     }
 
     /**
