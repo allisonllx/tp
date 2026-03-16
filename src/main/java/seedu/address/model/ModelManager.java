@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Contact> filteredContacts;
 
+    private Predicate<Contact> contactPredicate;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -34,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        contactPredicate = PREDICATE_SHOW_ALL_CONTACTS;
     }
 
     public ModelManager() {
@@ -132,7 +136,33 @@ public class ModelManager implements Model {
     public void updateFilteredContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
         filteredContacts.setPredicate(predicate);
+        contactPredicate = predicate;
     }
+
+    //=========== Snapshot ================================================================================
+
+    /**
+     * Returns a {@code Snapshot} of the model for undo/redo features.
+     */
+    @Override
+    public Snapshot getSnapshot() {
+        ArrayList<Contact> copyContacts = new ArrayList<>();
+        getAddressBook().getContactList().forEach(contact -> copyContacts.add(contact.copy()));
+        return new Snapshot(copyContacts, getUserPrefs(), contactPredicate);
+    }
+
+    /**
+     * Copies data from a {@code Snapshot} for undo/redo features.
+     */
+    @Override
+    public void copySnapshot(Snapshot snapshot) {
+        requireNonNull(snapshot);
+        addressBook.setContacts(snapshot.contactList());
+        setUserPrefs(snapshot.userPrefs());
+        filteredContacts.setPredicate(snapshot.filterPredicate());
+    }
+
+    //=========== Override ================================================================================
 
     @Override
     public boolean equals(Object other) {

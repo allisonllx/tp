@@ -90,4 +90,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredContactList(Predicate<Contact> predicate);
+
+    /**
+     * Returns a {@code Snapshot} of the model for undo/redo features.
+     */
+    Snapshot getSnapshot();
+
+    /**
+     * Copies data from a {@code Snapshot} for undo/redo features.
+     */
+    void copySnapshot(Snapshot snapshot);
 }

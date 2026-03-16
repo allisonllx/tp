@@ -44,6 +44,13 @@ public class Contact {
         this.tags.addAll(tags);
     }
 
+    /**
+     * Creates a new instance of {@code Contact} with the same data as this {@code Contact}.
+     */
+    public Contact copy() {
+        return new Contact(name, phone, email, address, notes, tags);
+    }
+
     public Name getName() {
         return name;
     }
