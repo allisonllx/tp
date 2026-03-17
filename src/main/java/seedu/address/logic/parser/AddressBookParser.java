@@ -87,6 +87,10 @@ public class AddressBookParser {
             return new ViewCommandParser().parse(arguments);
 
         case CloseViewCommand.COMMAND_WORD:
+            if (!arguments.trim().equals(CloseViewCommand.COMMAND_SUBWORD)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        CloseViewCommand.MESSAGE_USAGE));
+            }
             return new CloseViewCommand();
 
         default:

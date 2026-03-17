@@ -109,7 +109,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_closeView() throws Exception {
-        assertTrue(parser.parseCommand(CloseViewCommand.COMMAND_WORD) instanceof CloseViewCommand);
+        assertTrue(parser.parseCommand(CloseViewCommand.COMMAND_WORD + " "
+                + CloseViewCommand.COMMAND_SUBWORD) instanceof CloseViewCommand);
     }
 
     @Test
