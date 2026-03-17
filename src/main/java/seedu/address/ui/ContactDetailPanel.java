@@ -27,7 +27,7 @@ public class ContactDetailPanel extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private Label notes;
+    private VBox notes;
     @FXML
     private FlowPane tags;
     @FXML
@@ -91,8 +91,12 @@ public class ContactDetailPanel extends UiPart<Region> {
         }
 
         // Notes
+        notes.getChildren().clear();
         if (!contact.getNotes().isEmpty()) {
-            notes.setText(contact.getNotesString());
+            contact.getNotes().forEach(note -> {
+                NoteLabel reminderLabel = new NoteLabel(note, notes.getStyleClass().toString());
+                reminderLabel.hideHeader();
+                notes.getChildren().add(reminderLabel); });
             notesContainer.setVisible(true);
             notesContainer.setManaged(true);
         } else {
@@ -125,8 +129,8 @@ public class ContactDetailPanel extends UiPart<Region> {
         phone.setText("");
         email.setText("");
         address.setText("");
-        notes.setText("");
         tags.getChildren().clear();
+        notes.getChildren().clear();
 
         phoneContainer.setVisible(false);
         phoneContainer.setManaged(false);

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.parser.Prefix;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE;
 
 /**
  * Parent class for all note-related commands.
@@ -8,15 +9,13 @@ import seedu.address.logic.parser.Prefix;
 public abstract class NoteCommand extends Command {
 
     public static final String COMMAND_WORD = "note";
-    public static final Prefix PREFIX_REMOVE = new Prefix("c/");
-    public static final Prefix PREFIX_CLEAR = new Prefix("ca/");
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the notes of the contact identified "
             + "by the index number used in the last contact listing. "
             + "New notes will be stacked underneath existing ones.\n"
             + "Format [Add]: " + COMMAND_WORD + " INDEX NOTE\n"
             + "Format [Clear]: " + COMMAND_WORD + " INDEX " + PREFIX_CLEAR + "\n"
-            + "Format [Remove]: " + COMMAND_WORD + " INDEX " + PREFIX_REMOVE + "0\n"
+            + "Format [Remove]: " + COMMAND_WORD + " INDEX " + PREFIX_REMOVE + "LINES_TO_REMOVE\n"
             + "Parameters:\n"
             + "- INDEX (must be a positive integer)\n"
             + "- NOTE (should be a non-empty string)\n"

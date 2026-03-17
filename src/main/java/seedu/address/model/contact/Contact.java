@@ -178,6 +178,27 @@ public class Contact {
     }
 
     /**
+     * Checks if this contact contain reminders that are due in {@code DUE_PERIOD_DAYS} number of days.
+     */
+    public boolean hasDueReminders() {
+        return notes.stream().anyMatch(Note::hasDueReminder);
+    }
+
+    /**
+     * Returns a {@code List} containing every {@code Note} in this contact that is a reminder.
+     */
+    public List<Note> getReminders() {
+        return notes.stream().filter(Note::isReminder).collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a {@code List} containing every {@code Note} in this contact that is a reminder that is due.
+     */
+    public List<Note> getDueReminders() {
+        return notes.stream().filter(Note::hasDueReminder).collect(Collectors.toList());
+    }
+
+    /**
      * Returns true if both contacts have the same name, phone number, and email,
      * given that they are non-empty.
      * This defines a weaker notion of equality between two contacts.

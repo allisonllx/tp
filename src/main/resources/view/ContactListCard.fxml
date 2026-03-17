@@ -43,10 +43,7 @@
                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
             </padding>
          </VBox>
-         <VBox alignment="CENTER_LEFT" maxHeight="62.4">
-            <children>
-            <Label fx:id="notes" styleClass="cell_small_label" text="\$notes" wrapText="true" />
-            </children>
+         <VBox fx:id="notesContainer" styleClass="cell_small_label" alignment="CENTER_LEFT" maxHeight="62.4">
             <padding>
                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
             </padding>

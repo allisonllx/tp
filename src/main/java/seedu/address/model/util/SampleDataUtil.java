@@ -80,7 +80,7 @@ public class SampleDataUtil {
      */
     public static List<Note> getNoteList(String... strings) {
         return Arrays.stream(strings)
-                .map(Note::new)
+                .map(Note::fromJsonString)
                 .collect(Collectors.toList());
     }
 }

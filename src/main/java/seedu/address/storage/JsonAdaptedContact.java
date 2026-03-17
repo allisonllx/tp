@@ -60,7 +60,7 @@ class JsonAdaptedContact {
         phone = source.getPhone().map(phone -> phone.value);
         email = source.getEmail().map(email -> email.value);
         address = source.getAddress().map(address -> address.value);
-        notes.addAll(source.getNotes().stream().map(note -> note.value).collect(Collectors.toList()));
+        notes.addAll(source.getNotes().stream().map(Note::toJsonString).collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -109,10 +109,9 @@ class JsonAdaptedContact {
         }
         final Optional<Address> modelAddress = address.map(address -> new Address(address));
 
-        final List<Note> modelNotes = notes.stream().map(Note::new).collect(Collectors.toList());
+        final List<Note> modelNotes = notes.stream().map(Note::fromJsonString).collect(Collectors.toList());
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
         return new Contact(modelName, modelPhone, modelEmail, modelAddress, modelNotes, modelTags);
     }
-
 }
