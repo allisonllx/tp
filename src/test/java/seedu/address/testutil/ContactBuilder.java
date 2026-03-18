@@ -34,7 +34,7 @@ public class ContactBuilder {
     private Optional<Email> email;
     private Optional<Address> address;
     private Optional<LastContacted> lastContacted;
-    private Optional<LastUpdated> lastUpdated;
+    private LastUpdated lastUpdated;
     private List<Note> notes;
     private Set<Tag> tags;
 
@@ -48,7 +48,7 @@ public class ContactBuilder {
         email = Optional.of(new Email(DEFAULT_EMAIL));
         address = Optional.of(new Address(DEFAULT_ADDRESS));
         lastContacted = Optional.empty();
-        lastUpdated = Optional.of(LastUpdated.now());
+        lastUpdated = LastUpdated.now();
         notes = new ArrayList<>();
         tags = new HashSet<>();
     }
@@ -128,7 +128,7 @@ public class ContactBuilder {
      * Sets the {@code LastUpdated} of the {@code Contact} that we are building.
      */
     public ContactBuilder withLastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated != null ? Optional.of(new LastUpdated(lastUpdated)) : Optional.empty();
+        this.lastUpdated = lastUpdated != null ? new LastUpdated(lastUpdated) : LastUpdated.now();
         return this;
     }
 

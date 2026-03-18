@@ -109,14 +109,9 @@ public class ContactDetailPanel extends UiPart<Region> {
         }
 
         // Last Updated
-        if (contact.getLastUpdated().isPresent()) {
-            lastUpdated.setText(contact.getLastUpdated().get().toString());
-            lastUpdatedContainer.setVisible(true);
-            lastUpdatedContainer.setManaged(true);
-        } else {
-            lastUpdatedContainer.setVisible(false);
-            lastUpdatedContainer.setManaged(false);
-        }
+        lastUpdated.setText(contact.getLastUpdated().toString());
+        lastUpdatedContainer.setVisible(true);
+        lastUpdatedContainer.setManaged(true);
 
         // Notes
         notes.getChildren().clear();

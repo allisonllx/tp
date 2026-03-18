@@ -81,7 +81,7 @@ class JsonAdaptedContact {
         email = source.getEmail().map(email -> email.value);
         address = source.getAddress().map(address -> address.value);
         lastContacted = source.getLastContacted().map(LastContacted::toString);
-        lastUpdated = source.getLastUpdated().map(LastUpdated::toString);
+        lastUpdated = Optional.of(source.getLastUpdated().toString());
         notes.addAll(source.getNotes().stream().map(Note::toJsonString).collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -164,9 +164,9 @@ class JsonAdaptedContact {
         if (lastUpdated.isPresent() && !LastUpdated.isValidLastUpdated(lastUpdated.get())) {
             throw new IllegalValueException(LastUpdated.MESSAGE_CONSTRAINTS);
         }
-        final Optional<LastUpdated> modelLastUpdated = lastUpdated.isPresent()
-                ? lastUpdated.map(LastUpdated::new)
-                : Optional.of(LastUpdated.now());
+        final LastUpdated modelLastUpdated = lastUpdated.isPresent()
+                ? new LastUpdated(lastUpdated.get())
+                : LastUpdated.now();
 
         final List<Note> modelNotes = notes.stream().map(Note::fromJsonString).collect(Collectors.toList());
 

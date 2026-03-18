@@ -32,7 +32,7 @@ public class Contact {
     // Data fields
     private final Optional<Address> address;
     private final Optional<LastContacted> lastContacted;
-    private final Optional<LastUpdated> lastUpdated;
+    private final LastUpdated lastUpdated;
     private final List<Note> notes;
     private final Set<Tag> tags = new HashSet<>();
 
@@ -42,7 +42,7 @@ public class Contact {
     public Contact(
             Name name, Optional<Phone> phone, Optional<Email> email,
             Optional<Address> address, List<Note> notes, Set<Tag> tags) {
-        this(UUID.randomUUID(), name, phone, email, address, Optional.empty(), Optional.of(LastUpdated.now()),
+        this(UUID.randomUUID(), name, phone, email, address, Optional.empty(), LastUpdated.now(),
                 notes, tags);
     }
 
@@ -53,7 +53,7 @@ public class Contact {
             Name name, Optional<Phone> phone, Optional<Email> email,
             Optional<Address> address, Optional<LastContacted> lastContacted,
             List<Note> notes, Set<Tag> tags) {
-        this(UUID.randomUUID(), name, phone, email, address, lastContacted, Optional.of(LastUpdated.now()),
+        this(UUID.randomUUID(), name, phone, email, address, lastContacted, LastUpdated.now(),
                 notes, tags);
     }
 
@@ -65,7 +65,7 @@ public class Contact {
             UUID id, Name name, Optional<Phone> phone, Optional<Email> email,
             Optional<Address> address, Optional<LastContacted> lastContacted,
             List<Note> notes, Set<Tag> tags) {
-        this(id, name, phone, email, address, lastContacted, Optional.of(LastUpdated.now()), notes, tags);
+        this(id, name, phone, email, address, lastContacted, LastUpdated.now(), notes, tags);
     }
 
     /**
@@ -74,7 +74,7 @@ public class Contact {
     public Contact(
             UUID id, Name name, Optional<Phone> phone, Optional<Email> email,
             Optional<Address> address, Optional<LastContacted> lastContacted,
-            Optional<LastUpdated> lastUpdated,
+            LastUpdated lastUpdated,
             List<Note> notes, Set<Tag> tags) {
         requireAllNonNull(id, name, phone, email, address, lastContacted, lastUpdated, tags);
         this.id = id;
@@ -86,6 +86,17 @@ public class Contact {
         this.lastUpdated = lastUpdated;
         this.notes = List.copyOf(notes);
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Creates a Contact with a specified ID and optional last updated time.
+     * Missing values are normalized to {@code LastUpdated.now()}.
+     */
+    public Contact(
+            UUID id, Name name, Optional<Phone> phone, Optional<Email> email,
+            Optional<Address> address, Optional<LastContacted> lastContacted,
+            Optional<LastUpdated> lastUpdated, List<Note> notes, Set<Tag> tags) {
+        this(id, name, phone, email, address, lastContacted, lastUpdated.orElse(LastUpdated.now()), notes, tags);
     }
 
     public UUID getId() {
@@ -112,7 +123,7 @@ public class Contact {
         return lastContacted;
     }
 
-    public Optional<LastUpdated> getLastUpdated() {
+    public LastUpdated getLastUpdated() {
         return lastUpdated;
     }
 

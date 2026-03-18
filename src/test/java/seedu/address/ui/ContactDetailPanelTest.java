@@ -225,8 +225,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
                     .withNotes("Full notes")
                     .build();
             Contact noLastUpdatedContact = new ContactBuilder()
-                    .withName("No Last Updated")
-                    .withLastUpdated(null)
+                    .withName("Previously Missing Last Updated")
                     .build();
             Contact minimalContact = new ContactBuilder()
                     .withName("Minimal")

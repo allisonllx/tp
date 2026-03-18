@@ -126,7 +126,7 @@ public class ContactCardTest extends GuiUnitTest {
     }
 
     @Test
-    public void constructor_lastUpdatedAbsent_hidesLastUpdatedLabel() throws Exception {
+    public void constructor_withNullLastUpdatedInput_stillShowsLastUpdatedLabel() throws Exception {
         runAndWait(() -> {
             ContactCard card = new ContactCard(new ContactBuilder()
                     .withName("No Last Updated")
@@ -134,8 +134,8 @@ public class ContactCardTest extends GuiUnitTest {
                     .build(), 4);
 
             Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
-            assertEquals("", lastUpdated.getText());
-            assertFalse(lastUpdated.isVisible() || lastUpdated.isManaged());
+            assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
+            assertTrue(lastUpdated.isVisible() && lastUpdated.isManaged());
         });
     }
 

@@ -93,15 +93,9 @@ public class ContactCard extends UiPart<Region> {
             this.lastContacted.setVisible(false);
             this.lastContacted.setManaged(false);
         });
-        contact.getLastUpdated().ifPresentOrElse(lastUpdated -> {
-            this.lastUpdated.setText("Last Updated: " + lastUpdated);
-            this.lastUpdated.setVisible(true);
-            this.lastUpdated.setManaged(true);
-        }, () -> {
-            this.lastUpdated.setText("");
-            this.lastUpdated.setVisible(false);
-            this.lastUpdated.setManaged(false);
-        });
+        this.lastUpdated.setText("Last Updated: " + contact.getLastUpdated());
+        this.lastUpdated.setVisible(true);
+        this.lastUpdated.setManaged(true);
         if (!(contact.getNotes().isEmpty())) {
             contact.getNotes().forEach(
                     note -> {
