@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 public class RankedTagTest {
 
-    private static final String INVALID_TAG_NAME = "";
-    private static final String INVALID_TAG_VALUE = "";
+    private static final String INVALID_TAG_NAME = "#";
+    private static final String INVALID_TAG_VALUE = "#";
     private static final String VALID_TAG_NAME = "friend";
     private static final String VALID_TAG_VALUE = "best";
 
