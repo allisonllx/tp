@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.tag.RankedTag;
 
 /**
  * A UI component that displays information of a {@code Contact}.
@@ -69,7 +70,10 @@ public class ContactCard extends UiPart<Region> {
         if (!(contact.getTags().isEmpty() && contact.getReminders().isEmpty())) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> tags.getChildren().add(
+                        new Label(tag instanceof RankedTag
+                            ? tag.tagName + ':' + ((RankedTag) tag).tagValue
+                            : tag.tagName)));
             if (!contact.getReminders().isEmpty()) {
                 Label reminderLabel = new Label("Reminder");
                 if (contact.hasDueReminders()) {

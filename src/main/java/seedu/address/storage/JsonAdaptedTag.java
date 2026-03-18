@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.RankedTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -12,13 +13,24 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedTag {
 
     private final String tagName;
+    private final String tagValue;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName} and {@code tagValue}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
-        this.tagName = tagName;
+    public JsonAdaptedTag(String[] tagParams) {
+        if (tagParams.length == 0 || tagParams.length > 2) {
+            throw new IllegalArgumentException("Tag parameters cannot be empty");
+        }
+
+        this.tagName = tagParams[0];
+
+        if (tagParams.length == 2) {
+            this.tagValue = tagParams[1];
+        } else {
+            this.tagValue = null;
+        }
     }
 
     /**
@@ -26,11 +38,17 @@ class JsonAdaptedTag {
      */
     public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;
+
+        if (source instanceof RankedTag) {
+            tagValue = ((RankedTag) source).tagValue;
+        } else {
+            tagValue = null;
+        }
     }
 
     @JsonValue
-    public String getTagName() {
-        return tagName;
+    public String[] getTagParams() {
+        return tagValue != null ? new String[] { tagName, tagValue } : new String[] { tagName };
     }
 
     /**
@@ -42,7 +60,18 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(tagName);
+
+        boolean isRankedTag = tagValue != null;
+
+        if (!isRankedTag) {
+            return new Tag(tagName);
+        }
+
+        if (!RankedTag.isValidTagValue(tagValue)) {
+            throw new IllegalValueException(RankedTag.MESSAGE_CONSTRAINTS);
+        }
+
+        return new RankedTag(tagName, tagValue);
     }
 
 }

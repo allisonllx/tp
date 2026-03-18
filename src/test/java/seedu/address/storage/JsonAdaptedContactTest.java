@@ -23,7 +23,7 @@ public class JsonAdaptedContactTest {
     private static final Optional<String> INVALID_PHONE = Optional.of("+651234");
     private static final Optional<String> INVALID_ADDRESS = Optional.of(" ");
     private static final Optional<String> INVALID_EMAIL = Optional.of("example.com");
-    private static final String INVALID_TAG = "#friend";
+    private static final String[] INVALID_TAG = new String[] { "#friend" };
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final Optional<String> VALID_PHONE = BENSON.getPhone().map(Phone::toString);
