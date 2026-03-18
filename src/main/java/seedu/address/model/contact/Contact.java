@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -20,6 +21,9 @@ import seedu.address.model.tag.Tag;
  */
 public class Contact {
 
+    // Unique identifier
+    private final UUID id;
+
     // Identity fields
     private final Name name;
     private final Optional<Phone> phone;
@@ -27,29 +31,56 @@ public class Contact {
 
     // Data fields
     private final Optional<Address> address;
+    private final Optional<LastContacted> lastContacted;
     private final List<Note> notes;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. Generates a new unique ID.
      */
     public Contact(
             Name name, Optional<Phone> phone, Optional<Email> email,
             Optional<Address> address, List<Note> notes, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        this(UUID.randomUUID(), name, phone, email, address, Optional.empty(), notes, tags);
+    }
+
+    /**
+     * Every field must be present and not null. Generates a new unique ID.
+     */
+    public Contact(
+            Name name, Optional<Phone> phone, Optional<Email> email,
+            Optional<Address> address, Optional<LastContacted> lastContacted,
+            List<Note> notes, Set<Tag> tags) {
+        this(UUID.randomUUID(), name, phone, email, address, lastContacted, notes, tags);
+    }
+
+    /**
+     * Creates a Contact with a specified ID. Used when preserving identity across edits or deserialization.
+     */
+    public Contact(
+            UUID id, Name name, Optional<Phone> phone, Optional<Email> email,
+            Optional<Address> address, Optional<LastContacted> lastContacted,
+            List<Note> notes, Set<Tag> tags) {
+        requireAllNonNull(id, name, phone, email, address, lastContacted, tags);
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.lastContacted = lastContacted;
         this.notes = List.copyOf(notes);
         this.tags.addAll(tags);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     /**
      * Creates a new instance of {@code Contact} with the same data as this {@code Contact}.
      */
     public Contact copy() {
-        return new Contact(name, phone, email, address, notes, tags);
+        return new Contact(id, name, phone, email, address, lastContacted, notes, tags);
     }
 
     public Name getName() {
@@ -66,6 +97,10 @@ public class Contact {
 
     public Optional<Address> getAddress() {
         return address;
+    }
+
+    public Optional<LastContacted> getLastContacted() {
+        return lastContacted;
     }
 
     /**
@@ -262,13 +297,14 @@ public class Contact {
                 && phone.equals(otherContact.phone)
                 && email.equals(otherContact.email)
                 && address.equals(otherContact.address)
+                && lastContacted.equals(otherContact.lastContacted)
                 && tags.equals(otherContact.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, lastContacted, tags);
     }
 
     @Override
@@ -278,6 +314,7 @@ public class Contact {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("lastContacted", lastContacted)
                 .add("tags", tags)
                 .toString();
     }

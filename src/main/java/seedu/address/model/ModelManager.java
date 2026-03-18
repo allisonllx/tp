@@ -5,12 +5,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -30,7 +32,8 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Contact> filteredContacts;
+    private final ObservableList<Contact> masterContacts;
+    private ObservableList<Contact> displayedContacts;
 
     private Predicate<Contact> filterPredicate;
     private int snapshotPosition;
@@ -45,8 +48,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredContacts = new FilteredList<>(this.addressBook.getContactList());
-        filterPredicate = PREDICATE_SHOW_ALL_CONTACTS;
+        this.masterContacts = this.addressBook.getContactList();
+        this.displayedContacts = this.masterContacts;
+        filterPredicate = null;
 
         snapshots = new ArrayList<>();
         snapshots.add(new Pair<String, Snapshot>("", getSnapshot()));
@@ -123,7 +127,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addContact(Contact contact) {
-        updateFilteredContactList(contact::isSimilarContact);
+        filterDisplayedContactList(contact::isSimilarContact);
         addressBook.addContact(contact);
     }
 
@@ -134,22 +138,40 @@ public class ModelManager implements Model {
         addressBook.setContact(target, editedContact);
     }
 
-    //=========== Filtered Contact List Accessors =============================================================
+    //=========== Displayed Contact List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Contact} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Contact> getFilteredContactList() {
-        return filteredContacts;
+    public ObservableList<Contact> getDisplayedContactList() {
+        return displayedContacts;
     }
 
     @Override
-    public void updateFilteredContactList(Predicate<Contact> predicate) {
+    public void resetDisplayedContactList() {
+        displayedContacts = masterContacts;
+        filterPredicate = null;
+    }
+
+    @Override
+    public void filterDisplayedContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
+
+        final FilteredList<Contact> filteredContacts = new FilteredList<>(displayedContacts);
         filteredContacts.setPredicate(predicate);
+        displayedContacts = filteredContacts;
         filterPredicate = predicate;
+    }
+
+    @Override
+    public void sortDisplayedContactList(Comparator<Contact> comparator) {
+        requireNonNull(comparator);
+
+        final SortedList<Contact> sortedContacts = new SortedList<>(displayedContacts);
+        sortedContacts.setComparator(comparator);
+        displayedContacts = sortedContacts;
     }
 
     //=========== Snapshot ================================================================================
@@ -171,8 +193,12 @@ public class ModelManager implements Model {
         requireNonNull(snapshot);
         addressBook.setContacts(snapshot.contactList());
         setUserPrefs(snapshot.userPrefs());
-        filteredContacts.setPredicate(snapshot.filterPredicate());
         filterPredicate = snapshot.filterPredicate();
+        if (snapshot.filterPredicate() == null) {
+            resetDisplayedContactList();
+        } else {
+            filterDisplayedContactList(snapshot.filterPredicate());
+        }
     }
 
     /**
@@ -230,7 +256,7 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredContacts.equals(otherModelManager.filteredContacts);
+                && displayedContacts.equals(otherModelManager.displayedContacts);
     }
 
 }

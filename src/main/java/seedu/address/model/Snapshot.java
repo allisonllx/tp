@@ -31,8 +31,17 @@ public record Snapshot(
                 && IntStream.range(0, contactList.size()).allMatch(
                         i -> contactList.get(i).equals(otherSnapshot.contactList.get(i)));
 
+        boolean filterMatch;
+        if (filterPredicate == null && otherSnapshot.filterPredicate == null) {
+            filterMatch = true;
+        } else if (filterPredicate == null || otherSnapshot.filterPredicate == null) {
+            filterMatch = false;
+        } else {
+            filterMatch = filterPredicate.equals(otherSnapshot.filterPredicate);
+        }
+
         return contactsMatch
                 && userPrefs.equals(otherSnapshot.userPrefs)
-                && filterPredicate.equals(otherSnapshot.filterPredicate);
+                && filterMatch;
     }
 }
