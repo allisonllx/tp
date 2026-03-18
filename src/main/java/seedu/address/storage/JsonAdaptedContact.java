@@ -45,7 +45,8 @@ class JsonAdaptedContact {
             @JsonProperty("phone") Optional<String> phone,
             @JsonProperty("email") Optional<String> email, @JsonProperty("address") Optional<String> address,
             @JsonProperty("lastContacted") Optional<String> lastContacted,
-            @JsonProperty("notes") List<String> notes, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("notes") Object notes, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -151,6 +152,7 @@ class JsonAdaptedContact {
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
         final UUID modelId = (id != null) ? UUID.fromString(id) : UUID.randomUUID();
-        return new Contact(modelId, modelName, modelPhone, modelEmail, modelAddress, modelLastContacted, modelNotes, modelTags);
+        return new Contact(
+                modelId, modelName, modelPhone, modelEmail, modelAddress, modelLastContacted, modelNotes, modelTags);
     }
 }

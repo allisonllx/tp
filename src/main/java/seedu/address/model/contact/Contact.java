@@ -45,13 +45,23 @@ public class Contact {
     }
 
     /**
+     * Every field must be present and not null. Generates a new unique ID.
+     */
+    public Contact(
+            Name name, Optional<Phone> phone, Optional<Email> email,
+            Optional<Address> address, Optional<LastContacted> lastContacted,
+            List<Note> notes, Set<Tag> tags) {
+        this(UUID.randomUUID(), name, phone, email, address, lastContacted, notes, tags);
+    }
+
+    /**
      * Creates a Contact with a specified ID. Used when preserving identity across edits or deserialization.
      */
     public Contact(
             UUID id, Name name, Optional<Phone> phone, Optional<Email> email,
             Optional<Address> address, Optional<LastContacted> lastContacted,
             List<Note> notes, Set<Tag> tags) {
-        requireAllNonNull(id, name, phone, email, address, tags);
+        requireAllNonNull(id, name, phone, email, address, lastContacted, tags);
         this.id = id;
         this.name = name;
         this.phone = phone;

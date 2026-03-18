@@ -108,8 +108,7 @@ public class EditCommand extends Command {
         List<Note> updatedNotes = contactToEdit.getNotes();
         Set<Tag> updatedTags = editContactDescriptor.getTags().orElse(contactToEdit.getTags());
 
-        return new Contact(contactToEdit.getId();
-                updatedName, updatedPhone, updatedEmail,
+        return new Contact(contactToEdit.getId(), updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updatedLastContacted, updatedNotes, updatedTags);
     }
 
