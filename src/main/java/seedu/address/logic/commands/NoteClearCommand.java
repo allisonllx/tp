@@ -10,6 +10,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Note;
 
 /**
  * Remove lines of notes from an existing contact in the address book.
@@ -19,14 +20,17 @@ public class NoteClearCommand extends NoteCommand {
     public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Removed notes from Contact: %1$s";
 
     private final Index index;
+    private final int numLines;
 
     /**
-     * @param index Index of the contact in the displayed contact list.
+     * @param index    Index of the contact in the displayed contact list.
+     * @param numLines How many lines of notes to remove.
      */
-    public NoteClearCommand(Index index) {
+    public NoteClearCommand(Index index, int numLines) {
         requireAllNonNull(index);
 
         this.index = index;
+        this.numLines = numLines;
     }
 
     @Override
@@ -39,10 +43,15 @@ public class NoteClearCommand extends NoteCommand {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
+        List<Note> newNotes = new ArrayList<>(contactToEdit.getNotes());
+
+        int numExistingLines = newNotes.size();
+        newNotes = newNotes.subList(Math.min(numLines, numExistingLines), numExistingLines);
+
         Contact editedContact = new Contact(contactToEdit.getId(), contactToEdit.getName(),
             contactToEdit.getPhone(), contactToEdit.getEmail(),
             contactToEdit.getAddress(), contactToEdit.getLastContacted(),
-            new ArrayList<>(), contactToEdit.getTags());
+            newNotes, contactToEdit.getTags());
 
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
@@ -74,6 +83,7 @@ public class NoteClearCommand extends NoteCommand {
 
         // state check
         NoteClearCommand e = (NoteClearCommand) other;
-        return index.equals(e.index);
+        return index.equals(e.index)
+            && numLines == e.numLines;
     }
 }

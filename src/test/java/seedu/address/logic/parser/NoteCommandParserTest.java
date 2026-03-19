@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_ALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
@@ -11,9 +11,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.NoteAddCommand;
+import seedu.address.logic.commands.NoteClearAllCommand;
 import seedu.address.logic.commands.NoteClearCommand;
 import seedu.address.logic.commands.NoteCommand;
-import seedu.address.logic.commands.NoteRemoveCommand;
 import seedu.address.model.contact.Note;
 
 public class NoteCommandParserTest {
@@ -67,21 +67,21 @@ public class NoteCommandParserTest {
 
     @Test
     public void parse_noteRemoveCommand_success() {
-        NoteRemoveCommand expectedNoteRemoveCommand =
-            new NoteRemoveCommand(INDEX_FIRST_CONTACT, NUM_LINES);
+        NoteClearCommand expectedNoteRemoveCommand =
+            new NoteClearCommand(INDEX_FIRST_CONTACT, NUM_LINES);
         assertParseSuccess(
             parser,
-            "1 " + PREFIX_REMOVE + NUM_LINES_STRING,
+            "1 " + PREFIX_CLEAR + NUM_LINES_STRING,
             expectedNoteRemoveCommand);
     }
 
     @Test
     public void parse_noteClearCommand_success() {
-        NoteClearCommand expectedNoteClearCommand =
-            new NoteClearCommand(INDEX_FIRST_CONTACT);
+        NoteClearAllCommand expectedNoteClearCommand =
+            new NoteClearAllCommand(INDEX_FIRST_CONTACT);
         assertParseSuccess(
             parser,
-            "1 " + PREFIX_CLEAR + NOTES_STRING,
+            "1 " + PREFIX_CLEAR_ALL + NOTES_STRING,
             expectedNoteClearCommand);
     }
 
@@ -96,17 +96,17 @@ public class NoteCommandParserTest {
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
-        // remove command with no index specified
-        assertParseFailure(parser, PREFIX_REMOVE + "1", MESSAGE_INVALID_FORMAT);
-
-        // remove command with no number of lines specified
-        assertParseFailure(parser, "1 " + PREFIX_REMOVE, MESSAGE_INVALID_FORMAT);
-
-        // remove command with no index and no number of lines specified
-        assertParseFailure(parser, PREFIX_REMOVE.toString(), MESSAGE_INVALID_FORMAT);
-
         // clear command with no index specified
+        assertParseFailure(parser, PREFIX_CLEAR + "1", MESSAGE_INVALID_FORMAT);
+
+        // clear command with no number of lines specified
+        assertParseFailure(parser, "1 " + PREFIX_CLEAR, MESSAGE_INVALID_FORMAT);
+
+        // clear command with no index and no number of lines specified
         assertParseFailure(parser, PREFIX_CLEAR.toString(), MESSAGE_INVALID_FORMAT);
+
+        // clear all command with no index specified
+        assertParseFailure(parser, PREFIX_CLEAR_ALL.toString(), MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -120,28 +120,28 @@ public class NoteCommandParserTest {
 
     @Test
     public void parse_tooManyArguments_failure() {
-        // add + remove
-        assertParseFailure(
-            parser,
-            "1 " + NOTES_STRING + " " + PREFIX_REMOVE + "1",
-            MESSAGE_INVALID_FORMAT);
-
         // add + clear
         assertParseFailure(
             parser,
-            "1 " + NOTES_STRING + " " + PREFIX_CLEAR,
+            "1 " + NOTES_STRING + " " + PREFIX_CLEAR + "1",
             MESSAGE_INVALID_FORMAT);
 
-        // remove + clear
+        // add + clear all
         assertParseFailure(
             parser,
-            "1 " + PREFIX_REMOVE + "1 " + PREFIX_CLEAR,
+            "1 " + NOTES_STRING + " " + PREFIX_CLEAR_ALL,
             MESSAGE_INVALID_FORMAT);
 
-        // add + remove + clear
+        // clear + clear all
         assertParseFailure(
             parser,
-            "1 " + NOTES_STRING + " " + PREFIX_REMOVE + "1 " + PREFIX_CLEAR,
+            "1 " + PREFIX_CLEAR + "1 " + PREFIX_CLEAR_ALL,
+            MESSAGE_INVALID_FORMAT);
+
+        // add + clear + clear all
+        assertParseFailure(
+            parser,
+            "1 " + NOTES_STRING + " " + PREFIX_CLEAR + "1 " + PREFIX_CLEAR_ALL,
             MESSAGE_INVALID_FORMAT);
     }
 }

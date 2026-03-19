@@ -29,13 +29,13 @@ public class NoteClearCommandTest {
 
     @Test
     public void execute_success() {
-        NoteClearCommand notesCommand = new NoteClearCommand(INDEX_FIRST_CONTACT);
+        NoteClearAllCommand notesCommand = new NoteClearAllCommand(INDEX_FIRST_CONTACT);
 
         Contact contactToEdit = model.getDisplayedContactList().get(0);
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
                 contactToEdit.getAddress(), contactToEdit.getLastContacted(), NOTES, contactToEdit.getTags());
 
-        String expectedMessage = String.format(NoteClearCommand.MESSAGE_REMOVE_NOTES_SUCCESS,
+        String expectedMessage = String.format(NoteClearAllCommand.MESSAGE_REMOVE_NOTES_SUCCESS,
                 Messages.format(contactToEdit));
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
@@ -46,14 +46,14 @@ public class NoteClearCommandTest {
     @Test
     public void execute_invalidContactIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getDisplayedContactList().size() + 1);
-        NoteClearCommand notesCommand = new NoteClearCommand(outOfBoundIndex);
+        NoteClearAllCommand notesCommand = new NoteClearAllCommand(outOfBoundIndex);
 
         assertCommandFailure(notesCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final NoteClearCommand standardCommand = new NoteClearCommand(INDEX_FIRST_CONTACT);
+        final NoteClearAllCommand standardCommand = new NoteClearAllCommand(INDEX_FIRST_CONTACT);
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -65,6 +65,6 @@ public class NoteClearCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new NoteClearCommand(INDEX_SECOND_CONTACT)));
+        assertFalse(standardCommand.equals(new NoteClearAllCommand(INDEX_SECOND_CONTACT)));
     }
 }

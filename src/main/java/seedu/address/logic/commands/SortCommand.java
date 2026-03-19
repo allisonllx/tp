@@ -47,8 +47,11 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.sortDisplayedContactList(comparator);
-        return new CommandResult(
-            String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getDisplayedContactList().size()));
+
+        String feedback = String.format(Messages.MESSAGE_CONTACTS_SORTED_OVERVIEW,
+                model.getDisplayedContactList().size());
+        model.saveSnapshot(feedback);
+        return new CommandResult(feedback);
     }
 
     @Override

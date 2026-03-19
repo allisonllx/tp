@@ -10,27 +10,23 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Note;
 
 /**
  * Remove lines of notes from an existing contact in the address book.
  */
-public class NoteRemoveCommand extends NoteCommand {
+public class NoteClearAllCommand extends NoteCommand {
 
     public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Removed notes from Contact: %1$s";
 
     private final Index index;
-    private final int numLines;
 
     /**
-     * @param index    Index of the contact in the displayed contact list.
-     * @param numLines How many lines of notes to remove.
+     * @param index Index of the contact in the displayed contact list.
      */
-    public NoteRemoveCommand(Index index, int numLines) {
+    public NoteClearAllCommand(Index index) {
         requireAllNonNull(index);
 
         this.index = index;
-        this.numLines = numLines;
     }
 
     @Override
@@ -43,15 +39,10 @@ public class NoteRemoveCommand extends NoteCommand {
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
 
-        List<Note> newNotes = new ArrayList<>(contactToEdit.getNotes());
-
-        int numExistingLines = newNotes.size();
-        newNotes = newNotes.subList(Math.min(numLines, numExistingLines), numExistingLines);
-
         Contact editedContact = new Contact(contactToEdit.getId(), contactToEdit.getName(),
             contactToEdit.getPhone(), contactToEdit.getEmail(),
             contactToEdit.getAddress(), contactToEdit.getLastContacted(),
-            newNotes, contactToEdit.getTags());
+            new ArrayList<>(), contactToEdit.getTags());
 
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
@@ -77,13 +68,12 @@ public class NoteRemoveCommand extends NoteCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NoteRemoveCommand)) {
+        if (!(other instanceof NoteClearAllCommand)) {
             return false;
         }
 
         // state check
-        NoteRemoveCommand e = (NoteRemoveCommand) other;
-        return index.equals(e.index)
-            && numLines == e.numLines;
+        NoteClearAllCommand e = (NoteClearAllCommand) other;
+        return index.equals(e.index);
     }
 }

@@ -31,13 +31,13 @@ public class NoteRemoveCommandTest {
 
     @Test
     public void execute_success() {
-        NoteRemoveCommand notesCommand = new NoteRemoveCommand(INDEX_FIRST_CONTACT, REMOVE_ONE_LINE);
+        NoteClearCommand notesCommand = new NoteClearCommand(INDEX_FIRST_CONTACT, REMOVE_ONE_LINE);
 
         Contact contactToEdit = model.getDisplayedContactList().get(0);
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
                 contactToEdit.getAddress(), contactToEdit.getLastContacted(), NOTES, contactToEdit.getTags());
 
-        String expectedMessage = String.format(NoteRemoveCommand.MESSAGE_REMOVE_NOTES_SUCCESS,
+        String expectedMessage = String.format(NoteClearCommand.MESSAGE_REMOVE_NOTES_SUCCESS,
                 Messages.format(contactToEdit));
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
@@ -48,14 +48,14 @@ public class NoteRemoveCommandTest {
     @Test
     public void execute_invalidContactIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getDisplayedContactList().size() + 1);
-        NoteRemoveCommand notesCommand = new NoteRemoveCommand(outOfBoundIndex, REMOVE_ONE_LINE);
+        NoteClearCommand notesCommand = new NoteClearCommand(outOfBoundIndex, REMOVE_ONE_LINE);
 
         assertCommandFailure(notesCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final NoteRemoveCommand standardCommand = new NoteRemoveCommand(INDEX_FIRST_CONTACT, REMOVE_ONE_LINE);
+        final NoteClearCommand standardCommand = new NoteClearCommand(INDEX_FIRST_CONTACT, REMOVE_ONE_LINE);
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -67,9 +67,9 @@ public class NoteRemoveCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new NoteRemoveCommand(INDEX_SECOND_CONTACT, REMOVE_ONE_LINE)));
+        assertFalse(standardCommand.equals(new NoteClearCommand(INDEX_SECOND_CONTACT, REMOVE_ONE_LINE)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new NoteRemoveCommand(INDEX_FIRST_CONTACT, REMOVE_TWO_LINES)));
+        assertFalse(standardCommand.equals(new NoteClearCommand(INDEX_FIRST_CONTACT, REMOVE_TWO_LINES)));
     }
 }
