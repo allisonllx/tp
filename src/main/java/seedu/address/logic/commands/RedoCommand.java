@@ -23,10 +23,10 @@ public class RedoCommand extends Command {
         requireNonNull(model);
 
         try {
-            String undoneCommand = model.changeSnapshot(1);
+            String undoneCommand = model.moveSnapshot(1);
             return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, undoneCommand));
         } catch (Exception e) {
-            return new CommandResult(e.getMessage());
+            throw new CommandException(e.getMessage());
         }
     }
 }

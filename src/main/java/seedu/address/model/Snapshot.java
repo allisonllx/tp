@@ -42,8 +42,18 @@ public record Snapshot(
             filterMatch = filterPredicate.equals(otherSnapshot.filterPredicate);
         }
 
+        boolean comparatorMatch;
+        if (sortComparator == null && otherSnapshot.sortComparator == null) {
+            comparatorMatch = true;
+        } else if (sortComparator == null || otherSnapshot.sortComparator == null) {
+            comparatorMatch = false;
+        } else {
+            comparatorMatch = sortComparator.equals(otherSnapshot.sortComparator);
+        }
+
         return contactsMatch
                 && userPrefs.equals(otherSnapshot.userPrefs)
-                && filterMatch;
+                && filterMatch
+                && comparatorMatch;
     }
 }

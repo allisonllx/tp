@@ -55,9 +55,9 @@ public class NoteRemoveCommand extends NoteCommand {
 
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
+
         String feedback = generateSuccessMessage(editedContact);
         model.saveSnapshot(feedback);
-
         return new CommandResult(feedback);
     }
 

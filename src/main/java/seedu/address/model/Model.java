@@ -101,20 +101,20 @@ public interface Model {
     void sortDisplayedContactList(Comparator<Contact> comparator);
 
     /**
-     * Returns a {@code Snapshot} of the model for undo/redo features.
+     * Returns a {@code Snapshot} of the current model for undo/redo features.
      */
     public Snapshot getSnapshot();
 
     /**
      * Saves a {@code Snapshot} internally for undo/redo features
-     * @param snapshotName Name of the snapshot.
+     * @param description Description of the snapshot.
      */
-    void saveSnapshot(String snapshotName);
+    public void saveSnapshot(String description);
 
     /**
      * Moves the model forward or backwards by the indicated number of steps.
-     * @param stepsToMove Number of snapshots to move the model by.
+     * @param offset Number of snapshots to move the model by.
      * @return Name of the snapshot model successfully moved to.
      */
-    String changeSnapshot(int stepsToMove) throws Exception;
+    public String moveSnapshot(int offset) throws IndexOutOfBoundsException;
 }

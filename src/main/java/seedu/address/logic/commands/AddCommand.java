@@ -70,9 +70,8 @@ public class AddCommand extends Command {
 
         model.addContact(toAdd);
 
-        String feedback = String.format(MESSAGE_SUCCESS, Messages.format(toAdd));
+        String feedback = String.format(message, Messages.format(toAdd));
         model.saveSnapshot(feedback);
-
         return new CommandResult(feedback);
     }
 

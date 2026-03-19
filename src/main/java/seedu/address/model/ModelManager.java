@@ -16,7 +16,6 @@ import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -212,40 +211,42 @@ public class ModelManager implements Model {
 
     /**
      * Saves a {@code Snapshot} internally for undo/redo features
-     * @param snapshotName Name of the snapshot.
+     * @param description Name of the snapshot.
      */
-    public void saveSnapshot(String snapshotName) {
+    @Override
+    public void saveSnapshot(String description) {
         snapshotPosition++;
         if (snapshotPosition < snapshots.size()) {
             snapshots.subList(snapshotPosition, snapshots.size()).clear();
         }
-        snapshots.add(snapshotPosition, new Pair<String, Snapshot>(snapshotName, getSnapshot()));
+        snapshots.add(new Pair<String, Snapshot>(description, getSnapshot()));
     }
 
     /**
      * Moves the model forward or backwards by the indicated number of steps.
-     * @param stepsToMove Number of snapshots to move the model by.
+     * @param offset Number of snapshots to move the model by.
      * @return Name of the snapshot model successfully moved to.
      */
-    public String changeSnapshot(int stepsToMove) throws CommandException {
-        assert(stepsToMove != 0);
-        if (stepsToMove > 0) {
-            int snapshotsToShift = Math.min(snapshots.size() - snapshotPosition - 1, stepsToMove);
+    @Override
+    public String moveSnapshot(int offset) throws IndexOutOfBoundsException {
+        assert(offset != 0);
+        if (offset > 0) {
+            int snapshotsToShift = Math.min(snapshots.size() - snapshotPosition - 1, offset);
             if (snapshotsToShift > 0) {
                 snapshotPosition += snapshotsToShift;
                 copySnapshot(snapshots.get(snapshotPosition).getValue());
                 return snapshots.get(snapshotPosition).getKey();
             } else {
-                throw new CommandException(REDO_LIMIT_MESSAGE);
+                throw new IndexOutOfBoundsException(REDO_LIMIT_MESSAGE);
             }
         } else {
-            int snapshotsToShift = Math.min(snapshotPosition, -stepsToMove);
+            int snapshotsToShift = Math.min(snapshotPosition, -offset);
             if (snapshotsToShift > 0) {
                 snapshotPosition -= snapshotsToShift;
                 copySnapshot(snapshots.get(snapshotPosition).getValue());
                 return snapshots.get(snapshotPosition + 1).getKey();
             } else {
-                throw new CommandException(UNDO_LIMIT_MESSAGE);
+                throw new IndexOutOfBoundsException(UNDO_LIMIT_MESSAGE);
             }
         }
     }

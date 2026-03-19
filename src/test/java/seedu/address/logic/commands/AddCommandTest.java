@@ -186,7 +186,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public String changeSnapshot(int stepsToMove) throws Exception {
+        public String moveSnapshot(int offset) throws IndexOutOfBoundsException {
             throw new AssertionError("This method should not be called.");
         }
     }
