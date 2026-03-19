@@ -1,5 +1,7 @@
 package seedu.address.model.contact;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +35,7 @@ public final class ContactComparatorSet implements Comparator<Contact> {
 
     /**
      * Checks if there are no stored comparators.
+     *
      * @return True if there are no stored comparators, false otherwise.
      */
     public boolean isEmpty() {
@@ -41,9 +44,11 @@ public final class ContactComparatorSet implements Comparator<Contact> {
 
     /**
      * Adds a new comparator to the list.
+     *
      * @param comparator The new comparator.
      */
     public void addComparator(Comparator<Contact> comparator) {
+        requireAllNonNull(comparator);
         this.comparators.add(comparator);
     }
 }
