@@ -29,6 +29,8 @@ public class ContactDetailPanel extends UiPart<Region> {
     @FXML
     private Label lastContacted;
     @FXML
+    private Label lastUpdated;
+    @FXML
     private VBox notes;
     @FXML
     private FlowPane tags;
@@ -42,6 +44,8 @@ public class ContactDetailPanel extends UiPart<Region> {
     private VBox addressContainer;
     @FXML
     private VBox lastContactedContainer;
+    @FXML
+    private VBox lastUpdatedContainer;
     @FXML
     private VBox notesContainer;
 
@@ -104,6 +108,11 @@ public class ContactDetailPanel extends UiPart<Region> {
             lastContactedContainer.setManaged(false);
         }
 
+        // Last Updated
+        lastUpdated.setText(contact.getLastUpdated().toString());
+        lastUpdatedContainer.setVisible(true);
+        lastUpdatedContainer.setManaged(true);
+
         // Notes
         notes.getChildren().clear();
         if (!contact.getNotes().isEmpty()) {
@@ -144,6 +153,7 @@ public class ContactDetailPanel extends UiPart<Region> {
         email.setText("");
         address.setText("");
         lastContacted.setText("");
+        lastUpdated.setText("");
         tags.getChildren().clear();
         notes.getChildren().clear();
 
@@ -155,6 +165,8 @@ public class ContactDetailPanel extends UiPart<Region> {
         addressContainer.setManaged(false);
         lastContactedContainer.setVisible(false);
         lastContactedContainer.setManaged(false);
+        lastUpdatedContainer.setVisible(false);
+        lastUpdatedContainer.setManaged(false);
         notesContainer.setVisible(false);
         notesContainer.setManaged(false);
         tagsContainer.setVisible(false);

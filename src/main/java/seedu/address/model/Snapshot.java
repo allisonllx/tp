@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
@@ -14,7 +15,8 @@ import seedu.address.model.contact.Contact;
  * @param filterPredicate {@code Predicate<Contact>} of the {@code FilteredList<Contact>} of the {@code Model}.
  */
 public record Snapshot(
-        List<Contact> contactList, ReadOnlyUserPrefs userPrefs, Predicate<Contact> filterPredicate) {
+        List<Contact> contactList, ReadOnlyUserPrefs userPrefs,
+        Predicate<Contact> filterPredicate, Comparator<Contact> sortComparator) {
 
     @Override
     public boolean equals(Object other) {

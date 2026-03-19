@@ -21,14 +21,14 @@ public class SnapshotTest {
         Snapshot filledPredicateSnapshot =
                 new Snapshot(
                         model.getAddressBook().getContactList(),
-                        model.getUserPrefs(), (Contact contact) -> contact.contains("sample"));
+                        model.getUserPrefs(), (Contact contact) -> contact.contains("sample"), null);
         assertFalse(model.equals(filledPredicateSnapshot));
         assertFalse(filledPredicateSnapshot.equals(model));
         Snapshot emptyContactListSnapshot =
-                new Snapshot(List.of(), model.getUserPrefs(), null);
+                new Snapshot(List.of(), model.getUserPrefs(), null, null);
         assertFalse(model.equals(emptyContactListSnapshot));
         Snapshot emptyUserPrefsSnapshot =
-                new Snapshot(model.getAddressBook().getContactList(), null, null);
+                new Snapshot(model.getAddressBook().getContactList(), null, null, null);
         assertFalse(model.equals(emptyUserPrefsSnapshot));
     }
 }

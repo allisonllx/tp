@@ -41,6 +41,7 @@ public class ContactCardTest extends GuiUnitTest {
             Label email = getPrivateField(card, "email", Label.class);
             Label address = getPrivateField(card, "address", Label.class);
             Label lastContacted = getPrivateField(card, "lastContacted", Label.class);
+            Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
             VBox notesContainer = getPrivateField(card, "notesContainer", VBox.class);
             FlowPane tags = getPrivateField(card, "tags", FlowPane.class);
 
@@ -52,6 +53,8 @@ public class ContactCardTest extends GuiUnitTest {
             assertTrue(address.isVisible() && address.isManaged());
             assertEquals("Last Contacted: 22/02/26", lastContacted.getText());
             assertTrue(lastContacted.isVisible() && lastContacted.isManaged());
+            assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
+            assertTrue(lastUpdated.isVisible() && lastUpdated.isManaged());
             assertTrue(notesContainer.isVisible() && notesContainer.isManaged());
             assertFalse(notesContainer.getChildren().isEmpty());
             assertTrue(tags.isVisible() && tags.isManaged());
@@ -74,6 +77,7 @@ public class ContactCardTest extends GuiUnitTest {
             Label email = getPrivateField(card, "email", Label.class);
             Label address = getPrivateField(card, "address", Label.class);
             Label lastContacted = getPrivateField(card, "lastContacted", Label.class);
+            Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
             VBox notesContainer = getPrivateField(card, "notesContainer", VBox.class);
             FlowPane tags = getPrivateField(card, "tags", FlowPane.class);
 
@@ -85,6 +89,8 @@ public class ContactCardTest extends GuiUnitTest {
             assertFalse(address.isVisible() || address.isManaged());
             assertEquals("", lastContacted.getText());
             assertFalse(lastContacted.isVisible() || lastContacted.isManaged());
+            assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
+            assertTrue(lastUpdated.isVisible() && lastUpdated.isManaged());
             assertFalse(notesContainer.isVisible() || notesContainer.isManaged());
             assertFalse(tags.isVisible() || tags.isManaged());
         });
@@ -116,6 +122,20 @@ public class ContactCardTest extends GuiUnitTest {
                     .orElseThrow(() -> new AssertionError("Reminder label not found"));
 
             assertTrue(reminderLabel.getStyleClass().contains("warning-label"));
+        });
+    }
+
+    @Test
+    public void constructor_withNullLastUpdatedInput_stillShowsLastUpdatedLabel() throws Exception {
+        runAndWait(() -> {
+            ContactCard card = new ContactCard(new ContactBuilder()
+                    .withName("No Last Updated")
+                    .withLastUpdated(null)
+                    .build(), 4);
+
+            Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
+            assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
+            assertTrue(lastUpdated.isVisible() && lastUpdated.isManaged());
         });
     }
 

@@ -32,10 +32,10 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final ObservableList<Contact> masterContacts;
-    private ObservableList<Contact> displayedContacts;
+    private final ObservableList<Contact> displayedContacts;
+    private final FilteredList<Contact> filteredContacts;
+    private final SortedList<Contact> sortedContacts;
 
-    private Predicate<Contact> filterPredicate;
     private int snapshotPosition;
 
     /**
@@ -48,9 +48,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.masterContacts = this.addressBook.getContactList();
-        this.displayedContacts = this.masterContacts;
-        filterPredicate = null;
+        this.filteredContacts = new FilteredList<>(this.addressBook.getContactList());
+        this.sortedContacts = new SortedList<>(this.filteredContacts);
+        this.displayedContacts = this.sortedContacts;
 
         snapshots = new ArrayList<>();
         snapshots.add(new Pair<String, Snapshot>("", getSnapshot()));
@@ -151,27 +151,29 @@ public class ModelManager implements Model {
 
     @Override
     public void resetDisplayedContactList() {
-        displayedContacts = masterContacts;
-        filterPredicate = null;
+        filteredContacts.setPredicate(null);
+        sortedContacts.setComparator(null);
     }
 
     @Override
     public void filterDisplayedContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
 
+        @SuppressWarnings("unchecked")
+        Predicate<Contact> currentPredicate = (Predicate<Contact>) filteredContacts.getPredicate();
+        filteredContacts.setPredicate(currentPredicate == null ? predicate : currentPredicate.and(predicate));
         final FilteredList<Contact> filteredContacts = new FilteredList<>(displayedContacts);
         filteredContacts.setPredicate(predicate);
-        displayedContacts = filteredContacts;
-        filterPredicate = predicate;
     }
 
     @Override
     public void sortDisplayedContactList(Comparator<Contact> comparator) {
         requireNonNull(comparator);
 
-        final SortedList<Contact> sortedContacts = new SortedList<>(displayedContacts);
-        sortedContacts.setComparator(comparator);
-        displayedContacts = sortedContacts;
+        @SuppressWarnings("unchecked")
+        Comparator<Contact> currentComparator = (Comparator<Contact>) sortedContacts.getComparator();
+        sortedContacts
+                .setComparator(currentComparator == null ? comparator : currentComparator.thenComparing(comparator));
     }
 
     //=========== Snapshot ================================================================================
@@ -179,11 +181,17 @@ public class ModelManager implements Model {
     /**
      * Returns a {@code Snapshot} of the model for undo/redo features.
      */
+    @SuppressWarnings("unchecked")
     @Override
     public Snapshot getSnapshot() {
         ArrayList<Contact> copyContacts = new ArrayList<>();
         getAddressBook().getContactList().forEach(contact -> copyContacts.add(contact.copy()));
-        return new Snapshot(copyContacts, getUserPrefs(), filterPredicate);
+
+        return new Snapshot(
+                copyContacts,
+                getUserPrefs(),
+                (Predicate<Contact>) filteredContacts.getPredicate(),
+                (Comparator<Contact>) sortedContacts.getComparator());
     }
 
     /**
@@ -193,11 +201,12 @@ public class ModelManager implements Model {
         requireNonNull(snapshot);
         addressBook.setContacts(snapshot.contactList());
         setUserPrefs(snapshot.userPrefs());
-        filterPredicate = snapshot.filterPredicate();
-        if (snapshot.filterPredicate() == null) {
-            resetDisplayedContactList();
-        } else {
+        resetDisplayedContactList();
+        if (snapshot.filterPredicate() != null) {
             filterDisplayedContactList(snapshot.filterPredicate());
+        }
+        if (snapshot.sortComparator() != null) {
+            sortDisplayedContactList(snapshot.sortComparator());
         }
     }
 

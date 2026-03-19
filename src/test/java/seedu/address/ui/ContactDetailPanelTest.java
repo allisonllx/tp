@@ -107,6 +107,21 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     }
 
     @Test
+    public void setContact_contactWithOnlyLastUpdated_success() throws Exception {
+        runAndWait(() -> {
+            ContactDetailPanel panel = new ContactDetailPanel();
+            Contact lastUpdatedOnlyContact = new ContactBuilder()
+                    .withName("Last Updated Only")
+                    .withPhone(null)
+                    .withEmail(null)
+                    .withAddress(null)
+                    .withLastContacted(null)
+                    .build();
+            assertDoesNotThrow(() -> panel.setContact(lastUpdatedOnlyContact));
+        });
+    }
+
+    @Test
     public void setContact_contactWithOnlyTags_success() throws Exception {
         runAndWait(() -> {
             ContactDetailPanel panel = new ContactDetailPanel();
@@ -192,6 +207,34 @@ public class ContactDetailPanelTest extends GuiUnitTest {
                 panel.setContact(fullContact);
                 panel.setContact(minimalContact);
                 panel.setContact(fullContact);
+            });
+        });
+    }
+
+    @Test
+    public void setContact_transitionIncludesMissingLastUpdated_success() throws Exception {
+        runAndWait(() -> {
+            ContactDetailPanel panel = new ContactDetailPanel();
+            Contact fullContact = new ContactBuilder()
+                    .withName("Full")
+                    .withPhone("12345678")
+                    .withEmail("full@test.com")
+                    .withAddress("Full Address")
+                    .withLastContacted("22/02/26")
+                    .withTags("tag1")
+                    .withNotes("Full notes")
+                    .build();
+            Contact noLastUpdatedContact = new ContactBuilder()
+                    .withName("Previously Missing Last Updated")
+                    .build();
+            Contact minimalContact = new ContactBuilder()
+                    .withName("Minimal")
+                    .build();
+
+            assertDoesNotThrow(() -> {
+                panel.setContact(fullContact);
+                panel.setContact(noLastUpdatedContact);
+                panel.setContact(minimalContact);
             });
         });
     }

@@ -16,6 +16,7 @@ import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.LastContacted;
+import seedu.address.model.contact.LastUpdated;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
@@ -34,6 +35,7 @@ class JsonAdaptedContact {
     private final Optional<String> email;
     private final Optional<String> address;
     private final Optional<String> lastContacted;
+    private final Optional<String> lastUpdated;
     private final List<String> notes = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -45,17 +47,28 @@ class JsonAdaptedContact {
             @JsonProperty("phone") Optional<String> phone,
             @JsonProperty("email") Optional<String> email, @JsonProperty("address") Optional<String> address,
             @JsonProperty("lastContacted") Optional<String> lastContacted,
+            @JsonProperty("lastUpdated") Optional<String> lastUpdated,
             @JsonProperty("notes") Object notes, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.lastContacted = lastContacted == null ? Optional.empty() : lastContacted;
+        this.lastUpdated = lastUpdated == null ? Optional.empty() : lastUpdated;
         this.notes.addAll(parseNotes(notes));
         this.address = address;
         if (tags != null) {
             this.tags.addAll(tags);
         }
+    }
+
+    /**
+     * Constructs a {@code JsonAdaptedContact} with the given contact details.
+     * This overload keeps backward compatibility with existing tests/data producers.
+     */
+    public JsonAdaptedContact(String id, String name, Optional<String> phone, Optional<String> email,
+            Optional<String> address, Optional<String> lastContacted, Object notes, List<JsonAdaptedTag> tags) {
+        this(id, name, phone, email, address, lastContacted, Optional.empty(), notes, tags);
     }
 
     /**
@@ -68,6 +81,7 @@ class JsonAdaptedContact {
         email = source.getEmail().map(email -> email.value);
         address = source.getAddress().map(address -> address.value);
         lastContacted = source.getLastContacted().map(LastContacted::toString);
+        lastUpdated = Optional.of(source.getLastUpdated().toString());
         notes.addAll(source.getNotes().stream().map(Note::toJsonString).collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -147,12 +161,18 @@ class JsonAdaptedContact {
             throw new IllegalValueException(LastContacted.MESSAGE_CONSTRAINTS);
         }
         final Optional<LastContacted> modelLastContacted = lastContacted.map(LastContacted::new);
+        if (lastUpdated.isPresent() && !LastUpdated.isValidLastUpdated(lastUpdated.get())) {
+            throw new IllegalValueException(LastUpdated.MESSAGE_CONSTRAINTS);
+        }
+        final LastUpdated modelLastUpdated = lastUpdated.isPresent()
+                ? new LastUpdated(lastUpdated.get())
+                : LastUpdated.now();
 
         final List<Note> modelNotes = notes.stream().map(Note::fromJsonString).collect(Collectors.toList());
 
         final Set<Tag> modelTags = new HashSet<>(contactTags);
         final UUID modelId = (id != null) ? UUID.fromString(id) : UUID.randomUUID();
-        return new Contact(
-                modelId, modelName, modelPhone, modelEmail, modelAddress, modelLastContacted, modelNotes, modelTags);
+        return new Contact(modelId, modelName, modelPhone, modelEmail, modelAddress,
+                modelLastContacted, modelLastUpdated, modelNotes, modelTags);
     }
 }
