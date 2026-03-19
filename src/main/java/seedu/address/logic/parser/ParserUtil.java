@@ -16,6 +16,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.LastContacted;
 import seedu.address.model.contact.Name;
 import seedu.address.model.contact.Phone;
+import seedu.address.model.tag.RankedTag;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -117,6 +118,28 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String tagName} and a {@code String tagValue} into a {@code RankedTag}.
+     * @param tagName The name of the tag.
+     * @param tagValue The value for the tag.
+     */
+    public static RankedTag parseRankedTag(String tagName, String tagValue) throws ParseException {
+        requireNonNull(tagName);
+        requireNonNull(tagValue);
+        String trimmedTagName = tagName.trim();
+        String trimmedTagValue = tagValue.trim();
+
+        if (!RankedTag.isValidTagName(trimmedTagName)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+
+        if (!RankedTag.isValidTagValue(trimmedTagValue)) {
+            throw new ParseException(RankedTag.MESSAGE_CONSTRAINTS);
+        }
+
+        return new RankedTag(trimmedTagName, trimmedTagValue);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -125,9 +148,17 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
+
+        // Handle ranked tags
+        if (trimmedTag.contains(":")) {
+            String[] tagArgs = trimmedTag.split(":", 2);
+            return parseRankedTag(tagArgs[0], tagArgs[1]);
+        }
+
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
+
         return new Tag(trimmedTag);
     }
 

@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
@@ -292,6 +294,14 @@ public class MainWindow extends UiPart<Stage> {
                 });
             } else if (viewedContactId != null) {
                 refreshContactDetailPanel();
+            }
+
+            if (commandResult.getFeedbackToUser().contains(ListCommand.MESSAGE_SUCCESS)) {
+                contactListPanel.scrollToTop();
+            }
+
+            if (commandResult.getFeedbackToUser().contains(String.format(AddCommand.MESSAGE_SUCCESS, ""))) {
+                contactListPanel.scrollToBottom();
             }
 
             return commandResult;
