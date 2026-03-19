@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -42,6 +43,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ReminderWindow reminderWindow;
+
+    /** Listener to keep the split pane divider at the right edge when the detail panel is hidden */
+    private final ChangeListener<Number> splitPaneListener;
 
     /** The UUID of the contact currently shown in the detail panel, or null if none. */
     private UUID viewedContactId;
@@ -86,6 +90,16 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        // Set up the split pane listener to keep the divider at the right edge when the detail panel is hidden
+        splitPaneListener = (obs, oldVal, newVal) -> {
+            if (!contactDetailContainer.isVisible()) {
+                splitPane.setDividerPositions(1.0);
+            }
+        };
+
+        splitPane.widthProperty().addListener(splitPaneListener);
+        splitPane.getDividers().get(0).positionProperty().addListener(splitPaneListener);
     }
 
     public Stage getPrimaryStage() {
