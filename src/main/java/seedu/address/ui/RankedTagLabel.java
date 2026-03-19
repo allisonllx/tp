@@ -13,6 +13,6 @@ public class RankedTagLabel extends Label {
      * @param rankedTag The {@code RankedTag} to display.
      */
     public RankedTagLabel(RankedTag rankedTag) {
-        super(rankedTag.tagName + ':' + rankedTag.tagValue);
+        super(rankedTag.name + ':' + rankedTag.rank);
     }
 }

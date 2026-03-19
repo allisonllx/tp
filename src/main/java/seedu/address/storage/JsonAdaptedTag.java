@@ -12,11 +12,11 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedTag {
 
-    private final String tagName;
-    private final String tagValue;
+    private final String name;
+    private final String rank;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName} and {@code tagValue}.
+     * Constructs a {@code JsonAdaptedTag} with the given {@code name} and {@code rank}.
      */
     @JsonCreator
     public JsonAdaptedTag(String[] tagParams) {
@@ -28,12 +28,12 @@ class JsonAdaptedTag {
             throw new IllegalArgumentException("Cannot have more than 2 tag parameters");
         }
 
-        this.tagName = tagParams[0];
+        this.name = tagParams[0];
 
         if (tagParams.length == 2) {
-            this.tagValue = tagParams[1];
+            this.rank = tagParams[1];
         } else {
-            this.tagValue = null;
+            this.rank = null;
         }
     }
 
@@ -41,18 +41,18 @@ class JsonAdaptedTag {
      * Converts a given {@code Tag} into this class for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
-        tagName = source.tagName;
+        name = source.name;
 
         if (source instanceof RankedTag) {
-            tagValue = ((RankedTag) source).tagValue;
+            rank = ((RankedTag) source).rank;
         } else {
-            tagValue = null;
+            rank = null;
         }
     }
 
     @JsonValue
     public String[] getTagParams() {
-        return tagValue != null ? new String[] { tagName, tagValue } : new String[] { tagName };
+        return rank != null ? new String[] { name, rank } : new String[] { name };
     }
 
     /**
@@ -61,21 +61,21 @@ class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
+        if (!Tag.isValidTagName(name)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 
-        boolean isRankedTag = tagValue != null;
+        boolean isRankedTag = rank != null;
 
         if (!isRankedTag) {
-            return new Tag(tagName);
+            return new Tag(name);
         }
 
-        if (!RankedTag.isValidTagValue(tagValue)) {
+        if (!RankedTag.isValidTagValue(rank)) {
             throw new IllegalValueException(RankedTag.MESSAGE_CONSTRAINTS);
         }
 
-        return new RankedTag(tagName, tagValue);
+        return new RankedTag(name, rank);
     }
 
 }
