@@ -21,6 +21,9 @@ public class ArgumentMultimap {
 
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
+    
+    /** List of all prefix-argument pairs in the order they were added **/
+    private final List<Map.Entry<Prefix, String>> argList = new ArrayList<>();
 
     /**
      * Associates the specified argument value with {@code prefix} key in this map.
@@ -30,6 +33,8 @@ public class ArgumentMultimap {
      * @param argValue Argument value to be associated with the specified prefix key
      */
     public void put(Prefix prefix, String argValue) {
+        argList.add(Map.entry(prefix, argValue));
+
         List<String> argValues = getAllValues(prefix);
         argValues.add(argValue);
         argMultimap.put(prefix, argValues);
@@ -53,6 +58,15 @@ public class ArgumentMultimap {
             return new ArrayList<>();
         }
         return new ArrayList<>(argMultimap.get(prefix));
+    }
+
+    /**
+     * Returns all arguments in the order they were added.
+     *
+     * @return a stream of the prefix-value pairs of arguments
+     */
+    public Stream<Map.Entry<Prefix, String>> getArguments() {
+        return argList.stream();
     }
 
     /**
