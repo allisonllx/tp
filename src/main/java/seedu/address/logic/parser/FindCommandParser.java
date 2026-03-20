@@ -75,8 +75,12 @@ public class FindCommandParser implements Parser<FindCommand> {
                 keyword -> cumulativePredicate.addPredicate(contact -> contact.containsInEmail(keyword)));
         argMultimap.getAllValues(PREFIX_ADDRESS).forEach(
                 keyword -> cumulativePredicate.addPredicate(contact -> contact.containsInAddress(keyword)));
-        argMultimap.getAllValues(PREFIX_LAST_CONTACTED).forEach(
-                keyword -> cumulativePredicate.addPredicate(makeLastContactedPredicate(" " + keyword)));
+        if (argMultimap.getAllValues(PREFIX_LAST_CONTACTED).stream().noneMatch(String::isBlank)) {
+            argMultimap.getAllValues(PREFIX_LAST_CONTACTED).forEach(
+                    keyword -> cumulativePredicate.addPredicate(makeLastContactedPredicate(" " + keyword)));
+        } else {
+            cumulativePredicate.addPredicate(contact -> contact.getLastContacted().isPresent());
+        }
         argMultimap.getAllValues(PREFIX_TAG).forEach(
                 keyword -> cumulativePredicate.addPredicate((Contact contact) -> contact.hasTag(keyword)));
         return cumulativePredicate;
