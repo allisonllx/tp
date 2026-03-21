@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -18,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Note;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -107,6 +110,32 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(targetIndex);
         String expected = DeleteCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
         assertEquals(expected, deleteCommand.toString());
+    }
+
+    @Test
+    public void execute_deleteContactReferencedInNotes_dereferencesNotes() throws Exception {
+        // Add a note to contact 2 that references contact 1
+        Contact contact1 = model.getDisplayedContactList().get(INDEX_FIRST_CONTACT.getZeroBased());
+        Contact contact2 = model.getDisplayedContactList().get(INDEX_SECOND_CONTACT.getZeroBased());
+        String refStr = "@{" + contact1.getId().toString() + "}";
+        Note noteWithRef = new Note("worked with " + refStr);
+        Contact contact2WithNote = new Contact(contact2.getId(), contact2.getName(),
+                contact2.getPhone(), contact2.getEmail(), contact2.getAddress(),
+                contact2.getLastContacted(), contact2.getLastUpdated(),
+                List.of(noteWithRef), contact2.getTags());
+        model.setContact(contact2, contact2WithNote);
+
+        // Delete contact 1
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_CONTACT);
+        deleteCommand.execute(model);
+
+        // Contact 2's note should now have the plain name instead of @{UUID}
+        Contact updatedContact2 = model.getAddressBook().getContactList().stream()
+                .filter(c -> c.getId().equals(contact2.getId()))
+                .findFirst()
+                .orElseThrow();
+        String expectedNoteText = "worked with " + contact1.getName().fullName;
+        assertEquals(expectedNoteText, updatedContact2.getNotes().get(0).value);
     }
 
     /**

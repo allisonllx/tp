@@ -70,4 +70,28 @@ public class NoteAddCommandTest {
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new NoteAddCommand(INDEX_FIRST_CONTACT, new Note("Likes ice cream"))));
     }
+
+    @Test
+    public void execute_noteWithAtIndex_resolvesToUuid() {
+        // Note with @2 should resolve to the UUID of the second contact
+        Note noteWithRef = new Note("worked with @2");
+        NoteAddCommand command = new NoteAddCommand(INDEX_FIRST_CONTACT, noteWithRef);
+
+        Contact firstContact = model.getDisplayedContactList().get(0);
+        Contact secondContact = model.getDisplayedContactList().get(1);
+        String expectedRef = "@{" + secondContact.getId().toString() + "}";
+
+        Note resolvedNote = new Note("worked with " + expectedRef);
+        Contact editedContact = new Contact(firstContact.getName(), firstContact.getPhone(),
+                firstContact.getEmail(), firstContact.getAddress(), firstContact.getLastContacted(),
+                List.of(resolvedNote), firstContact.getTags());
+
+        String expectedMessage = String.format(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS,
+                Messages.format(editedContact));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setContact(firstContact, editedContact);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
 }

@@ -2,7 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -10,6 +13,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Note;
 
 /**
  * Deletes a contact identified using it's displayed index from the address book.
@@ -41,6 +45,26 @@ public class DeleteCommand extends Command {
         }
 
         Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
+        UUID deletedId = contactToDelete.getId();
+        String deletedName = contactToDelete.getName().fullName;
+
+        // Dereference notes in all other contacts that reference the deleted contact
+        for (Contact c : new ArrayList<>(model.getAddressBook().getContactList())) {
+            if (c.getId().equals(deletedId)) {
+                continue;
+            }
+            List<Note> updatedNotes = c.getNotes().stream()
+                    .map(n -> n.dereferenceContact(deletedId, deletedName))
+                    .collect(Collectors.toList());
+            if (!updatedNotes.equals(c.getNotes())) {
+                Contact updatedContact = new Contact(c.getId(), c.getName(),
+                        c.getPhone(), c.getEmail(), c.getAddress(),
+                        c.getLastContacted(), c.getLastUpdated(),
+                        updatedNotes, c.getTags());
+                model.setContact(c, updatedContact);
+            }
+        }
+
         model.deleteContact(contactToDelete);
 
         String feedback = String.format(MESSAGE_DELETE_CONTACT_SUCCESS, Messages.format(contactToDelete));

@@ -147,7 +147,7 @@ public class MainWindow extends UiPart<Stage> {
         contactListPanel = new ContactListPanel(logic.getDisplayedContactList());
         contactListPanelPlaceholder.getChildren().add(contactListPanel.getRoot());
 
-        contactDetailPanel = new ContactDetailPanel();
+        contactDetailPanel = new ContactDetailPanel(logic.getAddressBook().getContactList());
         contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
 
         // Initially hide the detail panel
