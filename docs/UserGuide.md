@@ -228,6 +228,22 @@ Examples:
 
 ![find contacts](images/findContacts.png)
 
+### Cross-referencing contacts: `crossref`
+
+Cross-references a contact's tags against all other contacts, showing contacts that share at least one tag.
+This helps consultants quickly understand which vendors have worked with which clients by finding shared project or relationship tags.
+
+Format: `crossref INDEX`
+
+* Shows all contacts that share at least one tag with the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The selected contact must have at least one tag for cross-referencing to work.
+
+Examples:
+* If contact 1 (a vendor) has tags `ProjectAlpha` and `vendor`, running `crossref 1` shows all other contacts that also have the `ProjectAlpha` or `vendor` tag — helping you identify which clients worked with that vendor.
+* `find t/vendor` followed by `crossref 2` cross-references the 2nd vendor in the filtered list.
+
 ### Deleting a contact: `delete`
 
 Deletes the specified contact from the address book.
@@ -357,6 +373,7 @@ _Details coming soon ..._
 | **Note (clear)**   | `note INDEX ca/` <br> e.g., `note 1 ca/`                                                                                                                                                        |
 | **List contacts**           | `list`                                                                                                                                                                                          |
 | **Find contacts**           | `find [KEYWORD]… [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g., `find n/James t/friends`                                                                                          |
+| **Cross-ref contacts**      | `crossref INDEX` <br> e.g., `crossref 1`                                                                                                                                                        |
 | **Sort contacts**           | `sort [n/] [p/] [e/] [a/] [lu/] [lc/] [t/TAG_NAME]…` <br> e.g., `sort n/`                                                                                                                       |
 | **Undo**           | `undo`                                                                                                                                                                                          |
 | **Redo**           | `redo`                                                                                                                                                                                          |
