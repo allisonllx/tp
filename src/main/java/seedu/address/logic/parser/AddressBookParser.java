@@ -12,7 +12,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CloseViewCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CrossRefCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -65,9 +64,6 @@ public class AddressBookParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case CrossRefCommand.COMMAND_WORD:
-            return new CrossRefCommandParser().parse(arguments);
 
         case CloseViewCommand.COMMAND_WORD:
             if (!arguments.trim().equals(CloseViewCommand.COMMAND_SUBWORD)) {

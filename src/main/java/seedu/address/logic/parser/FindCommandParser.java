@@ -10,8 +10,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.ConjunctiveContactPredicateSet;
@@ -21,6 +24,8 @@ import seedu.address.model.contact.Contact;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+
+    private static final Pattern ASSOCIATE_PATTERN = Pattern.compile("^\\s*@(\\d+)\\s*$");
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -34,6 +39,18 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (args.isBlank()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
+        // Check for @INDEX cross-reference syntax
+        Matcher associateMatcher = ASSOCIATE_PATTERN.matcher(args);
+        if (associateMatcher.matches()) {
+            try {
+                Index index = ParserUtil.parseIndex(associateMatcher.group(1));
+                return new FindCommand(index);
+            } catch (ParseException pe) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), pe);
+            }
         }
 
         ArgumentMultimap argMultimap =

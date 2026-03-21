@@ -10,16 +10,23 @@ import static seedu.address.testutil.TypicalContacts.BENSON;
 import static seedu.address.testutil.TypicalContacts.DANIEL;
 import static seedu.address.testutil.TypicalContacts.ELLE;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.testutil.ContactBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -71,5 +78,51 @@ public class FindCommandTest {
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL, ELLE), model.getDisplayedContactList());
+    }
+
+    @Test
+    public void execute_crossRefWithSharedTags_success() throws CommandException {
+        // BENSON (index 2) has tags "owesMoney" and "friends". ALICE and DANIEL also have "friends" tag.
+        FindCommand command = new FindCommand(INDEX_SECOND_CONTACT);
+        CommandResult result = command.execute(model);
+        assertTrue(result.getFeedbackToUser().contains("Cross-referencing"));
+        assertTrue(model.getDisplayedContactList().size() > 0);
+    }
+
+    @Test
+    public void execute_crossRefNoTags_returnsNoTagsMessage() throws CommandException {
+        AddressBook ab = new AddressBook();
+        Contact noTagContact = new ContactBuilder().withName("No Tag Person")
+                .withPhone("91234567").withEmail("notag@example.com").build();
+        ab.addContact(noTagContact);
+        Model testModel = new ModelManager(ab, new UserPrefs());
+
+        FindCommand command = new FindCommand(INDEX_FIRST_CONTACT);
+        CommandResult result = command.execute(testModel);
+        assertTrue(result.getFeedbackToUser().contains("has no tags"));
+    }
+
+    @Test
+    public void execute_crossRefInvalidIndex_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getDisplayedContactList().size() + 1);
+        FindCommand command = new FindCommand(outOfBoundIndex);
+        try {
+            command.execute(model);
+            assertTrue(false, "Expected CommandException");
+        } catch (CommandException e) {
+            assertEquals(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX, e.getMessage());
+        }
+    }
+
+    @Test
+    public void equals_crossRef() {
+        FindCommand findFirst = new FindCommand(INDEX_FIRST_CONTACT);
+        FindCommand findSecond = new FindCommand(INDEX_SECOND_CONTACT);
+
+        assertTrue(findFirst.equals(findFirst));
+        assertTrue(findFirst.equals(new FindCommand(INDEX_FIRST_CONTACT)));
+        assertFalse(findFirst.equals(findSecond));
+        assertFalse(findFirst.equals(null));
+        assertFalse(findFirst.equals(1));
     }
 }
