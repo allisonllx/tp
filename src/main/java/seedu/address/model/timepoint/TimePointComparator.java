@@ -54,9 +54,9 @@ public abstract class TimePointComparator implements Comparator<TimePoint> {
         @Override
         public int compare(TimePoint tp1, TimePoint tp2) {
             if (tp1.isSameDayAs(tp2) && !(tp1.equals(tp2))) {
-                if (tp1 instanceof DateTimePoint) {
+                if (tp1 instanceof DateTimePoint && tp2 instanceof DateTimeTimePoint) {
                     return -1;
-                } else {
+                } else if (tp2 instanceof DateTimePoint && tp1 instanceof DateTimeTimePoint) {
                     return 1;
                 }
             }

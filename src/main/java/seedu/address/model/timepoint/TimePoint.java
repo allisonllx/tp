@@ -105,10 +105,10 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
         if (this.equals(other)) {
             return 0;
         }
-        if (this.isBefore(other) || other.isAfter(this)) {
+        if (this.isBefore(other)) {
             return -1;
         }
-        if (this.isAfter(other) || other.isBefore(this)) {
+        if (this.isAfter(other)) {
             return 1;
         }
         // Fallback when both values are non-chronological string timepoints.
