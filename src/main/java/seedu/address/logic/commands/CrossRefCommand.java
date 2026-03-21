@@ -38,6 +38,9 @@ public class CrossRefCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a CrossRefCommand to cross-reference the contact at the specified {@code Index}.
+     */
     public CrossRefCommand(Index targetIndex) {
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
