@@ -48,7 +48,7 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
-        Contact contactToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Contact contactToDelete = lastShownList.get(index.getZeroBased());
         UUID deletedId = contactToDelete.getId();
         String deletedName = contactToDelete.getName().fullName;
 
