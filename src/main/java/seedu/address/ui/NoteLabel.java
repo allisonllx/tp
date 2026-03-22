@@ -49,6 +49,9 @@ public class NoteLabel extends HBox {
             throw new RuntimeException(e);
         }
 
+        // Apply cell_small_label font to match phone/email/address style
+        reminderNote.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 13px;");
+
         if (note.hasContactReferences() && contacts != null) {
             // Replace the plain label with a TextFlow containing styled contact names
             int idx = getChildren().indexOf(reminderNote);
@@ -107,8 +110,7 @@ public class NoteLabel extends HBox {
             // Add plain text before this match
             if (matcher.start() > lastEnd) {
                 Text plainText = new Text(noteText.substring(lastEnd, matcher.start()));
-                plainText.getStyleClass().add("detail-value");
-                plainText.setStyle("-fx-fill: white;");
+                plainText.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-fill: white;");
                 textFlow.getChildren().add(plainText);
             }
 
@@ -123,6 +125,7 @@ public class NoteLabel extends HBox {
 
             Text refText = new Text(displayName);
             refText.getStyleClass().add("contact-reference");
+            refText.setStyle("-fx-font-size: 13px;");
             textFlow.getChildren().add(refText);
 
             lastEnd = matcher.end();
@@ -131,8 +134,7 @@ public class NoteLabel extends HBox {
         // Add remaining plain text
         if (lastEnd < noteText.length()) {
             Text plainText = new Text(noteText.substring(lastEnd));
-            plainText.getStyleClass().add("detail-value");
-            plainText.setStyle("-fx-fill: white;");
+            plainText.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 13px; -fx-fill: white;");
             textFlow.getChildren().add(plainText);
         }
 
