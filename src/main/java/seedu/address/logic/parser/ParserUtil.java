@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Address;
 import seedu.address.model.contact.Email;
@@ -170,7 +171,7 @@ public class ParserUtil {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             if (tagSet.stream().anyMatch(tag -> tag.name.equals(tagName))) {
-                throw new ParseException(Tag.TAGSET_MESSAGE_CONSTRAINTS);
+                throw new ParseException(Messages.MESSAGE_DUPLICATE_TAGS);
             }
             tagSet.add(parseTag(tagName));
         }

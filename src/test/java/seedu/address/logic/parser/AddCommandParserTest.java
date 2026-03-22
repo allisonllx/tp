@@ -105,7 +105,7 @@ public class AddCommandParserTest {
 
         // multiple tags of the same name
         assertParseFailure(parser, TAG_DESC_FRIEND + validExpectedContactString,
-                Tag.TAGSET_MESSAGE_CONSTRAINTS);
+                Messages.MESSAGE_DUPLICATE_TAGS);
 
         // multiple fields repeated
         assertParseFailure(parser,

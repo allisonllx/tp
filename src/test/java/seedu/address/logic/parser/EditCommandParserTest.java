@@ -110,7 +110,7 @@ public class EditCommandParserTest {
 
         // multiple tags of the same name
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_FRIEND,
-                Tag.TAGSET_MESSAGE_CONSTRAINTS);
+                Messages.MESSAGE_DUPLICATE_TAGS);
     }
 
     @Test
