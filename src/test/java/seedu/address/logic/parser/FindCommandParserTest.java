@@ -31,6 +31,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.FindAssociationsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -39,6 +40,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.timepoint.TimePoint;
 import seedu.address.testutil.ContactPredicateBuilder;
+import seedu.address.testutil.TypicalIndexes;
 
 public class FindCommandParserTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -205,5 +207,17 @@ public class FindCommandParserTest {
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(DANIEL), model.getDisplayedContactList());
+    }
+
+    @Test
+    public void parse_associateIndex_returnsFindCommand() throws ParseException {
+        FindCommand command = parser.parse(" @1");
+        assertEquals(new FindAssociationsCommand(TypicalIndexes.INDEX_FIRST_CONTACT), command);
+    }
+
+    @Test
+    public void parse_associateIndexInvalid_throwsParseException() {
+        assertParseFailure(parser, " @0",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 }

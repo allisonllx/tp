@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -12,6 +14,7 @@ import seedu.address.model.timepoint.TimePoint;
 
 /**
  * Represents a Contact's notes in the address book, may contain a {@code TimePoint} to act as a reminder.
+ * Notes can contain contact references in the format {@code @{UUID}} which link to other contacts.
  * Guarantees: immutable; is always valid
  */
 public class Note {
@@ -19,6 +22,14 @@ public class Note {
     //Temporarily placed here for convenience, should be moved into
     //UserPrefs to allow users to set their own reminder periods
     public static final int DUE_PERIOD_DAYS = 7;
+
+    /** Regex pattern matching contact references stored as @{UUID} in note text. */
+    public static final Pattern CONTACT_REF_PATTERN =
+            Pattern.compile("@\\{([0-9a-fA-F\\-]{36})\\}");
+
+    /** Regex pattern matching user-typed @INDEX references in note text. */
+    public static final Pattern CONTACT_INDEX_PATTERN =
+            Pattern.compile("@(\\d+)");
 
     public final String value;
     public final TimePoint timePoint;
@@ -81,6 +92,22 @@ public class Note {
         TimePoint cutOffTime = TimePoint.of(LocalDateTime.now().plusDays(DUE_PERIOD_DAYS));
         TimePoint nowTime = TimePoint.of(LocalDateTime.now());
         return timePoint.isBefore(cutOffTime) && timePoint.isAfter(nowTime);
+    }
+
+    /**
+     * Returns true if this note contains any contact references ({@code @{UUID}}).
+     */
+    public boolean hasContactReferences() {
+        return CONTACT_REF_PATTERN.matcher(value).find();
+    }
+
+    /**
+     * Returns a new Note with the given UUID reference replaced by the plain text name.
+     * Used when a referenced contact is deleted — the name loses its styled rendering.
+     */
+    public Note dereferenceContact(UUID contactId, String contactName) {
+        String newValue = value.replace("@{" + contactId.toString() + "}", contactName);
+        return new Note(newValue, timePoint);
     }
 
     @Override

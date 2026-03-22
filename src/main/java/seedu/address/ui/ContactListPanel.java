@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
@@ -26,13 +27,22 @@ public class ContactListPanel extends UiPart<Region> {
 
     private ScrollBar scrollBar;
 
+    private final ObservableList<Contact> allContacts;
+
     /**
      * Creates a {@code ContactListPanel} with the given {@code ObservableList}.
      */
-    public ContactListPanel(ObservableList<Contact> contactList) {
+    public ContactListPanel(ObservableList<Contact> contactList, ObservableList<Contact> allContacts) {
         super(FXML);
+        this.allContacts = allContacts;
         contactListView.setItems(contactList);
         contactListView.setCellFactory(listView -> new ContactListViewCell());
+
+        // Refresh all visible cells when any contact changes (e.g. name edit)
+        // so that note references (@{UUID}) resolve to the updated name.
+        allContacts.addListener((ListChangeListener<Contact>) change -> {
+            contactListView.refresh();
+        });
 
         Platform.runLater(this::setUp);
     }
@@ -49,7 +59,7 @@ public class ContactListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ContactCard(contact, getIndex() + 1).getRoot());
+                setGraphic(new ContactCard(contact, getIndex() + 1, allContacts).getRoot());
             }
         }
     }

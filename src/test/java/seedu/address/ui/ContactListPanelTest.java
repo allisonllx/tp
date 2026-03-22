@@ -16,8 +16,10 @@ import seedu.address.model.contact.Contact;
  */
 public class ContactListPanelTest extends GuiUnitTest {
     private ObservableList<Contact> contacts = FXCollections.observableArrayList(ALICE, BENSON, CARL);
-    private ContactListPanel contactListPanel = new ContactListPanel(contacts);
-    private ContactListPanel emptyContactListPanel = new ContactListPanel(FXCollections.observableArrayList());
+    private ContactListPanel contactListPanel = new ContactListPanel(contacts, contacts);
+    private ContactListPanel emptyContactListPanel =
+            new ContactListPanel(FXCollections.observableArrayList(),
+                    FXCollections.observableArrayList());
 
     @Test
     public void scrollToTopTest() throws Exception {

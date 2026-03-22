@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -82,5 +83,46 @@ public class NoteTest {
 
         // different values -> returns false
         assertFalse(notes.equals(new Note("Likes ice cream")));
+    }
+
+    @Test
+    public void hasContactReferences_withReference_returnsTrue() {
+        UUID id = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        Note note = new Note("worked with @{" + id + "}");
+        assertTrue(note.hasContactReferences());
+    }
+
+    @Test
+    public void hasContactReferences_withoutReference_returnsFalse() {
+        Note note = new Note("just a normal note");
+        assertFalse(note.hasContactReferences());
+    }
+
+    @Test
+    public void dereferenceContact_replacesUuidWithName() {
+        UUID id = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        Note note = new Note("worked with @{" + id + "}");
+        Note result = note.dereferenceContact(id, "Alice");
+        assertEquals("worked with Alice", result.value);
+        assertFalse(result.hasContactReferences());
+    }
+
+    @Test
+    public void dereferenceContact_preservesTimePoint() {
+        UUID id = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        TimePoint tp = TimePoint.of(LocalDate.of(2025, 6, 15));
+        Note note = new Note("worked with @{" + id + "}", tp);
+        Note result = note.dereferenceContact(id, "Bob");
+        assertEquals("worked with Bob", result.value);
+        assertEquals(tp, result.timePoint);
+    }
+
+    @Test
+    public void dereferenceContact_differentUuid_noChange() {
+        UUID id1 = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        UUID id2 = UUID.fromString("660e8400-e29b-41d4-a716-446655440000");
+        Note note = new Note("worked with @{" + id1 + "}");
+        Note result = note.dereferenceContact(id2, "Alice");
+        assertEquals(note.value, result.value);
     }
 }
