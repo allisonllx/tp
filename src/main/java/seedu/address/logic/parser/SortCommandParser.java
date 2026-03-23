@@ -96,7 +96,6 @@ public class SortCommandParser implements Parser<SortCommand> {
                 PREFIX_LAST_CONTACTED, PREFIX_LAST_UPDATED, PREFIX_TAG);
 
         if (!argMultimap.getPreamble().isBlank()) {
-            System.err.println("Non-empty preamble detected: '" + argMultimap.getPreamble() + "'");
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
