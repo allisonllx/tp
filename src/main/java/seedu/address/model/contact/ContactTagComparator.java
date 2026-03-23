@@ -85,8 +85,12 @@ public final class ContactTagComparator extends ContactComparator {
             return true;
         }
 
-        if (obj == null || !(obj instanceof ContactTagComparator other)) {
+        if (obj == null) {
             return false;
+        }
+
+        if (!(obj instanceof ContactTagComparator other)) {
+            return super.equals(obj);
         }
 
         return this.tag.equals(other.tag) && this.order.equals(other.order);

@@ -59,19 +59,6 @@ public abstract class ContactComparator implements Comparator<Contact> {
                 int result = outerThis.compare(o1, o2);
                 return result != 0 ? result : other.compare(o1, o2);
             }
-
-            @Override
-            public boolean equals(Object obj) {
-                if (this == obj) {
-                    return true;
-                }
-
-                if (obj == null || !(obj instanceof ContactComparator otherObj)) {
-                    return false;
-                }
-
-                return this.comparators.equals(otherObj.comparators);
-            }
         };
     }
 
@@ -89,8 +76,21 @@ public abstract class ContactComparator implements Comparator<Contact> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof ContactComparator otherObj)) {
+            return false;
+        }
+
+        return this.comparators.equals(otherObj.comparators);
+    }
+
+    @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        return new ToStringBuilder("ContactComparator")
             .add("comparators", comparators)
             .toString();
     }

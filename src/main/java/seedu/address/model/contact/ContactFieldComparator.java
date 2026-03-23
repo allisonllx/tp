@@ -60,6 +60,8 @@ public class ContactFieldComparator extends ContactComparator {
                     Order.DESCENDING, Comparator.comparing(Contact::getLastUpdated, Comparator.reverseOrder())));
 
     private final Comparator<Contact> comparator;
+    private final Field field;
+    private final Order order;
 
     /**
      * Constructs a ContactComparator with the specified field and order.
@@ -70,6 +72,8 @@ public class ContactFieldComparator extends ContactComparator {
      */
     public ContactFieldComparator(Field field, Order order) {
         requireAllNonNull(field, order);
+        this.field = field;
+        this.order = order;
         this.comparator = getComparator(field, order);
     }
 
@@ -90,8 +94,12 @@ public class ContactFieldComparator extends ContactComparator {
             return true;
         }
 
-        if (obj == null || !(obj instanceof ContactFieldComparator other)) {
+        if (obj == null) {
             return false;
+        }
+
+        if (!(obj instanceof ContactFieldComparator other)) {
+            return super.equals(obj);
         }
 
         return this.comparator.equals(other.comparator);
@@ -99,7 +107,7 @@ public class ContactFieldComparator extends ContactComparator {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("comparator", comparator.toString()).toString();
+        return new ToStringBuilder(this).add("field", field).add("order", order).toString();
     }
 
     @Override

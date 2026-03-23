@@ -1,6 +1,8 @@
 package seedu.address.model.contact;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -15,9 +17,60 @@ import seedu.address.model.contact.ContactFieldComparator.Field;
 import seedu.address.testutil.ContactBuilder;
 
 public class ContactComparatorTest {
+    private final ContactComparator identityComparator = ContactComparator.identity();
+    private final ContactComparator comparatorA1 = new ContactFieldComparator(Field.NAME, Order.ASCENDING);
+    private final ContactComparator comparatorA2 = ContactComparator.identity()
+            .thenComparing(new ContactFieldComparator(Field.NAME, Order.ASCENDING));
+    private final ContactComparator comparatorB1 = new ContactFieldComparator(Field.LAST_CONTACTED, Order.DESCENDING)
+            .thenComparing(new ContactTagComparator("friends", Order.DESCENDING))
+            .thenComparing(new ContactFieldComparator(Field.PHONE, Order.ASCENDING));
+    private final ContactComparator comparatorB2 = new ContactFieldComparator(Field.LAST_CONTACTED, Order.DESCENDING)
+            .thenComparing(new ContactTagComparator("friends", Order.DESCENDING)
+            .thenComparing(new ContactFieldComparator(Field.PHONE, Order.ASCENDING)));
+    private final ContactComparator comparatorB3 = new ContactFieldComparator(Field.LAST_CONTACTED, Order.DESCENDING)
+            .thenComparing(ContactComparator.identity())
+            .thenComparing(new ContactTagComparator("friends", Order.DESCENDING))
+            .thenComparing(new ContactFieldComparator(Field.PHONE, Order.ASCENDING));
+
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new ContactFieldComparator(null, null));
+    }
+
+    @Test
+    public void equals_withThenComparing() {
+        assertEquals(identityComparator, ContactComparator.identity());
+
+        assertEquals(comparatorA1, comparatorA2);
+
+        assertEquals(comparatorB1, comparatorB2);
+        assertEquals(comparatorB1, comparatorB3);
+        assertEquals(comparatorB2, comparatorB3);
+
+        assertNotEquals(comparatorA2, comparatorB1);
+    }
+
+    @Test
+    public void toString_withThenComparing() {
+        assertEquals("ContactComparator{comparators=[]}", identityComparator.toString());
+
+        assertEquals("seedu.address.model.contact.ContactFieldComparator{field=NAME, order=ASCENDING}",
+                comparatorA1.toString());
+        assertEquals(
+                "ContactComparator{comparators=["
+                        + "seedu.address.model.contact.ContactFieldComparator{field=NAME, order=ASCENDING}]}",
+                comparatorA2.toString());
+
+        String expectedBString = "ContactComparator{comparators=["
+                + "seedu.address.model.contact.ContactFieldComparator{field=LAST_CONTACTED, order=DESCENDING}, "
+                + "seedu.address.model.contact.ContactTagComparator{tag=friends, order=DESCENDING}, "
+                + "seedu.address.model.contact.ContactFieldComparator{field=PHONE, order=ASCENDING}]}";
+        assertEquals(expectedBString,
+                comparatorB1.toString());
+        assertEquals(expectedBString,
+                comparatorB2.toString());
+        assertEquals(expectedBString,
+                comparatorB3.toString());
     }
 
     @Test
