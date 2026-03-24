@@ -9,13 +9,14 @@ import static seedu.address.testutil.TypicalContacts.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.contact.ContactComparator;
+import seedu.address.model.contact.ContactFieldComparator;
+import seedu.address.model.contact.util.ContactPredicateBuilder;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.ContactPredicateBuilder;
 
 public class ModelManagerTest {
 
@@ -117,12 +118,13 @@ public class ModelManagerTest {
 
         // different filtered list -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.filterDisplayedContactList(new ContactPredicateBuilder().nameContainsKeywords(keywords).build());
+        modelManager.filterDisplayedContactList(
+                new ContactPredicateBuilder().nameContainsKeywords(Arrays.asList(keywords)).build());
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // different sorted list -> returns false
         modelManager.sortDisplayedContactList(
-                new ContactComparator(ContactComparator.Field.NAME, ContactComparator.Order.DESCENDING));
+                new ContactFieldComparator(ContactFieldComparator.Field.NAME, ContactFieldComparator.Order.DESCENDING));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

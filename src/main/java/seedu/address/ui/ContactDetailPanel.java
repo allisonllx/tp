@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -49,11 +50,14 @@ public class ContactDetailPanel extends UiPart<Region> {
     @FXML
     private VBox notesContainer;
 
+    private ObservableList<Contact> allContacts;
+
     /**
      * Creates an empty {@code ContactDetailPanel}.
      */
-    public ContactDetailPanel() {
+    public ContactDetailPanel(ObservableList<Contact> allContacts) {
         super(FXML);
+        this.allContacts = allContacts;
         clearContact();
     }
 
@@ -117,7 +121,8 @@ public class ContactDetailPanel extends UiPart<Region> {
         notes.getChildren().clear();
         if (!contact.getNotes().isEmpty()) {
             contact.getNotes().forEach(note -> {
-                NoteLabel reminderLabel = new NoteLabel(note, notes.getStyleClass().toString());
+                NoteLabel reminderLabel = new NoteLabel(note,
+                        notes.getStyleClass().toString(), allContacts);
                 reminderLabel.hideHeader();
                 notes.getChildren().add(reminderLabel); });
             notesContainer.setVisible(true);

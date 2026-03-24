@@ -6,24 +6,24 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
-import java.util.Comparator;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactComparator;
+import seedu.address.model.contact.ContactFieldComparator;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */
 public class SortCommandTest {
-    private static final Comparator<Contact> NAME_COMPARATOR =
-        new ContactComparator(ContactComparator.Field.NAME, ContactComparator.Order.ASCENDING);
-    private static final Comparator<Contact> EMAIL_COMPARATOR =
-        new ContactComparator(ContactComparator.Field.EMAIL, ContactComparator.Order.ASCENDING);
+    private static final ContactComparator NAME_COMPARATOR =
+        new ContactFieldComparator(ContactFieldComparator.Field.NAME, ContactComparator.Order.ASCENDING);
+    private static final ContactComparator OTHER_NAME_COMPARATOR =
+        new ContactFieldComparator(ContactFieldComparator.Field.NAME, ContactComparator.Order.ASCENDING);
+    private static final ContactComparator EMAIL_COMPARATOR =
+        new ContactFieldComparator(ContactFieldComparator.Field.EMAIL, ContactComparator.Order.ASCENDING);
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
@@ -35,6 +35,8 @@ public class SortCommandTest {
 
     @Test
     public void equals() {
+        assertEquals(new SortCommand(), new SortCommand());
+
         SortCommand sortByNameCommand = new SortCommand(NAME_COMPARATOR);
         SortCommand sortByEmailCommand = new SortCommand(EMAIL_COMPARATOR);
 
@@ -42,7 +44,7 @@ public class SortCommandTest {
         assertEquals(sortByNameCommand, sortByNameCommand);
 
         // same values -> returns true
-        SortCommand sortByNameCommandCopy = new SortCommand(NAME_COMPARATOR);
+        SortCommand sortByNameCommandCopy = new SortCommand(OTHER_NAME_COMPARATOR);
         assertEquals(sortByNameCommand, sortByNameCommandCopy);
 
         // different types -> returns false

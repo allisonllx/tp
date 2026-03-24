@@ -416,3 +416,9 @@
 .contact-detail-panel .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
+
+.contact-reference {
+    -fx-font-weight: bold;
+    -fx-underline: true;
+    -fx-fill: #6ec6ff;
+}

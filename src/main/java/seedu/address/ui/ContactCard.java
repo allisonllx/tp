@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -49,12 +50,15 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    private final ObservableList<Contact> allContacts;
+
     /**
      * Creates a {@code ContactCode} with the given {@code Contact} and index to display.
      */
-    public ContactCard(Contact contact, int displayedIndex) {
+    public ContactCard(Contact contact, int displayedIndex, ObservableList<Contact> allContacts) {
         super(FXML);
         this.contact = contact;
+        this.allContacts = allContacts;
         id.setText(displayedIndex + ". ");
         name.setText(contact.getName().fullName);
         name.getParent().getParent().setStyle("-fx-background-color: #3c3e3f");
@@ -101,7 +105,8 @@ public class ContactCard extends UiPart<Region> {
             contact.getNotes().forEach(
                     note -> {
                         notesContainer.getChildren().add(
-                                new NoteLabel(note, notesContainer.getStyleClass().toString())); });
+                                new NoteLabel(note, notesContainer.getStyleClass().toString(),
+                                allContacts)); });
             notesContainer.setStyle("-fx-background-color: #000000");
         } else {
             notesContainer.setVisible(false);

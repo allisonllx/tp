@@ -2,18 +2,18 @@ package seedu.address.model.contact;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.Optional;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.RankedTag;
 
 /**
- * Comparator for sorting contacts based on specified field and order.
+ * Comparator for tags within contacts.
  */
-public final class ContactTagComparator implements Comparator<Contact> {
-
+public final class ContactTagComparator extends ContactComparator {
     private final String tag;
-    private final ContactComparator.Order order;
+    private final Order order;
 
     /**
      * Constructs a ContactTagComparator for the specified tag and order.
@@ -22,7 +22,7 @@ public final class ContactTagComparator implements Comparator<Contact> {
      * @param order The order to sort in.
      * @throws NullPointerException if either field or order is null.
      */
-    public ContactTagComparator(String tag, ContactComparator.Order order) {
+    public ContactTagComparator(String tag, Order order) {
         requireAllNonNull(tag, order);
 
         this.tag = tag;
@@ -50,9 +50,9 @@ public final class ContactTagComparator implements Comparator<Contact> {
             return 0;
         }
 
-        // Either does not have the Tag
+        // Only one of the two has a Tag
         if (!o1.hasTag(tag) || !o2.hasTag(tag)) {
-            return o1.hasTag(tag) ^ order == ContactComparator.Order.ASCENDING ? -1 : 1;
+            return o1.hasTag(tag) ? -1 : 1;
         }
 
         Optional<RankedTag> rankedTag1 = extractRankedTag(o1, tag);
@@ -65,15 +65,42 @@ public final class ContactTagComparator implements Comparator<Contact> {
 
         // Only one of the two has a RankedTag
         if (rankedTag1.isEmpty() || rankedTag2.isEmpty()) {
-            return rankedTag1.isPresent() ^ order == ContactComparator.Order.ASCENDING ? -1 : 1;
+            return rankedTag1.isPresent() ? -1 : 1;
         }
 
         // Both have RankedTags
-        return rankedTag2.get().rank.compareTo(rankedTag1.get().rank);
+        return order == Order.ASCENDING
+                ? rankedTag1.get().rank.compareToIgnoreCase(rankedTag2.get().rank)
+                : rankedTag2.get().rank.compareToIgnoreCase(rankedTag1.get().rank);
     }
 
     @Override
     public int hashCode() {
-        return ("t/" + tag).hashCode();
+        return Objects.hash(tag, order);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof ContactTagComparator other)) {
+            return super.equals(obj);
+        }
+
+        return this.tag.equals(other.tag) && this.order.equals(other.order);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .add("tag", tag)
+            .add("order", order)
+            .toString();
     }
 }

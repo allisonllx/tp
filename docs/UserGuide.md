@@ -177,10 +177,14 @@ Format: `note INDEX NOTE [on/TIME]`
 * New notes are stacked underneath existing ones.
 * `TIME` can accept most conventional date/time formats and may omit the year. If unable to parse as a date, it will be saved as a plain string.
 * Filling the `on/TIME` field turns the note into a reminder. The system will warn of reminders due within 1 week.
+* Notes support **contact references** using the `@INDEX` syntax. When you include `@INDEX` in a note, it creates a link to the contact at that index. The reference is displayed as the contact's name in **bold and underlined** text.
+* If a referenced contact's name changes, the displayed name updates automatically.
+* If a referenced contact is deleted, the reference is replaced with the contact's name as plain text.
 
 Examples:
 * `note 1 Likes to swim.`
 * `note 2 Follow up call on/15 Apr`
+* `note 1 Worked with @2` — creates a reference to the 2nd contact in the note.
 
 ![add note](images/addNote.png)
 
@@ -212,6 +216,7 @@ Example:
 Finds contacts whose fields match the specified search criteria.
 
 Format: `find [KEYWORD]… [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+or: `find @INDEX` to find contacts associated with the contact at INDEX
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`.
 * Unprefixed `KEYWORD`s search across all fields (name, phone, email, address, notes, tags) using partial matching. Each keyword must appear somewhere in the contact.
@@ -219,12 +224,15 @@ Format: `find [KEYWORD]… [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 * `t/TAG` filters by tag using **exact** matching (e.g. `t/friend` will not match a tag named `friends`).
 * All search conditions are combined with **AND** logic — only contacts satisfying **every** condition are returned.
 * At least one search condition must be provided.
+* `find @INDEX` cross-references the contact at the specified index — it shows all other contacts that share at least one tag with that contact. This helps consultants quickly understand which vendors have worked with which clients by finding shared project or relationship tags.
 
 Examples:
 * `find John` returns contacts containing `john` in any field.
 * `find n/Alex` returns contacts with `Alex` in their name.
 * `find p/94` returns contacts with `94` in their phone number.
 * `find a/street t/friends` returns contacts that have `street` in their address **and** the exact tag `friends`.
+* `find @1` shows all contacts that share at least one tag with the 1st contact in the displayed list.
+* `find t/vendor` followed by `find @2` cross-references the 2nd vendor in the filtered list.
 
 ![find contacts](images/findContacts.png)
 
@@ -356,7 +364,7 @@ _Details coming soon ..._
 | **Note (remove)**  | `note INDEX c/LINES_TO_REMOVE` <br> e.g., `note 1 c/2`                                                                                                                                          |
 | **Note (clear)**   | `note INDEX ca/` <br> e.g., `note 1 ca/`                                                                                                                                                        |
 | **List contacts**           | `list`                                                                                                                                                                                          |
-| **Find contacts**           | `find [KEYWORD]… [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g., `find n/James t/friends`                                                                                          |
+| **Find contacts**           | `find [KEYWORD]… [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`<br> e.g., `find n/James t/friends` <br> `find @INDEX` e.g., `find @1`                                                      |
 | **Sort contacts**           | `sort [n/] [p/] [e/] [a/] [lu/] [lc/] [t/TAG_NAME]…` <br> e.g., `sort n/`                                                                                                                       |
 | **Undo**           | `undo`                                                                                                                                                                                          |
 | **Redo**           | `redo`                                                                                                                                                                                          |

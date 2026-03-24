@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 
 public class ArgumentTokenizerTest {
@@ -21,6 +23,7 @@ public class ArgumentTokenizerTest {
 
         assertPreambleEmpty(argMultimap);
         assertArgumentAbsent(argMultimap, pSlash);
+        assertArgumentLength(argMultimap, 0);
     }
 
     private void assertPreamblePresent(ArgumentMultimap argMultimap, String expectedPreamble) {
@@ -53,6 +56,31 @@ public class ArgumentTokenizerTest {
         assertFalse(argMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Asserts that the argument at {@code expectedPosition} in {@code argMultimap}
+     * matches {@code expectedArgument}.
+     *
+     * @param argMultimap
+     * @param expectedArgument The expected argument to be found
+     * @param expectedPosition 0-based index of the argument to check
+     */
+    private void assertArgumentPosition(ArgumentMultimap argMultimap, Map.Entry<Prefix, String> expectedArgument,
+            int expectedPosition) {
+        assertTrue(argMultimap.getArguments().size() > expectedPosition);
+        assertEquals(expectedArgument, argMultimap.getArguments().get(expectedPosition));
+    }
+
+    /**
+     * Asserts that the number of arguments in {@code argMultimap} is equal to
+     * {@code expectedLength}.
+     *
+     * @param argMultimap
+     * @param expectedLength The expected number of arguments
+     */
+    private void assertArgumentLength(ArgumentMultimap argMultimap, int expectedLength) {
+        assertEquals(expectedLength, argMultimap.getArguments().size());
+    }
+
     @Test
     public void tokenize_noPrefixes_allTakenAsPreamble() {
         String argsString = "  some random string /t tag with leading and trailing spaces ";
@@ -66,17 +94,20 @@ public class ArgumentTokenizerTest {
     @Test
     public void tokenize_oneArgument() {
         // Preamble present
-        String argsString = "  Some preamble string p/ Argument value ";
+        String argsString = "Some preamble string p/ Argument value ";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
         assertPreamblePresent(argMultimap, "Some preamble string");
         assertArgumentPresent(argMultimap, pSlash, "Argument value");
+        assertArgumentLength(argMultimap, 1);
+        assertArgumentPosition(argMultimap, Map.entry(pSlash, "Argument value"), 0);
 
         // No preamble
         argsString = " p/   Argument value ";
         argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
         assertPreambleEmpty(argMultimap);
         assertArgumentPresent(argMultimap, pSlash, "Argument value");
-
+        assertArgumentLength(argMultimap, 1);
+        assertArgumentPosition(argMultimap, Map.entry(pSlash, "Argument value"), 0);
     }
 
     @Test
@@ -88,6 +119,9 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
         assertArgumentPresent(argMultimap, dashT, "dashT-Value");
         assertArgumentAbsent(argMultimap, hatQ);
+        assertArgumentLength(argMultimap, 2);
+        assertArgumentPosition(argMultimap, Map.entry(dashT, "dashT-Value"), 0);
+        assertArgumentPosition(argMultimap, Map.entry(pSlash, "pSlash value"), 1);
 
         // All three arguments are present
         argsString = "Different Preamble String ^Q111 -t dashT-Value p/pSlash value";
@@ -96,6 +130,10 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
         assertArgumentPresent(argMultimap, dashT, "dashT-Value");
         assertArgumentPresent(argMultimap, hatQ, "111");
+        assertArgumentLength(argMultimap, 3);
+        assertArgumentPosition(argMultimap, Map.entry(hatQ, "111"), 0);
+        assertArgumentPosition(argMultimap, Map.entry(dashT, "dashT-Value"), 1);
+        assertArgumentPosition(argMultimap, Map.entry(pSlash, "pSlash value"), 2);
 
         /* Also covers: Reusing of the tokenizer multiple times */
 
@@ -124,6 +162,7 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
         assertArgumentPresent(argMultimap, dashT, "dashT-Value", "another dashT value", "");
         assertArgumentPresent(argMultimap, hatQ, "", "");
+        assertArgumentLength(argMultimap, 6);
     }
 
     @Test
@@ -134,6 +173,7 @@ public class ArgumentTokenizerTest {
         assertArgumentAbsent(argMultimap, pSlash);
         assertArgumentPresent(argMultimap, dashT, "not joined^Qjoined");
         assertArgumentAbsent(argMultimap, hatQ);
+        assertArgumentLength(argMultimap, 1);
     }
 
     @Test
