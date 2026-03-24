@@ -64,12 +64,9 @@ public class NoteLabel extends HBox {
         if (note.timePoint != null) {
             time.setText(note.timePoint.toString());
         } else {
-            reminderHeader.setVisible(false);
-            reminderHeader.setManaged(false);
-            reminderSeparator.setVisible(false);
-            reminderSeparator.setManaged(false);
-            time.setVisible(false);
-            time.setManaged(false);
+            NodeUtil.hide(reminderHeader);
+            NodeUtil.hide(reminderSeparator);
+            NodeUtil.hide(time);
         }
     }
 
@@ -145,7 +142,6 @@ public class NoteLabel extends HBox {
      * Hides the "Reminder: " header of the {@code NoteLabel}.
      */
     public void hideHeader() {
-        reminderHeader.setVisible(false);
-        reminderHeader.setManaged(false);
+        NodeUtil.hide(reminderHeader);
     }
 }
