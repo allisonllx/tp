@@ -25,11 +25,11 @@ public class NoteLabel extends HBox {
     private static final String FXML = "/view/NoteLabel.fxml";
 
     @FXML
-    private Label header;
+    private Label reminderHeader;
     @FXML
     private Label text;
     @FXML
-    private Label onText;
+    private Label reminderSeparator;
     @FXML
     private Label time;
 
@@ -64,10 +64,10 @@ public class NoteLabel extends HBox {
         if (note.timePoint != null) {
             time.setText(note.timePoint.toString());
         } else {
-            header.setVisible(false);
-            header.setManaged(false);
-            onText.setVisible(false);
-            onText.setManaged(false);
+            reminderHeader.setVisible(false);
+            reminderHeader.setManaged(false);
+            reminderSeparator.setVisible(false);
+            reminderSeparator.setManaged(false);
             time.setVisible(false);
             time.setManaged(false);
         }
@@ -85,8 +85,8 @@ public class NoteLabel extends HBox {
      */
     public NoteLabel(Note note, String style, ObservableList<Contact> contacts) {
         this(note, contacts);
-        header.getStyleClass().add(style);
-        onText.getStyleClass().add(style);
+        reminderHeader.getStyleClass().add(style);
+        reminderSeparator.getStyleClass().add(style);
         time.getStyleClass().add(style);
     }
 
@@ -145,7 +145,7 @@ public class NoteLabel extends HBox {
      * Hides the "Reminder: " header of the {@code NoteLabel}.
      */
     public void hideHeader() {
-        header.setVisible(false);
-        header.setManaged(false);
+        reminderHeader.setVisible(false);
+        reminderHeader.setManaged(false);
     }
 }
