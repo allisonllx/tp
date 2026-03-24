@@ -20,7 +20,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewCommand parse(String args) throws ParseException {
-        if (args.equals(PREFIX_FILE)) {
+        if (args.equals(" " + PREFIX_FILE)) {
             return new ViewFilesCommand();
         }
         try {

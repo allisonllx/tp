@@ -84,6 +84,13 @@ public class CommandResult {
         return hideViewPanel;
     }
 
+    /**
+     * Returns true if the file list should be shown.
+     */
+    public boolean isShowFileList() {
+        return showFileList;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
