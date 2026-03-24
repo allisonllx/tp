@@ -158,7 +158,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void sortDisplayedContactList_secondExplicitSort_chainsWithFirstExplicitSort() {
+    public void sortDisplayedContactList_secondExplicitSort_replacesFirstExplicitSort() {
         Contact nameAEmailZ = new ContactBuilder()
                 .withName("A")
                 .withEmail("z@test.com")
@@ -177,7 +177,7 @@ public class ModelManagerTest {
         modelManager.sortDisplayedContactList(
                 new ContactFieldComparator(ContactFieldComparator.Field.EMAIL, ContactFieldComparator.Order.ASCENDING));
 
-        assertEquals(nameAEmailZ, modelManager.getDisplayedContactList().get(0));
-        assertEquals(nameBEmailA, modelManager.getDisplayedContactList().get(1));
+        assertEquals(nameBEmailA, modelManager.getDisplayedContactList().get(0));
+        assertEquals(nameAEmailZ, modelManager.getDisplayedContactList().get(1));
     }
 }

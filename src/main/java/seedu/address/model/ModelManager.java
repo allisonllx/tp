@@ -170,15 +170,8 @@ public class ModelManager implements Model {
     @Override
     public void sortDisplayedContactList(Comparator<Contact> comparator) {
         requireNonNull(comparator);
-
-        @SuppressWarnings("unchecked")
-        Comparator<Contact> currentComparator = (Comparator<Contact>) sortedContacts.getComparator();
-        if (isUsingDefaultSort || currentComparator == null) {
-            sortedContacts.setComparator(comparator);
-            isUsingDefaultSort = false;
-            return;
-        }
-        sortedContacts.setComparator(currentComparator.thenComparing(comparator));
+        sortedContacts.setComparator(comparator);
+        isUsingDefaultSort = false;
     }
 
     //=========== Snapshot ================================================================================
