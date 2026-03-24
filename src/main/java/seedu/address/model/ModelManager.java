@@ -163,11 +163,6 @@ public class ModelManager implements Model {
     @Override
     public void filterDisplayedContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
-
-        @SuppressWarnings("unchecked")
-        Predicate<Contact> currentPredicate = (Predicate<Contact>) filteredContacts.getPredicate();
-        filteredContacts.setPredicate(currentPredicate == null ? predicate : currentPredicate.and(predicate));
-        final FilteredList<Contact> filteredContacts = new FilteredList<>(displayedContacts);
         filteredContacts.setPredicate(predicate);
     }
 
