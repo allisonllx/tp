@@ -15,11 +15,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.ContactComparator;
 import seedu.address.model.contact.ContactFieldComparator;
+import seedu.address.model.contact.util.ContactPredicateBuilder;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ContactBuilder;
-import seedu.address.testutil.ContactPredicateBuilder;
 
 public class ModelManagerTest {
 
@@ -153,7 +152,7 @@ public class ModelManagerTest {
                 new AddressBookBuilder().withContact(aliceOlder).withContact(bobNewer).build(), new UserPrefs());
 
         modelManager.sortDisplayedContactList(
-                new ContactComparator(ContactComparator.Field.NAME, ContactComparator.Order.ASCENDING));
+                new ContactFieldComparator(ContactFieldComparator.Field.NAME, ContactFieldComparator.Order.ASCENDING));
 
         assertEquals(aliceOlder, modelManager.getDisplayedContactList().get(0));
     }
@@ -174,9 +173,9 @@ public class ModelManagerTest {
                 new AddressBookBuilder().withContact(nameAEmailZ).withContact(nameBEmailA).build(), new UserPrefs());
 
         modelManager.sortDisplayedContactList(
-                new ContactComparator(ContactComparator.Field.NAME, ContactComparator.Order.ASCENDING));
+                new ContactFieldComparator(ContactFieldComparator.Field.NAME, ContactFieldComparator.Order.ASCENDING));
         modelManager.sortDisplayedContactList(
-                new ContactComparator(ContactComparator.Field.EMAIL, ContactComparator.Order.ASCENDING));
+                new ContactFieldComparator(ContactFieldComparator.Field.EMAIL, ContactFieldComparator.Order.ASCENDING));
 
         assertEquals(nameAEmailZ, modelManager.getDisplayedContactList().get(0));
         assertEquals(nameBEmailA, modelManager.getDisplayedContactList().get(1));

@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactComparator;
+import seedu.address.model.contact.ContactFieldComparator;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,7 +27,7 @@ public class ModelManager implements Model {
     public static final String UNDO_LIMIT_MESSAGE = "Model already at earliest snapshot.";
     public static final String REDO_LIMIT_MESSAGE = "Model already at newest snapshot.";
     private static final Comparator<Contact> DEFAULT_DISPLAY_COMPARATOR =
-            new ContactComparator(ContactComparator.Field.LAST_CONTACTED, ContactComparator.Order.DESCENDING);
+            new ContactFieldComparator(ContactFieldComparator.Field.LAST_CONTACTED, ContactComparator.Order.DESCENDING);
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
