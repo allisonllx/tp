@@ -15,7 +15,7 @@ public class DateTimeUtil {
      * @return The formatted string.
      */
     public static String toDisplayString(LocalDateTime ldt) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, MMM d, yyyy", Locale.ROOT);
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm, MMM d, yyyy", Locale.ROOT);
         return ldt.format(formatter);
     }
 }
