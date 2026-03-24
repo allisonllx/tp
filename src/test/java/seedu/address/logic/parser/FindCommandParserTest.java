@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -38,8 +39,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.util.ContactPredicateBuilder;
 import seedu.address.model.timepoint.TimePoint;
-import seedu.address.testutil.ContactPredicateBuilder;
 import seedu.address.testutil.TypicalIndexes;
 
 public class FindCommandParserTest {
@@ -49,8 +50,8 @@ public class FindCommandParserTest {
     private FindCommandParser parser = new FindCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+    public void parse_emptyArg_success() {
+        assertDoesNotThrow(() -> parser.parse("     "));
     }
 
     @Test
@@ -202,8 +203,8 @@ public class FindCommandParserTest {
     public void parse_combinedParameters_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_ADDRESS + "street " + PREFIX_TAG + "friends");
         String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
-        Predicate<Contact> predicate =
-                new ContactPredicateBuilder().addressContainsKeywords("street").tagsHasKeywords("friends").build();
+        Predicate<Contact> predicate = new ContactPredicateBuilder().addressContainsKeywords(List.of("street"))
+                .tagsHasKeywords(List.of("friends")).build();
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(DANIEL), model.getDisplayedContactList());

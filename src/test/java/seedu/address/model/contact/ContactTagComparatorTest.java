@@ -1,6 +1,7 @@
 package seedu.address.model.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -24,7 +25,9 @@ public class ContactTagComparatorTest {
         .withName("Maximus Primus Secundus")
         .withPhone("94455031")
         .withTags("friends:3").build();
-    private static final ContactTagComparator COMPARATOR =
+    private static final ContactTagComparator ASC_COMPARATOR =
+        new ContactTagComparator("friends", ContactComparator.Order.ASCENDING);
+    private static final ContactTagComparator DESC_COMPARATOR =
         new ContactTagComparator("friends", ContactComparator.Order.DESCENDING);
 
     @Test
@@ -34,43 +37,89 @@ public class ContactTagComparatorTest {
 
     @Test
     public void compare_equal_returnsZero() {
-        assertEquals(0, COMPARATOR.compare(JOHN, JOHN));
-        assertEquals(0, COMPARATOR.compare(JANE, JANE));
-        assertEquals(0, COMPARATOR.compare(TOM, TOM));
-        assertEquals(0, COMPARATOR.compare(MAX, MAX));
+        assertEquals(0, ASC_COMPARATOR.compare(JOHN, JOHN));
+        assertEquals(0, ASC_COMPARATOR.compare(JANE, JANE));
+        assertEquals(0, ASC_COMPARATOR.compare(TOM, TOM));
+        assertEquals(0, ASC_COMPARATOR.compare(MAX, MAX));
+        assertEquals(0, DESC_COMPARATOR.compare(JOHN, JOHN));
+        assertEquals(0, DESC_COMPARATOR.compare(JANE, JANE));
+        assertEquals(0, DESC_COMPARATOR.compare(TOM, TOM));
+        assertEquals(0, DESC_COMPARATOR.compare(MAX, MAX));
     }
 
     @Test
     public void compare_noTag_isCorrect() {
-        assertTrue(COMPARATOR.compare(JOHN, JANE) > 0);
-        assertTrue(COMPARATOR.compare(JANE, JOHN) < 0);
+        // JOHN has no "friends" tag, so is ranked lower than everyone else regardless of order
+        assertTrue(DESC_COMPARATOR.compare(JOHN, JANE) > 0);
+        assertTrue(ASC_COMPARATOR.compare(JOHN, JANE) > 0);
+        assertTrue(DESC_COMPARATOR.compare(JANE, JOHN) < 0);
+        assertTrue(ASC_COMPARATOR.compare(JANE, JOHN) < 0);
 
-        assertTrue(COMPARATOR.compare(JOHN, TOM) > 0);
-        assertTrue(COMPARATOR.compare(TOM, JOHN) < 0);
+        assertTrue(DESC_COMPARATOR.compare(JOHN, TOM) > 0);
+        assertTrue(ASC_COMPARATOR.compare(JOHN, TOM) > 0);
+        assertTrue(DESC_COMPARATOR.compare(TOM, JOHN) < 0);
+        assertTrue(ASC_COMPARATOR.compare(TOM, JOHN) < 0);
 
-        assertTrue(COMPARATOR.compare(JOHN, MAX) > 0);
-        assertTrue(COMPARATOR.compare(MAX, JOHN) < 0);
+        assertTrue(DESC_COMPARATOR.compare(JOHN, MAX) > 0);
+        assertTrue(ASC_COMPARATOR.compare(JOHN, MAX) > 0);
+        assertTrue(DESC_COMPARATOR.compare(MAX, JOHN) < 0);
+        assertTrue(ASC_COMPARATOR.compare(MAX, JOHN) < 0);
     }
 
     @Test
     public void compare_noRank_isCorrect() {
-        assertTrue(COMPARATOR.compare(JANE, TOM) > 0);
-        assertTrue(COMPARATOR.compare(TOM, JANE) < 0);
+        // JANE has "friends" tag but no rank, so is ranked lower than TOM and MAX regardless of order
+        assertTrue(DESC_COMPARATOR.compare(JANE, TOM) > 0);
+        assertTrue(ASC_COMPARATOR.compare(JANE, TOM) > 0);
+        assertTrue(DESC_COMPARATOR.compare(TOM, JANE) < 0);
+        assertTrue(ASC_COMPARATOR.compare(TOM, JANE) < 0);
 
-        assertTrue(COMPARATOR.compare(JANE, MAX) > 0);
-        assertTrue(COMPARATOR.compare(MAX, JANE) < 0);
+        assertTrue(DESC_COMPARATOR.compare(JANE, MAX) > 0);
+        assertTrue(ASC_COMPARATOR.compare(JANE, MAX) > 0);
+        assertTrue(DESC_COMPARATOR.compare(MAX, JANE) < 0);
+        assertTrue(ASC_COMPARATOR.compare(MAX, JANE) < 0);
     }
 
     @Test
     public void compare_lessRank_returnsPositive() {
-        assertTrue(COMPARATOR.compare(TOM, MAX) > 0);
-        assertTrue(COMPARATOR.compare(MAX, TOM) < 0);
+        assertTrue(DESC_COMPARATOR.compare(TOM, MAX) > 0);
+        assertTrue(ASC_COMPARATOR.compare(TOM, MAX) < 0);
+        assertTrue(DESC_COMPARATOR.compare(MAX, TOM) < 0);
+        assertTrue(ASC_COMPARATOR.compare(MAX, TOM) > 0);
     }
 
     @Test
-    public void hashCode_sameTag_returnsSameHashCode() {
+    public void hashCode_sameTagAndOrder_returnsSameHashCode() {
         ContactTagComparator comparator1 = new ContactTagComparator("friends", ContactComparator.Order.ASCENDING);
-        ContactTagComparator comparator2 = new ContactTagComparator("friends", ContactComparator.Order.DESCENDING);
+        ContactTagComparator comparator2 = new ContactTagComparator("friends", ContactComparator.Order.ASCENDING);
+        ContactTagComparator comparator3 = new ContactTagComparator("friends", ContactComparator.Order.DESCENDING);
         assertEquals(comparator1.hashCode(), comparator2.hashCode());
+        assertNotEquals(comparator1.hashCode(), comparator3.hashCode());
+    }
+
+    @Test
+    public void equals() {
+        ContactTagComparator comparator1 = new ContactTagComparator("friends", ContactComparator.Order.ASCENDING);
+        ContactTagComparator comparator2 = new ContactTagComparator("friends", ContactComparator.Order.ASCENDING);
+        ContactTagComparator comparator3 = new ContactTagComparator("friends", ContactComparator.Order.DESCENDING);
+        ContactTagComparator comparator4 = new ContactTagComparator("contractor", ContactComparator.Order.ASCENDING);
+
+        // same object -> returns true
+        assertEquals(comparator1, comparator1);
+
+        // same values -> returns true
+        assertEquals(comparator1, comparator2);
+
+        // different order -> returns false
+        assertNotEquals(comparator1, comparator3);
+
+        // different tag -> returns false
+        assertNotEquals(comparator1, comparator4);
+
+        // different type -> returns false
+        assertNotEquals(comparator1, 1);
+
+        // null -> returns false
+        assertNotEquals(comparator1, null);
     }
 }

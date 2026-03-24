@@ -10,16 +10,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactComparator;
-import seedu.address.model.contact.ContactComparatorSet;
+import seedu.address.model.contact.ContactFieldComparator;
 import seedu.address.model.contact.ContactTagComparator;
 
 /**
@@ -27,56 +24,57 @@ import seedu.address.model.contact.ContactTagComparator;
  */
 public class SortCommandParser implements Parser<SortCommand> {
 
-    private static final Map<Prefix, ContactComparator.Field> PREFIX_FIELD_MAP = Map.of(
-        PREFIX_NAME, ContactComparator.Field.NAME,
-        PREFIX_PHONE, ContactComparator.Field.PHONE,
-        PREFIX_EMAIL, ContactComparator.Field.EMAIL,
-        PREFIX_ADDRESS, ContactComparator.Field.ADDRESS,
-        PREFIX_LAST_CONTACTED, ContactComparator.Field.LAST_CONTACTED,
-        PREFIX_LAST_UPDATED, ContactComparator.Field.LAST_UPDATED
+    private static final Map<Prefix, ContactFieldComparator.Field> PREFIX_FIELD_MAP = Map.of(
+        PREFIX_NAME, ContactFieldComparator.Field.NAME,
+        PREFIX_PHONE, ContactFieldComparator.Field.PHONE,
+        PREFIX_EMAIL, ContactFieldComparator.Field.EMAIL,
+        PREFIX_ADDRESS, ContactFieldComparator.Field.ADDRESS,
+        PREFIX_LAST_CONTACTED, ContactFieldComparator.Field.LAST_CONTACTED,
+        PREFIX_LAST_UPDATED, ContactFieldComparator.Field.LAST_UPDATED
+    );
+
+    private static final Map<String, ContactFieldComparator.Order> ORDER_KEYWORD_MAP = Map.of(
+        SortCommand.ASCENDING_KEYWORD, ContactComparator.Order.ASCENDING,
+        SortCommand.DESCENDING_KEYWORD, ContactComparator.Order.DESCENDING
     );
 
     /**
-     * Extracts comparators from a {@code ArgumentMultimap} and combines them into a single {@code Comparator<Contact>}.
+     * Extracts comparators from a {@code ArgumentMultimap} and combines them into a single {@code ContactComparator}.
      *
      * @param argMultimap The arguments to sort by.
      * @throws ParseException If there are no valid arguments to sort by.
      */
-    private static Comparator<Contact> makeCombinedComparator(ArgumentMultimap argMultimap) throws ParseException {
-        ContactComparatorSet combinedComparator = new ContactComparatorSet();
+    private static ContactComparator makeCombinedComparator(ArgumentMultimap argMultimap) throws ParseException {
+        ContactComparator combinedComparator = ContactComparator.identity();
 
-        for (Prefix prefix : PREFIX_FIELD_MAP.keySet()) {
-            Optional<String> value = argMultimap.getValue(prefix);
+        for (Map.Entry<Prefix, String> arg : argMultimap.getArguments()) {
+            Prefix prefix = arg.getKey();
+            String value = arg.getValue().toLowerCase(Locale.ROOT);
 
-            if (value.isEmpty()) {
-                continue;
+            if (PREFIX_FIELD_MAP.containsKey(prefix) && ORDER_KEYWORD_MAP.containsKey(value)) {
+                ContactFieldComparator.Field field = PREFIX_FIELD_MAP.get(prefix);
+                ContactFieldComparator.Order order = ORDER_KEYWORD_MAP.get(value);
+                combinedComparator = combinedComparator.thenComparing(new ContactFieldComparator(field, order));
+            } else if (prefix.equals(PREFIX_TAG)) {
+                combinedComparator = combinedComparator.thenComparing(makeTagComparator(value));
+            } else {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
             }
-
-            combinedComparator.addComparator(new ContactComparator(
-                PREFIX_FIELD_MAP.get(prefix),
-                value.get().equals(SortCommand.DESCENDING_KEYWORD)
-                    ? ContactComparator.Order.DESCENDING
-                    : ContactComparator.Order.ASCENDING
-            ));
-        }
-
-        List<String> values = argMultimap.getAllValues(PREFIX_TAG);
-
-        if (!values.isEmpty()) {
-            for (String value : values) {
-                combinedComparator.addComparator(new ContactTagComparator(
-                    value,
-                    ContactComparator.Order.DESCENDING // TODO: Decide on format for specifying order for tag sorting
-                ));
-            }
-        }
-
-        if (combinedComparator.isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }
 
         return combinedComparator;
+    }
+
+    private static ContactComparator makeTagComparator(String value) throws ParseException {
+        String[] parts = value.split(":", 2);
+        if (parts.length != 2 || !ORDER_KEYWORD_MAP.containsKey(parts[1].toLowerCase(Locale.ROOT))) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+        String tagName = parts[0];
+        ContactFieldComparator.Order order = ORDER_KEYWORD_MAP.get(parts[1]);
+        return new ContactTagComparator(tagName, order);
     }
 
     /**
@@ -88,17 +86,21 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        // Checks that argument(s) are provided
+        // Reset to default order if no arguments are provided
         if (args.isBlank()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            return new SortCommand();
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
             PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                 PREFIX_LAST_CONTACTED, PREFIX_LAST_UPDATED, PREFIX_TAG);
 
-        Comparator<Contact> combinedComparator = makeCombinedComparator(argMultimap);
+        if (!argMultimap.getPreamble().isBlank()) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+        }
+
+        ContactComparator combinedComparator = makeCombinedComparator(argMultimap);
 
         return new SortCommand(combinedComparator);
     }
