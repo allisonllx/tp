@@ -77,6 +77,14 @@ public class ContactBuilder {
     }
 
     /**
+     * Sets the {@code UUID} of the {@code Contact} that we are building.
+     */
+    public ContactBuilder withId(UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Contact} that we are building.
      */
     public ContactBuilder withTags(String ... tags) {

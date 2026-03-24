@@ -1,24 +1,15 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.function.Predicate;
-
-import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
-import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
-
 /**
- * Finds and lists contacts whose fields match the given keywords.
- * Keyword matching is case-insensitive.
+ * Parent class for all find-related commands.
  */
-public class FindCommand extends Command {
+public abstract class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
@@ -29,48 +20,10 @@ public class FindCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL_KEYWORDS] "
             + "[" + PREFIX_ADDRESS + "ADDRESS_KEYWORDS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Or: " + COMMAND_WORD + " @INDEX to find contacts associated with the contact at INDEX\n"
+            + "Examples: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_EMAIL + "john@example.com "
-            + PREFIX_TAG + "friend";
-
-    private final Predicate<Contact> predicate;
-
-    public FindCommand(Predicate<Contact> predicate) {
-        this.predicate = predicate;
-    }
-
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.resetDisplayedContactList();
-        model.filterDisplayedContactList(predicate);
-
-        String feedback =
-                String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getDisplayedContactList().size());
-        model.saveSnapshot(feedback);
-        return new CommandResult(feedback);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof FindCommand)) {
-            return false;
-        }
-
-        FindCommand otherFindCommand = (FindCommand) other;
-        return predicate.equals(otherFindCommand.predicate);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("predicate", predicate)
-                .toString();
-    }
+            + PREFIX_TAG + "friend\n"
+            + COMMAND_WORD + " @1";
 }

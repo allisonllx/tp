@@ -1,74 +1,97 @@
 package seedu.address.model.contact;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Map;
+import java.util.List;
+import java.util.Objects;
+
+import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Comparator for sorting contacts based on specified field and order.
+ * An abstract comparator for sorting contacts based on order.
  */
-public final class ContactComparator implements Comparator<Contact> {
-    /** The fields that can be used for sorting contacts. */
-    public static enum Field {
-        NAME, PHONE, EMAIL, ADDRESS, LAST_UPDATED
-    }
-
+public abstract class ContactComparator implements Comparator<Contact> {
     /** The orders that can be used for sorting contacts. */
     public static enum Order {
         ASCENDING, DESCENDING
     }
 
-    private static final Map<Field, Map<Order, Comparator<Contact>>> COMPARATORS = Map.of(
-            Field.NAME, Map.of(
-                    Order.ASCENDING, Comparator.comparing(Contact::getName, Comparator.naturalOrder()),
-                    Order.DESCENDING, Comparator.comparing(Contact::getName, Comparator.reverseOrder())),
-            Field.PHONE, Map.of(
-                    Order.ASCENDING,
-                    Comparator.comparing(contact -> contact.getPhone().orElse(null),
-                            Comparator.nullsLast(Comparator.naturalOrder())),
-                    Order.DESCENDING,
-                    Comparator.comparing(contact -> contact.getPhone().orElse(null),
-                            Comparator.nullsLast(Comparator.reverseOrder()))),
-            Field.EMAIL, Map.of(
-                    Order.ASCENDING,
-                    Comparator.comparing(contact -> contact.getEmail().orElse(null),
-                            Comparator.nullsLast(Comparator.naturalOrder())),
-                    Order.DESCENDING,
-                    Comparator.comparing(contact -> contact.getEmail().orElse(null),
-                            Comparator.nullsLast(Comparator.reverseOrder()))),
-            Field.ADDRESS, Map.of(
-                    Order.ASCENDING,
-                    Comparator.comparing(contact -> contact.getAddress().orElse(null),
-                            Comparator.nullsLast(Comparator.naturalOrder())),
-                    Order.DESCENDING, Comparator.comparing(contact -> contact.getAddress().orElse(null),
-                            Comparator.nullsLast(Comparator.reverseOrder()))),
-            Field.LAST_UPDATED, Map.of(
-                    Order.ASCENDING, Comparator.comparing(Contact::getLastUpdated, Comparator.naturalOrder()),
-                    Order.DESCENDING, Comparator.comparing(Contact::getLastUpdated, Comparator.reverseOrder())));
+    private static final ContactComparator IDENTITY = new ContactComparator() {
+        {
+            comparators.clear();
+        }
 
-    private final Comparator<Contact> comparator;
+        @Override
+        public int compare(Contact o1, Contact o2) {
+            return 0;
+        }
+    };
+
+    protected final List<ContactComparator> comparators = new ArrayList<>(Arrays.asList(this));
 
     /**
-     * Constructs a ContactComparator with the specified field and order.
+     * Returns a lexicographic-order comparator with another comparator. If this
+     * ContactComparator considers two elements equal, i.e. compare(a, b) == 0,
+     * other is used to determine the order.
      *
-     * @param field The field to sort by.
-     * @param order The order to sort in.
-     * @throws NullPointerException if either field or order is null.
+     * The returned comparator is serializable if the specified comparator is also
+     * serializable.
+     * Specified by: thenComparing(...) in ContactComparator
+     *
+     * @param other the other comparator to be used when this comparator compares
+     *              two
+     * @return
      */
-    public ContactComparator(Field field, Order order) {
-        requireAllNonNull(field, order);
-        this.comparator = getComparator(field, order);
+    public ContactComparator thenComparing(ContactComparator other) {
+        List<ContactComparator> newComparators = new ArrayList<>(this.comparators);
+        newComparators.addAll(other.comparators);
+        ContactComparator outerThis = this;
+
+        return new ContactComparator() {
+            {
+                comparators.clear();
+                comparators.addAll(newComparators);
+            }
+
+            @Override
+            public int compare(Contact o1, Contact o2) {
+                int result = outerThis.compare(o1, o2);
+                return result != 0 ? result : other.compare(o1, o2);
+            }
+        };
+    }
+
+    /**
+     * Returns an identity comparator that considers all contacts equal.
+     * @return the identity comparator
+     */
+    public static ContactComparator identity() {
+        return IDENTITY;
     }
 
     @Override
-    public int compare(Contact o1, Contact o2) {
-        return comparator.compare(o1, o2);
+    public int hashCode() {
+        return Objects.hash(comparators);
     }
 
-    private Comparator<Contact> getComparator(Field field, Order order) {
-        Map<Order, Comparator<Contact>> orderMap = COMPARATORS.get(field);
-        Comparator<Contact> comparator = orderMap.get(order);
-        return comparator;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof ContactComparator otherObj)) {
+            return false;
+        }
+
+        return this.comparators.equals(otherObj.comparators);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder("ContactComparator")
+            .add("comparators", comparators)
+            .toString();
     }
 }

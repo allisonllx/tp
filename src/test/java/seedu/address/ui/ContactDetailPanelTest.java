@@ -6,6 +6,8 @@ import static seedu.address.testutil.TypicalContacts.BENSON;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ContactBuilder;
 
@@ -14,17 +16,19 @@ import seedu.address.testutil.ContactBuilder;
  */
 public class ContactDetailPanelTest extends GuiUnitTest {
 
+    private static final ObservableList<Contact> EMPTY_LIST = FXCollections.observableArrayList();
+
     @Test
     public void constructor_success() throws Exception {
         runAndWait(() -> {
-            assertDoesNotThrow(() -> new ContactDetailPanel());
+            assertDoesNotThrow(() -> new ContactDetailPanel(EMPTY_LIST));
         });
     }
 
     @Test
     public void setContact_validContact_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             assertDoesNotThrow(() -> panel.setContact(ALICE));
             assertDoesNotThrow(() -> panel.setContact(BENSON));
         });
@@ -33,7 +37,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithAllFields_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact fullContact = new ContactBuilder()
                     .withName("Full Contact")
                     .withPhone("12345678")
@@ -50,7 +54,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithoutOptionalFields_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact minimalContact = new ContactBuilder()
                     .withName("Minimal Contact")
                     .build();
@@ -61,7 +65,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyPhone_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact phoneOnlyContact = new ContactBuilder()
                     .withName("Phone Only")
                     .withPhone("12345678")
@@ -73,7 +77,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyEmail_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact emailOnlyContact = new ContactBuilder()
                     .withName("Email Only")
                     .withEmail("test@example.com")
@@ -85,7 +89,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyAddress_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact addressOnlyContact = new ContactBuilder()
                     .withName("Address Only")
                     .withAddress("123 Test St")
@@ -97,7 +101,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyLastContacted_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact lastContactedOnlyContact = new ContactBuilder()
                     .withName("Last Contacted Only")
                     .withLastContacted("22/02/26")
@@ -109,7 +113,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyLastUpdated_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact lastUpdatedOnlyContact = new ContactBuilder()
                     .withName("Last Updated Only")
                     .withPhone(null)
@@ -124,7 +128,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyTags_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact tagsOnlyContact = new ContactBuilder()
                     .withName("Tags Only")
                     .withTags("tag1", "tag2", "tag3")
@@ -136,7 +140,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithOnlyNotes_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact notesOnlyContact = new ContactBuilder()
                     .withName("Notes Only")
                     .withNotes("Some notes here")
@@ -148,7 +152,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_contactWithEmptyNotes_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact emptyNotesContact = new ContactBuilder()
                     .withName("Empty Notes")
                     .withNotes("")
@@ -160,7 +164,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_null_clearsPanel() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             panel.setContact(ALICE);
             assertDoesNotThrow(() -> panel.setContact(null));
         });
@@ -169,7 +173,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void clearContact_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             panel.setContact(ALICE);
             assertDoesNotThrow(() -> panel.clearContact());
         });
@@ -178,7 +182,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_multipleContacts_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             assertDoesNotThrow(() -> {
                 panel.setContact(ALICE);
                 panel.setContact(BENSON);
@@ -191,7 +195,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_alternatingFullAndMinimal_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact fullContact = new ContactBuilder()
                     .withName("Full")
                     .withPhone("12345678")
@@ -214,7 +218,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
     @Test
     public void setContact_transitionIncludesMissingLastUpdated_success() throws Exception {
         runAndWait(() -> {
-            ContactDetailPanel panel = new ContactDetailPanel();
+            ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact fullContact = new ContactBuilder()
                     .withName("Full")
                     .withPhone("12345678")

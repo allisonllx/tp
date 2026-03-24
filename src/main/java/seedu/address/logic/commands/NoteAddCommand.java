@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
@@ -40,9 +41,12 @@ public class NoteAddCommand extends NoteCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
+        // Resolve @INDEX references in note text to @{UUID}
+        Note resolvedNote = resolveContactReferences(note, lastShownList);
+
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
         List<Note> newNotes = new ArrayList<>(contactToEdit.getNotes());
-        newNotes.add(note);
+        newNotes.add(resolvedNote);
 
         Contact editedContact = new Contact(contactToEdit.getId(), contactToEdit.getName(),
                 contactToEdit.getPhone(), contactToEdit.getEmail(),
@@ -55,6 +59,24 @@ public class NoteAddCommand extends NoteCommand {
         String feedback = generateSuccessMessage(editedContact);
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
+    }
+
+    /**
+     * Resolves {@code @INDEX} patterns in the note text to {@code @{UUID}} references
+     * using the currently displayed contact list.
+     */
+    private Note resolveContactReferences(Note note, List<Contact> contactList) {
+        Matcher matcher = Note.CONTACT_INDEX_PATTERN.matcher(note.value);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            int oneBasedIndex = Integer.parseInt(matcher.group(1));
+            if (oneBasedIndex >= 1 && oneBasedIndex <= contactList.size()) {
+                Contact referenced = contactList.get(oneBasedIndex - 1);
+                matcher.appendReplacement(sb, "@{" + referenced.getId().toString() + "}");
+            }
+        }
+        matcher.appendTail(sb);
+        return new Note(sb.toString(), note.timePoint);
     }
 
     /**

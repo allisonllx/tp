@@ -156,22 +156,13 @@ public class ModelManager implements Model {
     @Override
     public void filterDisplayedContactList(Predicate<Contact> predicate) {
         requireNonNull(predicate);
-
-        @SuppressWarnings("unchecked")
-        Predicate<Contact> currentPredicate = (Predicate<Contact>) filteredContacts.getPredicate();
-        filteredContacts.setPredicate(currentPredicate == null ? predicate : currentPredicate.and(predicate));
-        final FilteredList<Contact> filteredContacts = new FilteredList<>(displayedContacts);
         filteredContacts.setPredicate(predicate);
     }
 
     @Override
     public void sortDisplayedContactList(Comparator<Contact> comparator) {
         requireNonNull(comparator);
-
-        @SuppressWarnings("unchecked")
-        Comparator<Contact> currentComparator = (Comparator<Contact>) sortedContacts.getComparator();
-        sortedContacts
-                .setComparator(currentComparator == null ? comparator : currentComparator.thenComparing(comparator));
+        sortedContacts.setComparator(comparator);
     }
 
     //=========== Snapshot ================================================================================

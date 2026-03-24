@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -35,7 +36,7 @@ public class ContactCardTest extends GuiUnitTest {
                     .withLastContacted("22/02/26")
                     .withTags("friends", "teammate", "friends:1")
                     .withNotes("follow up")
-                    .build(), 1);
+                    .build(), 1, FXCollections.observableArrayList());
 
             Label phone = getPrivateField(card, "phone", Label.class);
             Label email = getPrivateField(card, "email", Label.class);
@@ -71,7 +72,7 @@ public class ContactCardTest extends GuiUnitTest {
                     .withEmail(null)
                     .withAddress(null)
                     .withLastContacted(null)
-                    .build(), 2);
+                    .build(), 2, FXCollections.observableArrayList());
 
             Label phone = getPrivateField(card, "phone", Label.class);
             Label email = getPrivateField(card, "email", Label.class);
@@ -108,7 +109,7 @@ public class ContactCardTest extends GuiUnitTest {
                     .withEmail(null)
                     .withAddress(null)
                     .withNotes(dueReminderString)
-                    .build(), 3);
+                    .build(), 3, FXCollections.observableArrayList());
 
             FlowPane tags = getPrivateField(card, "tags", FlowPane.class);
             List<Label> labels = tags.getChildren().stream()
@@ -131,7 +132,7 @@ public class ContactCardTest extends GuiUnitTest {
             ContactCard card = new ContactCard(new ContactBuilder()
                     .withName("No Last Updated")
                     .withLastUpdated(null)
-                    .build(), 4);
+                    .build(), 4, FXCollections.observableArrayList());
 
             Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
             assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
