@@ -18,7 +18,7 @@ import seedu.address.model.contact.Note;
  */
 public class NoteAddCommand extends NoteCommand {
 
-    public static final String MESSAGE_ADD_NOTES_SUCCESS = "Added notes to Contact: %1$s";
+    public static final String MESSAGE_ADD_NOTES_SUCCESS = "Added Note";
 
     private final Index index;
     private final Note note;
@@ -38,7 +38,7 @@ public class NoteAddCommand extends NoteCommand {
         List<Contact> lastShownList = model.getDisplayedContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.getIndexOutOfRangeMessage(lastShownList.size()));
         }
 
         // Resolve @INDEX references in note text to @{UUID}
@@ -84,7 +84,7 @@ public class NoteAddCommand extends NoteCommand {
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        return String.format(MESSAGE_ADD_NOTES_SUCCESS, Messages.format(contactToEdit));
+        return Messages.formatNoteOutput(MESSAGE_ADD_NOTES_SUCCESS, contactToEdit);
     }
 
     @Override

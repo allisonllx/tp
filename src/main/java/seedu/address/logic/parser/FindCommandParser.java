@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.FindAssociationsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindFieldsCommand;
@@ -60,8 +61,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         validateNonEmptyPhrases(argMultimap);
 
         Predicate<Contact> cumulativePredicate = makeCumulativePredicate(argMultimap);
-
-        return new FindFieldsCommand(cumulativePredicate);
+        String searchPhrase = args.trim();
+        return new FindFieldsCommand(cumulativePredicate, searchPhrase);
     }
 
     /**
@@ -103,10 +104,21 @@ public class FindCommandParser implements Parser<FindCommand> {
         boolean isAddressValid = argMultimap.getAllValues(PREFIX_ADDRESS).stream()
                 .allMatch(keyword -> !keyword.isBlank());
         boolean isTagValid = argMultimap.getAllValues(PREFIX_TAG).stream().allMatch(keyword -> !keyword.isBlank());
+        boolean hasAnyKeyword = !argMultimap.getPreamble().isBlank()
+                || !argMultimap.getAllValues(PREFIX_NAME).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_PHONE).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_EMAIL).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_ADDRESS).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_TAG).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_LAST_CONTACTED).isEmpty();
 
+        if (!hasAnyKeyword) {
+            throw new ParseException(Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_KEYWORD,
+                    FindCommand.MESSAGE_USAGE));
+        }
         if (!isNameValid || !isPhoneValid || !isEmailValid || !isAddressValid || !isTagValid) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            throw new ParseException(Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_KEYWORD,
+                    FindCommand.MESSAGE_USAGE));
         }
     }
 

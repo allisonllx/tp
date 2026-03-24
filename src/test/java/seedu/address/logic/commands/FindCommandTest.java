@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BENSON;
@@ -63,9 +62,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_singleContactFound() {
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format("Found 1 contacts matching '%s'", "Elle");
         Predicate<Contact> predicate = (Contact contact) -> contact.containsInName("Elle");
-        FindFieldsCommand command = new FindFieldsCommand(predicate);
+        FindFieldsCommand command = new FindFieldsCommand(predicate, "Elle");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ELLE), model.getDisplayedContactList());
@@ -73,9 +72,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleContactsFound() {
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 4);
+        String expectedMessage = String.format("Found 4 contacts matching '%s'", "ne");
         Predicate<Contact> predicate = (Contact contact) -> contact.contains("ne");
-        FindFieldsCommand command = new FindFieldsCommand(predicate);
+        FindFieldsCommand command = new FindFieldsCommand(predicate, "ne");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());

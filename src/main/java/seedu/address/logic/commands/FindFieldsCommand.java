@@ -17,12 +17,22 @@ import seedu.address.model.contact.Contact;
 public class FindFieldsCommand extends FindCommand {
 
     private final Predicate<Contact> predicate;
+    private final String searchPhrase;
 
     /**
      * Creates a FindFieldsCommand that filters contacts by the given predicate.
      */
     public FindFieldsCommand(Predicate<Contact> predicate) {
+        this(predicate, "");
+    }
+
+    /**
+     * Creates a FindFieldsCommand that filters contacts by the given predicate
+     * and retains the user-entered search phrase for result messaging.
+     */
+    public FindFieldsCommand(Predicate<Contact> predicate, String searchPhrase) {
         this.predicate = predicate;
+        this.searchPhrase = searchPhrase;
     }
 
     @Override
@@ -31,8 +41,10 @@ public class FindFieldsCommand extends FindCommand {
 
         model.filterDisplayedContactList(predicate);
 
-        String feedback =
-                String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getDisplayedContactList().size());
+        String feedback = searchPhrase.isBlank()
+                ? String.format(Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW, model.getDisplayedContactList().size())
+                : String.format("Found %d contacts matching '%s'",
+                        model.getDisplayedContactList().size(), searchPhrase);
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
     }
@@ -46,13 +58,15 @@ public class FindFieldsCommand extends FindCommand {
             return false;
         }
         FindFieldsCommand otherCommand = (FindFieldsCommand) other;
-        return predicate.equals(otherCommand.predicate);
+        return predicate.equals(otherCommand.predicate)
+                && searchPhrase.equals(otherCommand.searchPhrase);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
+                .add("searchPhrase", searchPhrase)
                 .toString();
     }
 }

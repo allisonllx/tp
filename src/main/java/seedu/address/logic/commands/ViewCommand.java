@@ -24,7 +24,7 @@ public class ViewCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Viewing Contact: %1$s";
+    public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Viewing contact: %1$s";
 
     private final Index targetIndex;
 
@@ -38,7 +38,7 @@ public class ViewCommand extends Command {
         List<Contact> lastShownList = model.getDisplayedContactList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.getIndexOutOfRangeMessage(lastShownList.size()));
         }
 
         Contact contactToView = lastShownList.get(targetIndex.getZeroBased());

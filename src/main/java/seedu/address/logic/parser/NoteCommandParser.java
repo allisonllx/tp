@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.NoteAddCommand;
 import seedu.address.logic.commands.NoteClearAllCommand;
 import seedu.address.logic.commands.NoteClearCommand;
@@ -35,7 +36,8 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         boolean isPreamblePresent = !argMultimap.getPreamble().isEmpty();
 
         if (!isPreamblePresent) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+            throw new ParseException(Messages.getCommandErrorWithUsage(
+                    Messages.MESSAGE_MISSING_INDEX, NoteAddCommand.MESSAGE_USAGE));
         }
 
         if (isClearPrefixPresent && isClearAllPrefixPresent) {
@@ -90,7 +92,8 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         String[] noteArgs = argMultimap.getPreamble().trim().split(" ", 2);
 
         if (noteArgs.length < 2) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE),
+            throw new ParseException(Messages.getCommandErrorWithUsage(
+                    Messages.MESSAGE_MISSING_KEYWORD, NoteAddCommand.MESSAGE_USAGE),
                 new ArrayIndexOutOfBoundsException());
         }
 
@@ -115,7 +118,8 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         try {
             return ParserUtil.parseIndex(index);
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(Messages.getCommandErrorWithUsage(
+                    ive.getMessage(), NoteAddCommand.MESSAGE_USAGE), ive);
         }
     }
 

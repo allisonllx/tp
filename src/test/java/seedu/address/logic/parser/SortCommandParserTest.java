@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.ContactFieldComparator;
@@ -15,8 +16,9 @@ public class SortCommandParserTest {
     private static final SortCommandParser PARSER = new SortCommandParser();
 
     @Test
-    public void parse_emptyArg_returnsSortCommand() {
-        assertParseSuccess(PARSER, "     ", new SortCommand());
+    public void parse_emptyArg_returnsMissingKeywordFailure() {
+        assertParseFailure(PARSER, "     ", Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_KEYWORD,
+                SortCommand.MESSAGE_USAGE));
     }
 
     @Test

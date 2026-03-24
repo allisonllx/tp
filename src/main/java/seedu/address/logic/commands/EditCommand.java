@@ -52,7 +52,7 @@ public class EditCommand extends Command {
             + PREFIX_EMAIL + "johndoe@example.com "
             + PREFIX_LAST_CONTACTED + "22/02/26";
 
-    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
+    public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
@@ -77,7 +77,7 @@ public class EditCommand extends Command {
         List<Contact> lastShownList = model.getDisplayedContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.getIndexOutOfRangeMessage(lastShownList.size()));
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
