@@ -5,10 +5,13 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
+import java.nio.file.Paths;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
+import seedu.address.logic.commands.DeleteFileCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -28,7 +31,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteFileCommand() {
-        assertParseSuccess(parser, " file/", new DeleteContactCommand(INDEX_FIRST_CONTACT));
+        assertParseSuccess(parser, " file/newbook", new DeleteFileCommand(Paths.get("data", "newbook.json")));
     }
 
     @Test

@@ -75,6 +75,15 @@ public class DeleteFileCommand extends DeleteCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof ViewFilesCommand;
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DeleteFileCommand)) {
+            return false;
+        }
+
+        DeleteFileCommand otherDeleteFileCommand = (DeleteFileCommand) other;
+        return filePath.equals(otherDeleteFileCommand.filePath);
     }
 }
