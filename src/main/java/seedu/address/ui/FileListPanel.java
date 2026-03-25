@@ -126,20 +126,24 @@ public class FileListPanel extends UiPart<Region> {
                     for (WatchEvent<?> event : key.pollEvents()) {
                         WatchEvent.Kind<?> kind = event.kind();
 
-                        if (kind == StandardWatchEventKinds.OVERFLOW) {
-                            logger.warning("File listener received an overflow event.");
-                            continue;
-                        }
-
                         Path alteredPath = directory.resolve((Path) event.context());
                         try {
-                            FileCardDetails change = getFileCardDetails(alteredPath.toFile());
                             Platform.runLater(() -> {
                                 if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-                                    fileDetailList.add(change);
+                                    try {
+                                        fileDetailList.add(getFileCardDetails(alteredPath.toFile()));
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
-                                    fileDetailList.removeIf(f -> f.equals(change));
+                                    fileDetailList.removeIf(f -> f.name().equals(alteredPath.toFile().getName()));
                                 } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+                                    FileCardDetails change;
+                                    try {
+                                        change = getFileCardDetails(alteredPath.toFile());
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
                                     int index = fileDetailList.indexOf(change);
                                     if (index >= 0) {
                                         fileDetailList.set(index, change);

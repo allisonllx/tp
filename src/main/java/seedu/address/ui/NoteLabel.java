@@ -22,7 +22,7 @@ import seedu.address.model.contact.Note;
  */
 public class NoteLabel extends HBox {
 
-    private static final String FXML = "/view/ReminderLabel.fxml";
+    private static final String FXML = "/view/NoteLabel.fxml";
 
     @FXML
     private Label reminderHeader;

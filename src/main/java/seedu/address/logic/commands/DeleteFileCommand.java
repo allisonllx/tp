@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.ui.DeleteFileAlert;
 
 /**
  * Deletes a given B2B4U data file.
@@ -53,7 +54,7 @@ public class DeleteFileCommand extends DeleteCommand {
                 throw new CommandException(MESSAGE_FAILURE_FILE_NOT_FOUND);
             }
             if (!addressBookOptional.get().getContactList().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + filePath + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+                Alert alert = new DeleteFileAlert(fileName + ".json", addressBookOptional.get().getContactList().size());
                 alert.showAndWait();
 
                 if (alert.getResult() == ButtonType.NO || alert.getResult() == ButtonType.CANCEL) {
