@@ -41,10 +41,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
 
-        if ((isClearPrefixPresent ? 1 : 0)
-                + (isClearAllPrefixPresent ? 1 : 0)
-                + (isRemovePrefixPresent ? 1 : 0)
-                > 1) {
+        if (argMultimap.getArguments().size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
 
