@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.DataLoadingException;
 
-public class FileListPanelTest {
+public class FileListPanelTest extends GuiUnitTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_CONTACTS_FILE = TEST_DATA_FOLDER.resolve("typicalContactsAddressBook.json");
     private static final Path INVALID_CONTACT_FILE = TEST_DATA_FOLDER.resolve("invalidContactAddressBook.json");
@@ -29,5 +30,12 @@ public class FileListPanelTest {
     public void getInvalidFileCardDetails() {
         File file = INVALID_CONTACT_FILE.toFile();
         assertThrows(DataLoadingException.class, () -> FileListPanel.getFileCardDetails(file));
+    }
+
+    @Test
+    public void constructTest() throws Exception {
+        runAndWait(() -> {
+            assertDoesNotThrow(() -> new FileListPanel(TEST_DATA_FOLDER));
+        });
     }
 }
