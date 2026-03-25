@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import seedu.address.model.Snapshot;
-
 import java.time.LocalDateTime;
 
 /**
