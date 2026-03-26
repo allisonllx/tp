@@ -10,7 +10,7 @@ This section describes some noteworthy details on how certain features are imple
 
 ## Undo/redo feature
 
-The undo/redo mechanism is facilitated by `Snapshot`. It stores key information regarding a `Model`, , stored internally as an `List<Pair<String, Snapshot>>` named `snapshots` and an `int snapshotPosition` is used to move between snapshots. Additionally, `Model` implements the following methods:
+The undo/redo mechanism is facilitated by `Snapshot`. It stores key information regarding a `Model`, stored internally as an `List<Pair<String, Snapshot>>` named `snapshots` and an `int snapshotPosition` is used to indicate the `Snapshot` being used. Additionally, `Model` implements the following methods:
 
 * `saveSnapshot(String description)` — Saves the current `Model` state with a name for user reference.
 * `moveSnapshot(int offset)` — Moves the `Model` by `offset` number of snapshots in its history.
@@ -36,7 +36,7 @@ Step 3. The user executes `delete 7` to delete the 7th contact which happens to 
 
 </box>
 
-Step 4. The user now decides that deleting the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#moveSnapshot(-1)`, which will decrement `snapshotPosition`, and restores `ModelManager` with data given by the `snapshotPosition`th `snapshot`.
+Step 4. The user now decides that deleting the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#moveSnapshot(-1)`, which will decrement `snapshotPosition`, and restores `ModelManager` with data given by the `snapshotPosition`-th `snapshot`.
 
 <puml src="/diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -61,7 +61,7 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <puml src="/diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#moveSnapshot(1)`. If `snapshotPosition` is less than `snapshots.size() - 1`, `snapshotPosition` is incremented, then the `snapshotPosition`th `snapshot` is retrieved to restores the `ModelManager` to the state it represents.
+The `redo` command does the opposite — it calls `Model#moveSnapshot(1)`. If `snapshotPosition` is less than `snapshots.size() - 1`, `snapshotPosition` is incremented, then the `snapshotPosition`-th `snapshot` is retrieved to restores the `ModelManager` to the state it represents.
 
 <box type="info" seamless>
 
@@ -73,7 +73,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 <puml src="/diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#saveSnapshot()`. Since the `snapshotPosition` is not equal to `snapshots.size() - 1`, all snapshots after the `snapshotPosition`th `snapshot` will be purged. Reason: It no longer makes sense to redo the `delate 7` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#saveSnapshot()`. Since the `snapshotPosition` is not equal to `snapshots.size() - 1`, all snapshots after the `snapshotPosition`-th `snapshot` will be purged. Reason: It no longer makes sense to redo the `delate 7` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="/diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
