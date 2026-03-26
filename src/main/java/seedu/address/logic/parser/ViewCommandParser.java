@@ -23,7 +23,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE);
         if (argMultimap.getPreamble().isEmpty()
                 && argMultimap.getValue(PREFIX_FILE).isPresent()
-                && argMultimap.getValue(PREFIX_FILE).isEmpty()) {
+                && argMultimap.getValue(PREFIX_FILE).get().isEmpty()) {
             return new ViewFilesCommand();
         }
         try {

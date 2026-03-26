@@ -118,9 +118,9 @@ public class ViewCommandTest {
 
     @Test
     public void toStringMethod() {
-        Index targetIndex = Index.fromOneBased(1);
-        ViewCommand viewCommand = new ViewContactCommand(targetIndex);
-        String expected = ViewContactCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        Index index = Index.fromOneBased(1);
+        ViewCommand viewCommand = new ViewContactCommand(index);
+        String expected = ViewContactCommand.class.getCanonicalName() + "{index=" + index + "}";
         assertEquals(expected, viewCommand.toString());
     }
 }
