@@ -56,7 +56,7 @@ public class Messages {
     /**
      * Formats a range message for 1-indexed contact list indices.
      */
-    public static String getIndexOutOfRangeMessage(int maxIndex) {
+    public static String formatIndexOutOfRange(int maxIndex) {
         return String.format("INDEX should be between 1 and %d", maxIndex);
     }
 
