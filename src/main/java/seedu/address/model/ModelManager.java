@@ -27,7 +27,9 @@ public class ModelManager implements Model {
     public static final String UNDO_LIMIT_MESSAGE = "Model already at earliest snapshot.";
     public static final String REDO_LIMIT_MESSAGE = "Model already at newest snapshot.";
     private static final Comparator<Contact> DEFAULT_DISPLAY_COMPARATOR =
-            new ContactFieldComparator(ContactFieldComparator.Field.LAST_CONTACTED, ContactComparator.Order.DESCENDING);
+            ContactComparator.REMINDER_COMPARATOR.thenComparing(
+                    new ContactFieldComparator(
+                            ContactFieldComparator.Field.LAST_CONTACTED, ContactComparator.Order.DESCENDING));
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 

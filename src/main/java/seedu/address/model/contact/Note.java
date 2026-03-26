@@ -90,8 +90,17 @@ public class Note {
             return false;
         }
         TimePoint cutOffTime = TimePoint.of(LocalDateTime.now().plusDays(DUE_PERIOD_DAYS));
-        TimePoint nowTime = TimePoint.of(LocalDateTime.now());
-        return timePoint.isBefore(cutOffTime) && timePoint.isAfter(nowTime);
+        return timePoint.isBefore(cutOffTime) && timePoint.isAfter(TimePoint.now());
+    }
+
+    /**
+     * Checks if this note is a reminder that is due in {@code DUE_PERIOD_DAYS} number of days.
+     */
+    public boolean hasActiveReminder() {
+        if (timePoint == null) {
+            return false;
+        }
+        return timePoint.isAfter(TimePoint.now());
     }
 
     /**
