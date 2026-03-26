@@ -19,6 +19,7 @@ public class Messages {
     public static final String MESSAGE_CONTACTS_SORTED_OVERVIEW = "%1$d contacts sorted!";
     public static final String MESSAGE_MISSING_INDEX = "Missing an INDEX";
     public static final String MESSAGE_MISSING_KEYWORD = "Missing a keyword";
+    public static final String MESSAGE_INVALID_INDEX = "INDEX should be between 1 and %d";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_DUPLICATE_TAGS = "Tag names should be unique";
@@ -57,7 +58,7 @@ public class Messages {
      * Formats a range message for 1-indexed contact list indices.
      */
     public static String formatIndexOutOfRange(int maxIndex) {
-        return String.format("INDEX should be between 1 and %d", maxIndex);
+        return String.format(MESSAGE_INVALID_INDEX, maxIndex);
     }
 
     /**
