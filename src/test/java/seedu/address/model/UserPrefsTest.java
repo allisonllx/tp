@@ -38,5 +38,6 @@ public class UserPrefsTest {
         assertEquals(UserPrefs.formatAddressBookFilePath("New_Book123"), Paths.get("data", "New_Book123.json"));
         assertThrows(NullPointerException.class, () -> UserPrefs.formatAddressBookFilePath(null));
         assertThrows(AssertionError.class, () -> UserPrefs.formatAddressBookFilePath("@newbook"));
+        assertThrows(AssertionError.class, () -> UserPrefs.formatAddressBookFilePath(""));
     }
 }
