@@ -2,7 +2,6 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -48,7 +47,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
-    private boolean newStart;
+    private boolean newStart = false;
 
     @Override
     public void init() throws Exception {
@@ -62,7 +61,6 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        newStart = !Files.exists(userPrefs.getAddressBookFilePath().getParent());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
@@ -95,7 +93,7 @@ public class MainApp extends Application {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 if (newStart) {
-                    logger.info("Data folder not found. Creating a new data file " + storage.getAddressBookFilePath()
+                    logger.info("Welcome new user. Creating a new data file " + storage.getAddressBookFilePath()
                             + " populated with a sample contact list.");
                     initialData = SampleDataUtil.getSampleAddressBook();
                 } else {
@@ -141,11 +139,13 @@ public class MainApp extends Application {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             if (!configOptional.isPresent()) {
                 logger.info("Creating new config file " + configFilePathUsed);
+                newStart = true;
             }
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataLoadingException e) {
             logger.warning("Config file at " + configFilePathUsed + " could not be loaded."
                     + " Using default config properties.");
+            newStart = true;
             initializedConfig = new Config();
         }
 
