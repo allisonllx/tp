@@ -141,17 +141,17 @@ public class NoteCommandParserTest {
 
     @Test
     public void parse_tooManyArguments_failure() {
-        // add + clear
+        // add + clear (preamble is not a single index; index parse fails)
         assertParseFailure(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_CLEAR + "1",
-                MESSAGE_INVALID_FORMAT);
+                MESSAGE_INVALID_INDEX);
 
-        // add + clear all
+        // add + clear all (same: preamble not a valid index alone)
         assertParseFailure(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_CLEAR_ALL,
-                MESSAGE_INVALID_FORMAT);
+                MESSAGE_INVALID_INDEX);
 
         // clear + clear all
         assertParseFailure(

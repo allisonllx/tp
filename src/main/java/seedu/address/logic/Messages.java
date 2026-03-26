@@ -62,10 +62,24 @@ public class Messages {
     }
 
     /**
+     * Backward-compatible alias for index range message formatter.
+     */
+    public static String getIndexOutOfRangeMessage(int maxIndex) {
+        return formatIndexOutOfRange(maxIndex);
+    }
+
+    /**
      * Formats a command parse failure that includes the command usage text.
      */
     public static String formatInvalidCommandFormat(String failureMessage, String commandUsage) {
         return String.format(MESSAGE_INVALID_COMMAND_FORMAT, failureMessage + "\n" + commandUsage);
+    }
+
+    /**
+     * Backward-compatible alias for invalid command format builder.
+     */
+    public static String getCommandErrorWithUsage(String failureMessage, String commandUsage) {
+        return formatInvalidCommandFormat(failureMessage, commandUsage);
     }
 
     /**
