@@ -17,6 +17,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
     public static final String MESSAGE_CONTACTS_LISTED_OVERVIEW = "%1$d contacts listed!";
     public static final String MESSAGE_CONTACTS_SORTED_OVERVIEW = "%1$d contacts sorted!";
+    public static final String MESSAGE_MISSING_INDEX = "Missing an INDEX";
+    public static final String MESSAGE_MISSING_KEYWORD = "Missing a keyword";
+    public static final String MESSAGE_INVALID_INDEX = "INDEX should be between 1 and %d";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_DUPLICATE_TAGS = "Tag names should be unique";
@@ -49,6 +52,41 @@ public class Messages {
         builder.append("; Tags: ");
         contact.getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Formats a range message for 1-indexed contact list indices.
+     */
+    public static String formatIndexOutOfRange(int maxIndex) {
+        return String.format(MESSAGE_INVALID_INDEX, maxIndex);
+    }
+
+    /**
+     * Backward-compatible alias for index range message formatter.
+     */
+    public static String getIndexOutOfRangeMessage(int maxIndex) {
+        return formatIndexOutOfRange(maxIndex);
+    }
+
+    /**
+     * Formats a command parse failure that includes the command usage text.
+     */
+    public static String formatInvalidCommandFormat(String failureMessage, String commandUsage) {
+        return String.format(MESSAGE_INVALID_COMMAND_FORMAT, failureMessage + "\n" + commandUsage);
+    }
+
+    /**
+     * Backward-compatible alias for invalid command format builder.
+     */
+    public static String getCommandErrorWithUsage(String failureMessage, String commandUsage) {
+        return formatInvalidCommandFormat(failureMessage, commandUsage);
+    }
+
+    /**
+     * Formats note command success output with updated full notes shown beneath contact details.
+     */
+    public static String formatNoteOutput(String headerPrefix, Contact contact) {
+        return String.format("%s: %s\n\n%s", headerPrefix, format(contact), contact.getNotesString());
     }
 
 }

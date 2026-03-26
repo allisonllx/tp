@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.ContactComparator;
 import seedu.address.model.contact.ContactFieldComparator;
@@ -27,6 +26,7 @@ public class SortCommand extends Command {
 
     public static final String ASCENDING_KEYWORD = "asc";
     public static final String DESCENDING_KEYWORD = "desc";
+    public static final String MESSAGE_SUCCESS = "Sorted %d contacts.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts contacts by the given fields "
         + "and displays them as a list with index numbers.\n"
@@ -69,8 +69,7 @@ public class SortCommand extends Command {
 
         model.sortDisplayedContactList(comparator.orElse(DEFAULT_COMPARATOR));
 
-        String feedback = String.format(Messages.MESSAGE_CONTACTS_SORTED_OVERVIEW,
-                model.getDisplayedContactList().size());
+        String feedback = String.format(MESSAGE_SUCCESS, model.getDisplayedContactList().size());
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
     }

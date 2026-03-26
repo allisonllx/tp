@@ -39,8 +39,10 @@ public class NoteAddCommandTest {
         NoteAddCommand notesCommand = new NoteAddCommand(INDEX_FIRST_CONTACT, NOTE);
         String expectedMessage = String.format(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS,
                 Messages.format(editedContact));
+        expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getDisplayedContactList().get(0), editedContact);
+        expectedModel.resetDisplayedContactList();
 
         assertCommandSuccess(notesCommand, model, expectedMessage, expectedModel);
     }
@@ -50,7 +52,8 @@ public class NoteAddCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getDisplayedContactList().size() + 1);
         NoteAddCommand notesCommand = new NoteAddCommand(outOfBoundIndex, NOTE);
 
-        assertCommandFailure(notesCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(notesCommand, model,
+                Messages.getIndexOutOfRangeMessage(model.getDisplayedContactList().size()));
     }
 
     @Test
@@ -88,11 +91,11 @@ public class NoteAddCommandTest {
                 firstContact.getEmail(), firstContact.getAddress(), firstContact.getLastContacted(),
                 List.of(resolvedNote), firstContact.getTags());
 
-        String expectedMessage = String.format(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS,
-                Messages.format(editedContact));
+        String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstContact, editedContact);
+        expectedModel.resetDisplayedContactList();
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }

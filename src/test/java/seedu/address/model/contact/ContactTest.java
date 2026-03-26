@@ -211,6 +211,32 @@ public class ContactTest {
     }
 
     @Test
+    public void compareToByReminderTest() {
+        Contact noNotesContact = new ContactBuilder().build();
+        Contact noActiveReminderContact = new ContactBuilder().withNotes("meet on/1 Jan 2000").build();
+        Contact activeReminderContact = new ContactBuilder().withNotes("meet on/tomorrow 10AM").build();
+        Contact laterReminderContact = new ContactBuilder().withNotes("meet on/tomorrow 5PM").build();
+
+        //Same contact should return 0
+        assertEquals(0, noNotesContact.compareToByReminder(new ContactBuilder().build()));
+        assertEquals(0, noNotesContact.compareToByReminder(noNotesContact));
+        assertEquals(0, noActiveReminderContact.compareToByReminder(noActiveReminderContact));
+        assertEquals(0, activeReminderContact.compareToByReminder(activeReminderContact));
+        assertEquals(0, laterReminderContact.compareToByReminder(laterReminderContact));
+
+        //No active reminders on both contacts should return 0
+        assertEquals(0, noNotesContact.compareToByReminder(noActiveReminderContact));
+
+        //No active reminders should come later in the order
+        assertEquals(-1, activeReminderContact.compareToByReminder(noActiveReminderContact));
+        assertEquals(1, noNotesContact.compareToByReminder(laterReminderContact));
+
+        //If both contacts contain active reminders, compare to prioritise the closest active reminder
+        assertEquals(-1, activeReminderContact.compareToByReminder(laterReminderContact));
+        assertEquals(1, laterReminderContact.compareToByReminder(activeReminderContact));
+    }
+
+    @Test
     public void equals() {
         // same values -> returns true
         Contact aliceCopy = new ContactBuilder(ALICE).build();

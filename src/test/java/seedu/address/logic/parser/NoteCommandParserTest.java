@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_NOTE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.NoteAddCommand;
 import seedu.address.logic.commands.NoteClearAllCommand;
 import seedu.address.logic.commands.NoteClearCommand;
@@ -23,6 +24,12 @@ public class NoteCommandParserTest {
     private static final String NOTES_STRING = "To follow up on Wednesday";
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_MISSING_INDEX =
+            Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_INDEX, NoteAddCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_MISSING_KEYWORD =
+            Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_KEYWORD, NoteAddCommand.MESSAGE_USAGE);
+    private static final String MESSAGE_INVALID_INDEX =
+            Messages.getCommandErrorWithUsage(ParserUtil.MESSAGE_INVALID_INDEX, NoteAddCommand.MESSAGE_USAGE);
     private static final String NUM_LINES_STRING = "1";
     private static final int NUM_LINES = 1;
 
@@ -102,49 +109,49 @@ public class NoteCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, NOTES_STRING, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, NOTES_STRING, MESSAGE_INVALID_INDEX);
 
         // no field specified
-        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1", MESSAGE_MISSING_KEYWORD);
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "", MESSAGE_MISSING_INDEX);
 
         // clear command with no index specified
-        assertParseFailure(parser, PREFIX_CLEAR + "1", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREFIX_CLEAR + "1", MESSAGE_MISSING_KEYWORD);
 
         // clear command with no number of lines specified
         assertParseFailure(parser, "1 " + PREFIX_CLEAR, MESSAGE_INVALID_FORMAT);
 
         // clear command with no index and no number of lines specified
-        assertParseFailure(parser, PREFIX_CLEAR.toString(), MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREFIX_CLEAR.toString(), MESSAGE_MISSING_KEYWORD);
 
         // clear all command with no index specified
-        assertParseFailure(parser, PREFIX_CLEAR_ALL.toString(), MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, PREFIX_CLEAR_ALL.toString(), MESSAGE_MISSING_KEYWORD);
     }
 
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NOTES_STRING, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NOTES_STRING, MESSAGE_INVALID_INDEX);
 
         // zero index
-        assertParseFailure(parser, "0" + NOTES_STRING, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NOTES_STRING, MESSAGE_INVALID_INDEX);
     }
 
     @Test
     public void parse_tooManyArguments_failure() {
-        // add + clear
+        // add + clear (preamble is not a single index; index parse fails)
         assertParseFailure(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_CLEAR + "1",
-                MESSAGE_INVALID_FORMAT);
+                MESSAGE_INVALID_INDEX);
 
-        // add + clear all
+        // add + clear all (same: preamble not a valid index alone)
         assertParseFailure(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_CLEAR_ALL,
-                MESSAGE_INVALID_FORMAT);
+                MESSAGE_INVALID_INDEX);
 
         // clear + clear all
         assertParseFailure(

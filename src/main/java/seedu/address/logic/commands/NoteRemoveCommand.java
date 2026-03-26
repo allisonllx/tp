@@ -41,7 +41,7 @@ public class NoteRemoveCommand extends NoteCommand {
         List<Contact> lastShownList = model.getDisplayedContactList();
 
         if (contactIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.getIndexOutOfRangeMessage(lastShownList.size()));
         }
 
         Contact contactToEdit = lastShownList.get(contactIndex.getZeroBased());

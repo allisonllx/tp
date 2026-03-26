@@ -16,7 +16,7 @@ import seedu.address.model.contact.Contact;
  */
 public class ViewContactCommand extends ViewCommand {
 
-    public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Viewing Contact: %1$s";
+    public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Viewing contact: %1$s";
 
     private final Index index;
 
@@ -30,7 +30,7 @@ public class ViewContactCommand extends ViewCommand {
         List<Contact> lastShownList = model.getDisplayedContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.getIndexOutOfRangeMessage(lastShownList.size()));
         }
 
         Contact contactToView = lastShownList.get(index.getZeroBased());

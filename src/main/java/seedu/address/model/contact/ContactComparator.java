@@ -17,6 +17,17 @@ public abstract class ContactComparator implements Comparator<Contact> {
         ASCENDING, DESCENDING
     }
 
+    public static final ContactComparator REMINDER_COMPARATOR = new ContactComparator() {
+        {
+            comparators.clear();
+        }
+
+        @Override
+        public int compare(Contact o1, Contact o2) {
+            return o1.compareToByReminder(o2);
+        }
+    };
+
     private static final ContactComparator IDENTITY = new ContactComparator() {
         {
             comparators.clear();

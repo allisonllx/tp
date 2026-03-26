@@ -38,12 +38,20 @@ public class NoteRemoveCommandTest {
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
                 contactToEdit.getAddress(), contactToEdit.getLastContacted(), NOTES, contactToEdit.getTags());
 
+        Contact afterRemoveSecondNote = new Contact(contactToEdit.getId(), contactToEdit.getName(),
+                contactToEdit.getPhone(), contactToEdit.getEmail(), contactToEdit.getAddress(),
+                contactToEdit.getLastContacted(), List.of(NOTE_A), contactToEdit.getTags());
         String expectedMessage = String.format(NoteRemoveCommand.MESSAGE_REMOVE_NOTE_SUCCESS,
-                Messages.format(contactToEdit));
+                Messages.format(afterRemoveSecondNote));
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
+        testModel.resetDisplayedContactList();
 
-        assertCommandSuccess(notesCommand, testModel, expectedMessage, model);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setContact(model.getDisplayedContactList().get(0), afterRemoveSecondNote);
+        expectedModel.resetDisplayedContactList();
+
+        assertCommandSuccess(notesCommand, testModel, expectedMessage, expectedModel);
     }
 
     @Test
@@ -51,7 +59,8 @@ public class NoteRemoveCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getDisplayedContactList().size() + 1);
         NoteRemoveCommand notesCommand = new NoteRemoveCommand(outOfBoundIndex, INDEX_FIRST_NOTE);
 
-        assertCommandFailure(notesCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(notesCommand, model,
+                Messages.getIndexOutOfRangeMessage(model.getDisplayedContactList().size()));
     }
 
     @Test

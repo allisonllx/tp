@@ -16,7 +16,7 @@ import seedu.address.model.contact.Contact;
  */
 public class NoteClearAllCommand extends NoteCommand {
 
-    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Removed notes from Contact: %1$s";
+    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Edited note";
 
     private final Index index;
 
@@ -34,7 +34,7 @@ public class NoteClearAllCommand extends NoteCommand {
         List<Contact> lastShownList = model.getDisplayedContactList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+            throw new CommandException(Messages.getIndexOutOfRangeMessage(lastShownList.size()));
         }
 
         Contact contactToEdit = lastShownList.get(index.getZeroBased());
@@ -57,7 +57,7 @@ public class NoteClearAllCommand extends NoteCommand {
      * {@code contactToEdit}.
      */
     private String generateSuccessMessage(Contact contactToEdit) {
-        return String.format(MESSAGE_REMOVE_NOTES_SUCCESS, Messages.format(contactToEdit));
+        return Messages.formatNoteOutput(MESSAGE_REMOVE_NOTES_SUCCESS, contactToEdit);
     }
 
     @Override

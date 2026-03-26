@@ -60,7 +60,8 @@ public class ViewCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getDisplayedContactList().size() + 1);
         ViewCommand viewCommand = new ViewContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(viewCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(viewCommand, model,
+                Messages.getIndexOutOfRangeMessage(model.getDisplayedContactList().size()));
     }
 
     @Test
@@ -91,7 +92,8 @@ public class ViewCommandTest {
 
         ViewCommand viewCommand = new ViewContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(viewCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(viewCommand, model,
+                Messages.getIndexOutOfRangeMessage(model.getDisplayedContactList().size()));
     }
 
     @Test

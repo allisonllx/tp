@@ -1,8 +1,6 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.Messages.MESSAGE_CONTACTS_LISTED_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -32,6 +30,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.FindAssociationsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -51,23 +50,24 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_success() {
-        assertDoesNotThrow(() -> parser.parse("     "));
+        assertParseFailure(parser, "     ", Messages.getCommandErrorWithUsage(
+                Messages.MESSAGE_MISSING_KEYWORD, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_findKeyword_test() throws ParseException {
         FindCommand command = parser.parse("ne");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 4);
+        String expectedMessage = "Found 4 contacts matching 'ne'";
         Predicate<Contact> predicate = (Contact contact) -> contact.contains("ne");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL, ELLE), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findName_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_NAME + "Elle");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = "Found 1 contacts matching 'n/Elle'";
         Predicate<Contact> predicate = (Contact contact) -> contact.containsInName("Elle");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -77,17 +77,17 @@ public class FindCommandParserTest {
     @Test
     public void parse_findPhone_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_PHONE + "94");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 4);
+        String expectedMessage = "Found 4 contacts matching 'p/94'";
         Predicate<Contact> predicate = (Contact contact) -> contact.containsInPhone("94");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, ELLE, FIONA, GEORGE), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(GEORGE, FIONA, ELLE, ALICE), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findEmail_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_EMAIL + "ANNA");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = "Found 1 contacts matching 'e/ANNA'";
         Predicate<Contact> predicate = (Contact contact) -> contact.containsInEmail("ANNA");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -97,48 +97,48 @@ public class FindCommandParserTest {
     @Test
     public void parse_findAddress_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_ADDRESS + "street");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 3);
+        String expectedMessage = "Found 3 contacts matching 'a/street'";
         Predicate<Contact> predicate = (Contact contact) -> contact.containsInAddress("street");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, DANIEL, GEORGE), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(CARL, GEORGE, DANIEL), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findTags_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_TAG + "friends");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 3);
+        String expectedMessage = "Found 3 contacts matching 't/friends'";
         Predicate<Contact> predicate = (Contact contact) -> contact.hasTag("friends");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(DANIEL, ALICE, BENSON), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findLastContacted_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED);
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 5);
+        String expectedMessage = "Found 5 contacts matching 'lc/'";
         Predicate<Contact> predicate = Contact::hasLastContacted;
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, DANIEL, ELLE, FIONA, GEORGE), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findLastContactedOnDay_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_ON + "22/02/2026");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 2);
+        String expectedMessage = "Found 2 contacts matching 'lc/on/22/02/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsSameDayAs(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(FIONA, GEORGE), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(GEORGE, FIONA), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findLastContactedBeforeDate_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/02/2026");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = "Found 1 contacts matching 'lc/before/22/02/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsBefore(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
@@ -149,18 +149,18 @@ public class FindCommandParserTest {
     @Test
     public void parse_findLastContactedBeforeDateTime_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/02/2026 14:00");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 2);
+        String expectedMessage = "Found 2 contacts matching 'lc/before/22/02/2026 14:00'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsBefore(TimePoint.of(LocalDateTime.of(2026, 2, 22, 14, 0)));
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DANIEL, FIONA), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(FIONA, DANIEL), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findLastContactedAfterDate_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/02/2026");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = "Found 1 contacts matching 'lc/after/22/02/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsAfter(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
@@ -171,7 +171,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_findLastContactedAfterDateTime_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/02/2026 14:00");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 2);
+        String expectedMessage = "Found 2 contacts matching 'lc/after/22/02/2026 14:00'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsAfter(TimePoint.of(LocalDateTime.of(2026, 2, 22, 14, 0)));
         expectedModel.filterDisplayedContactList(predicate);
@@ -182,7 +182,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_findLastContactedContainsWord_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + "year");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = "Found 1 contacts matching 'lc/year'";
         Predicate<Contact> predicate = contact -> contact.containsInLastContacted("year");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -192,7 +192,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_findImpreciseTagName_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_TAG + "friend");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 0);
+        String expectedMessage = "Found 0 contacts matching 't/friend'";
         Predicate<Contact> predicate = (Contact contact) -> contact.hasTag("friend");
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -202,7 +202,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_combinedParameters_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_ADDRESS + "street " + PREFIX_TAG + "friends");
-        String expectedMessage = String.format(MESSAGE_CONTACTS_LISTED_OVERVIEW, 1);
+        String expectedMessage = "Found 1 contacts matching 'a/street t/friends'";
         Predicate<Contact> predicate = new ContactPredicateBuilder().addressContainsKeywords(List.of("street"))
                 .tagsHasKeywords(List.of("friends")).build();
         expectedModel.filterDisplayedContactList(predicate);
