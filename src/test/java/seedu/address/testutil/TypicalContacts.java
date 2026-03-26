@@ -28,7 +28,7 @@ public class TypicalContacts {
             .withPhone("94351253").withTags("friends:best").build();
     public static final Contact BENSON = new ContactBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25").withEmail("johnd@example.com")
-            .withPhone("98765432").withTags("owesMoney", "friends").withNotes("to meet on/tomorrow 15:00").build();
+            .withPhone("98765432").withTags("owesMoney", "friends").withNotes("to meet on/2020 1 may 15:00").build();
     public static final Contact CARL = new ContactBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withLastContacted("23/02/2026").build();
     public static final Contact DANIEL = new ContactBuilder().withName("Daniel Meier").withPhone("87652533")

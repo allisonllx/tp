@@ -65,6 +65,13 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
     }
 
     /**
+     * The current time as a {@code TimePoint}.
+     */
+    public static TimePoint<LocalDateTime> now() {
+        return of(LocalDateTime.now());
+    }
+
+    /**
      * Returns the time this TimePoint contains.
      *
      * @return The time this TimePoint contains that is not null.
@@ -72,7 +79,6 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
     public T getTime() {
         return value;
     }
-
     /**
      * Compares against another TimePoint if they are on the same day.
      * If either TimePoint being compared contains their date as a string, always return false.

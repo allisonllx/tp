@@ -3,6 +3,7 @@ package seedu.address.model.contact;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.timepoint.TimePoint;
+import seedu.address.model.timepoint.TimePointComparator;
 
 /**
  * Represents a Contact in the address book.
@@ -308,10 +310,44 @@ public class Contact {
     /**
      * Returns a {@code List} containing every {@code Note} in this contact that is a reminder that is due.
      */
+    public List<Note> getActiveReminders() {
+        return notes.stream().filter(Note::hasActiveReminder).collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a {@code List} containing every {@code Note} in this contact that is a reminder that is due.
+     */
     public List<Note> getDueReminders() {
         return notes.stream().filter(Note::hasDueReminder).collect(Collectors.toList());
     }
 
+    /**
+     * Compares this contact against another contact by the closest active reminder of each contact.
+     */
+    public int compareToByReminder(Contact other) {
+        if (this.getActiveReminders().isEmpty() && other.getActiveReminders().isEmpty()) {
+            return 0;
+        }
+        if (other.getActiveReminders().isEmpty()) {
+            return -1;
+        }
+        if (this.getActiveReminders().isEmpty()) {
+            return 1;
+        }
+        TimePoint<?> thisClosestReminder = this.getActiveReminders().stream().map(
+                note -> note.timePoint).min(
+                        TimePointComparator.stringTimePointLast(
+                                TimePointComparator.ifSameDayDateTimePointFirst(
+                                        TimePoint::compareTo))).orElse(null);
+        TimePoint<?> otherClosestReminder = other.getActiveReminders().stream().map(
+                note -> note.timePoint).min(
+                TimePointComparator.stringTimePointLast(
+                        TimePointComparator.ifSameDayDateTimePointFirst(
+                                TimePoint::compareTo))).orElse(null);
+        return TimePointComparator.stringTimePointLast(
+                TimePointComparator.ifSameDayDateTimePointFirst(
+                        Comparator.naturalOrder())).compare(thisClosestReminder, otherClosestReminder);
+    }
     /**
      * Returns true if both contacts have the same name, phone number, and email,
      * given that they are non-empty.
