@@ -20,7 +20,10 @@ public class ViewCommandParser implements Parser<ViewCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewCommand parse(String args) throws ParseException {
-        if (args.equals(" " + PREFIX_FILE)) {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE);
+        if (argMultimap.getPreamble().isEmpty()
+                && argMultimap.getValue(PREFIX_FILE).isPresent()
+                && argMultimap.getValue(PREFIX_FILE).isEmpty()) {
             return new ViewFilesCommand();
         }
         try {

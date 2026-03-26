@@ -18,10 +18,10 @@ public class ViewContactCommand extends ViewCommand {
 
     public static final String MESSAGE_VIEW_CONTACT_SUCCESS = "Viewing Contact: %1$s";
 
-    private final Index targetIndex;
+    private final Index index;
 
-    public ViewContactCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public ViewContactCommand(Index index) {
+        this.index = index;
     }
 
     @Override
@@ -29,11 +29,11 @@ public class ViewContactCommand extends ViewCommand {
         requireNonNull(model);
         List<Contact> lastShownList = model.getDisplayedContactList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
         }
 
-        Contact contactToView = lastShownList.get(targetIndex.getZeroBased());
+        Contact contactToView = lastShownList.get(index.getZeroBased());
         return new ViewContactCommandResult(
                 String.format(MESSAGE_VIEW_CONTACT_SUCCESS, contactToView.getName().fullName),
                 contactToView);
@@ -51,13 +51,13 @@ public class ViewContactCommand extends ViewCommand {
         }
 
         ViewContactCommand otherViewContactCommand = (ViewContactCommand) other;
-        return targetIndex.equals(otherViewContactCommand.targetIndex);
+        return index.equals(otherViewContactCommand.index);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("index", index)
                 .toString();
     }
 }
