@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Locale;
 import java.util.Map;
 
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.ContactComparator;
@@ -87,9 +86,9 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
+        // Reset to default order if no arguments are provided
         if (args.isBlank()) {
-            throw new ParseException(Messages.getCommandErrorWithUsage(
-                    Messages.MESSAGE_MISSING_KEYWORD, SortCommand.MESSAGE_USAGE));
+            return new SortCommand();
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
