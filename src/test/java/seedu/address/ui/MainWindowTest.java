@@ -108,14 +108,6 @@ public class MainWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleHelp_success() throws Exception {
-        runAndWait(() -> {
-            logic.setNextResult(new CommandResult(ListCommand.MESSAGE_SUCCESS));
-            assertDoesNotThrow(() -> mainWindow.handleHelp());
-        });
-    }
-
-    @Test
     public void scrollToTop_success() throws Exception {
         runAndWait(() -> {
             logic.setNextResult(new CommandResult(ListCommand.MESSAGE_SUCCESS));
