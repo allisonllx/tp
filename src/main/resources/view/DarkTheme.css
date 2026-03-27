@@ -395,6 +395,11 @@
     -fx-text-fill: #888888;
 }
 
+.detail-text-flow {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
 .contact-detail-panel .detail-value {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;

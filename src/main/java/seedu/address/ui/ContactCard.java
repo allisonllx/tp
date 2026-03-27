@@ -9,8 +9,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.TextFlow;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.RankedTag;
 import seedu.address.model.timepoint.DateTimeUtil;

@@ -1,19 +1,27 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Note;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-
+/**
+ * A UI component that displays information of a {@code Note}.
+ * Contact references ({@code @{UUID}}) are rendered as bold, underlined contact names.
+ */
 public class NotesTextFlow extends TextFlow {
     private double maxHeight;
 
+    /**
+     * Creates a {@code NotesTextFlow} with contact reference resolution.
+     */
     public NotesTextFlow(List<Note> notes, ObservableList<Contact> contacts) {
         super();
         for (Note note : notes) {
@@ -72,6 +80,15 @@ public class NotesTextFlow extends TextFlow {
             getChildren().add(new Text("\n"));
         }
         getChildren().remove(getChildren().size() - 1);
+    }
+
+    /**
+     * Adds a style class to a note.
+     */
+    public void addStyleClass(String styleClass) {
+        for (Node node : getChildren()) {
+            node.getStyleClass().add(styleClass);
+        }
     }
 
     public void setNewMaxHeight(double maxHeight) {
