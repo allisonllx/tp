@@ -429,3 +429,7 @@
     -fx-underline: true;
     -fx-fill: #6ec6ff;
 }
+
+.text-flow-label {
+    -fx-fill: white;
+}

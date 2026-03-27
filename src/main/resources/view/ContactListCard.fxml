@@ -28,7 +28,10 @@
               </Label>
               <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                   <Pane HBox.hgrow="ALWAYS" />
-                  <Label fx:id="lastUpdated" alignment="TOP_RIGHT" minWidth="-Infinity" styleClass="cell_soft_label, italic" text="\$lastUpdated" />
+                  <Label fx:id="lastUpdated" alignment="TOP_RIGHT" minWidth="-Infinity" styleClass="cell_soft_label, italic" text="\$lastUpdated">
+                     <padding>
+                        <Insets right="2.0" top="2.0" />
+                     </padding></Label>
             </HBox>
             <FlowPane fx:id="tags" />
             </children>

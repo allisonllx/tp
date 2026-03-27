@@ -9,6 +9,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextFlow;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.RankedTag;
 import seedu.address.model.timepoint.DateTimeUtil;
@@ -81,11 +83,10 @@ public class ContactCard extends UiPart<Region> {
         this.lastUpdated.setText("Last Updated: " + DateTimeUtil.toDisplayString(contact.getLastUpdated().value));
         NodeUtil.show(this.lastUpdated);
         if (!(contact.getNotes().isEmpty())) {
-            contact.getNotes().forEach(
-                    note -> {
-                        notesContainer.getChildren().add(
-                                new NoteLabel(note, notesContainer.getStyleClass().toString(),
-                                allContacts)); });
+            NotesTextFlow notes = new NotesTextFlow(contact.getNotes(), allContacts);
+            notes.setNewMaxHeight(notesContainer.getMaxHeight()
+                    - (notesContainer.getPadding().getTop() + notesContainer.getPadding().getBottom()));
+            notesContainer.getChildren().add(notes);
         } else {
             NodeUtil.hide(notesContainer);
         }
