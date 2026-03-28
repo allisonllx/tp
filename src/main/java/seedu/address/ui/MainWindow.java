@@ -268,6 +268,11 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        if (reminderWindow != null) {
+            if (reminderWindow.isShowing()) {
+                reminderWindow.hide();
+            }
+        }
         fileListPanel.shutdownExecutorService();
     }
 
