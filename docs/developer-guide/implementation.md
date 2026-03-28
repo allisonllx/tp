@@ -8,6 +8,35 @@
 
 This section describes some noteworthy details on how certain features are implemented.
 
+## Remove field on empty edit
+
+### Overview
+
+The edit command supports removing optional fields (phone, email, address, last contacted date) by supplying the field prefix with no argument. For example, `edit 1 p/` removes the phone number from the first contact.
+
+### Implementation
+
+The following sequence diagram shows how the edit field removal mechanism works when the user executes `edit 1 p/`:
+
+<puml src="{{ baseUrl }}/diagrams/EditSequenceDiagram.puml" alt="EditSequenceDiagram" />
+
+1. `EditCommandParser` detects the empty value for the `p/` prefix and sets `clearPhone = true` in the `EditContactDescriptor`.
+2. `EditCommand#createEditedContact()` checks the clear flag — if `clearPhone` is true, `updatedPhone` is set to `Optional.empty()`.
+3. Before applying the edit, the command validates that the resulting contact retains at least a phone number or email address.
+4. The updated contact is saved to the model.
+
+### Design considerations
+
+**Aspect: How empty prefix values are handled:**
+
+* **Alternative 1 (current choice):** Dedicated boolean clear flags (`clearPhone`, `clearEmail`, etc.) in `EditContactDescriptor`.
+  * Pros: Explicit intent — distinguishes "remove field" from "no change". Avoids null/sentinel confusion.
+  * Cons: Adds extra fields and logic to the descriptor.
+
+* **Alternative 2:** Use a sentinel value (e.g. empty string) to represent removal.
+  * Pros: Fewer fields — reuses the existing `Optional<Phone>` field.
+  * Cons: Sentinel values are error-prone and harder to reason about. Validation logic in `Phone`, `Email`, etc. would need special-case handling.
+
 ## \[Proposed\] Undo/redo feature
 
 ### Proposed Implementation
