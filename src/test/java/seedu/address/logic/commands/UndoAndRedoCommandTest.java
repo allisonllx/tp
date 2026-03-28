@@ -45,7 +45,6 @@ public class UndoAndRedoCommandTest {
         Snapshot initialSnapshot = model.getSnapshot();
         Model postAdditionModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel.addContact(contact);
-        postAdditionModel.resetDisplayedContactList();
 
         assertCommandSuccess(validCommand, model, expectedMessage, postAdditionModel);
 
@@ -71,7 +70,6 @@ public class UndoAndRedoCommandTest {
         String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(contact));
         Model postAdditionModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel.addContact(contact);
-        postAdditionModel.resetDisplayedContactList();
 
         assertCommandSuccess(validCommand, model, expectedMessage, postAdditionModel);
 
@@ -81,8 +79,8 @@ public class UndoAndRedoCommandTest {
         String expectedMessage2 = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(contact2));
         Model postAdditionModel2 = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel2.addContact(contact);
-        postAdditionModel2.addContact(contact2);
         postAdditionModel2.resetDisplayedContactList();
+        postAdditionModel2.addContact(contact2);
 
         assertCommandSuccess(validCommand2, model, expectedMessage2, postAdditionModel2);
 
@@ -100,7 +98,6 @@ public class UndoAndRedoCommandTest {
 
         Model postAdditionModel3 = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel3.addContact(contact2);
-        postAdditionModel3.resetDisplayedContactList();
         assertCommandSuccess(validCommand2, model, expectedMessage2, postAdditionModel3);
         assertCommandFailure(new RedoCommand(), model, ModelManager.REDO_LIMIT_MESSAGE);
     }
@@ -118,7 +115,6 @@ public class UndoAndRedoCommandTest {
         Snapshot initialSnapshot = model.getSnapshot();
         Model postAdditionModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel.addContact(contact);
-        postAdditionModel.resetDisplayedContactList();
 
         assertCommandSuccess(validCommand, model, expectedMessage, postAdditionModel);
 
