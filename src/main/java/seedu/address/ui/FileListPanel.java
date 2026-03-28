@@ -167,6 +167,9 @@ public class FileListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Shuts down `EXECUTOR_SERVICE` used to watch for file changes and ensures it is terminated gracefully.
+     */
     public void shutdownExecutorService() {
         EXECUTOR_SERVICE.shutdown();
         try {
