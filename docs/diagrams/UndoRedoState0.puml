@@ -7,16 +7,15 @@ skinparam ClassBackgroundColor #FFFFAA
 title Initial state
 
 package States {
-    class State1 as """%n()<u>snapshot0</u>"
-    class State2 as ""New contact added: John..."%n()<u>snapshot1</u>"
-    class State3 as ""Deleted contact: John..."%n()<u>snapshot2</u>"
+    class State1 as "<u>s0:Snapshot</u>"
+    class State2 as "<u>s1:Snapshot</u>"
+    class State3 as "<u>s2:Snapshot</u>"
 }
-
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 hide State2
 hide State3
 
-class Pointer as "snapshotPosition = 0" #FFFFFF
+class Pointer as "snapshotPosition" #FFFFFF
 Pointer -up-> State1
 @end

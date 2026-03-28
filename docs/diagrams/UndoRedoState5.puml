@@ -6,17 +6,17 @@ skinparam ClassBackgroundColor #FFFFAA
 
 title After command "clear"
 
-package States {
-    class State1 as """%n()<u>snapshot0</u>"
-    class State2 as ""New contact added: John..."%n()<u>snapshot1</u>"
-    class State3 as ""Address book has been cleared!"%n()<u>snapshot3</u>"
+package States <<rectangle>> {
+    class State1 as "<u>s0:Snapshot</u>"
+    class State2 as "<u>s1:Snapshot</u>"
+    class State3 as "<u>s3:Snapshot</u>"
 }
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "snapshotPosition = 2" #FFFFFF
+class Pointer as "snapshotPosition" #FFFFFF
 
 Pointer -up-> State3
-note right on link: snapshot2 deleted.
+note right on link: Snapshot s2 deleted.
 @end

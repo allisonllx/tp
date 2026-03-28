@@ -4,19 +4,18 @@ skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 skinparam ClassBackgroundColor #FFFFAA
 
-title After command "add n/David"
+title After command "delete 7"
 
-package States {
-    class State1 as """%n()<u>snapshot0</u>"
-    class State2 as ""New contact added: John..."%n()<u>snapshot1</u>"
-    class State3 as ""Deleted contact: John..."%n()<u>snapshot2</u>"
+package States <<rectangle>> {
+    class State1 as "<u>s0:Snapshot</u>"
+    class State2 as "<u>s1:Snapshot</u>"
+    class State3 as "<u>s2:Snapshot</u>"
 }
-
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "snapshotPosition = 2" #FFFFFF
+class Pointer as "snapshotPosition" #FFFFFF
 
 Pointer -up-> State3
 @end
