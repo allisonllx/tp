@@ -159,6 +159,7 @@ public class ModelManager implements Model {
     @Override
     public void resetDisplayedContactList() {
         filteredContacts.setPredicate(null);
+        sortedContacts.setComparator(null);
         sortedContacts.setComparator(DEFAULT_DISPLAY_COMPARATOR);
     }
 
