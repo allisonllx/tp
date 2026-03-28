@@ -1,11 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_ALL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_LINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_OLDEST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT_LINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMOVE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
@@ -83,7 +83,7 @@ public class NoteCommandParserTest {
                 new NoteClearCommand(INDEX_FIRST_CONTACT, NUM_LINES);
         assertParseSuccess(
                 parser,
-                "1 " + PREFIX_CLEAR + NUM_LINES_STRING,
+                "1 " + PREFIX_CLEAR_OLDEST + NUM_LINES_STRING,
                 expectedNoteClearCommand);
     }
 
@@ -104,7 +104,7 @@ public class NoteCommandParserTest {
                 new NoteRemoveCommand(INDEX_FIRST_CONTACT, INDEX_FIRST_NOTE);
         assertParseSuccess(
                 parser,
-                "1 " + PREFIX_REMOVE + "1",
+                "1 " + PREFIX_CLEAR_LINE + "1",
                 expectedNoteRemoveCommand);
     }
 
@@ -114,7 +114,7 @@ public class NoteCommandParserTest {
                 new NoteEditCommand(INDEX_FIRST_CONTACT, INDEX_FIRST_NOTE, new Note(NOTES_STRING));
         assertParseSuccess(
                 parser,
-                "1 " + PREFIX_EDIT_NOTE + "1 " + NOTES_STRING,
+                "1 " + PREFIX_EDIT_LINE + "1 " + NOTES_STRING,
                 expectedNoteEditCommand);
     }
 
@@ -124,7 +124,7 @@ public class NoteCommandParserTest {
                 new NoteEditCommand(INDEX_FIRST_CONTACT, INDEX_FIRST_NOTE, new Note(NOTES_STRING));
         assertParseSuccess(
                 parser,
-                "1 " + PREFIX_EDIT_NOTE + "1 " + NOTES_STRING + " " + PREFIX_ON + "timeString",
+                "1 " + PREFIX_EDIT_LINE + "1 " + NOTES_STRING + " " + PREFIX_ON + "timeString",
                 expectedNoteEditCommand);
     }
 
@@ -133,7 +133,7 @@ public class NoteCommandParserTest {
         // edit command with note index but no new text
         String expectedMessage = Messages.getCommandErrorWithUsage(
                 Messages.MESSAGE_MISSING_KEYWORD, NoteCommand.MESSAGE_USAGE);
-        assertParseFailure(parser, "1 " + PREFIX_EDIT_NOTE + "1", expectedMessage);
+        assertParseFailure(parser, "1 " + PREFIX_EDIT_LINE + "1", expectedMessage);
     }
 
     @Test
@@ -148,13 +148,13 @@ public class NoteCommandParserTest {
         assertParseFailure(parser, "", MESSAGE_MISSING_INDEX);
 
         // clear command with no index specified
-        assertParseFailure(parser, PREFIX_CLEAR + "1", MESSAGE_MISSING_KEYWORD);
+        assertParseFailure(parser, PREFIX_CLEAR_OLDEST + "1", MESSAGE_MISSING_KEYWORD);
 
-        // clear command with no number of lines specified
-        assertParseFailure(parser, "1 " + PREFIX_CLEAR, MESSAGE_INVALID_FORMAT);
+        // clear oldest command with no number of lines specified
+        assertParseFailure(parser, "1 " + PREFIX_CLEAR_OLDEST, MESSAGE_INVALID_FORMAT);
 
-        // clear command with no index and no number of lines specified
-        assertParseFailure(parser, PREFIX_CLEAR.toString(), MESSAGE_MISSING_KEYWORD);
+        // clear oldest command with no index and no number of lines specified
+        assertParseFailure(parser, PREFIX_CLEAR_OLDEST.toString(), MESSAGE_MISSING_KEYWORD);
 
         // clear all command with no index specified
         assertParseFailure(parser, PREFIX_CLEAR_ALL.toString(), MESSAGE_MISSING_KEYWORD);
@@ -174,7 +174,7 @@ public class NoteCommandParserTest {
         // add + clear (preamble is not a single index; index parse fails)
         assertParseFailure(
                 parser,
-                "1 " + NOTES_STRING + " " + PREFIX_CLEAR + "1",
+                "1 " + NOTES_STRING + " " + PREFIX_CLEAR_OLDEST + "1",
                 MESSAGE_INVALID_INDEX);
 
         // add + clear all (same: preamble not a valid index alone)
@@ -186,13 +186,13 @@ public class NoteCommandParserTest {
         // clear + clear all
         assertParseFailure(
                 parser,
-                "1 " + PREFIX_CLEAR + "1 " + PREFIX_CLEAR_ALL,
+                "1 " + PREFIX_CLEAR_OLDEST + "1 " + PREFIX_CLEAR_ALL,
                 MESSAGE_INVALID_FORMAT);
 
         // add + clear + clear all
         assertParseFailure(
                 parser,
-                "1 " + NOTES_STRING + " " + PREFIX_CLEAR + "1 " + PREFIX_CLEAR_ALL,
+                "1 " + NOTES_STRING + " " + PREFIX_CLEAR_OLDEST + "1 " + PREFIX_CLEAR_ALL,
                 MESSAGE_INVALID_FORMAT);
     }
 }
