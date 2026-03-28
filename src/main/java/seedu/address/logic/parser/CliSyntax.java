@@ -13,9 +13,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_LAST_CONTACTED = new Prefix("lc/");
     public static final Prefix PREFIX_LAST_UPDATED = new Prefix("lu/");
-    public static final Prefix PREFIX_CLEAR = new Prefix("c/");
+    public static final Prefix PREFIX_CLEAR_OLDEST = new Prefix("co/");
     public static final Prefix PREFIX_CLEAR_ALL = new Prefix("ca/");
-    public static final Prefix PREFIX_REMOVE = new Prefix("r/");
+    public static final Prefix PREFIX_CLEAR_LINE = new Prefix("cl/");
+    public static final Prefix PREFIX_EDIT_LINE = new Prefix("el/");
     public static final Prefix PREFIX_FILE = new Prefix("file/");
     public static final Prefix PREFIX_ON = new Prefix("on/");
     public static final Prefix PREFIX_BEFORE = new Prefix("before/");
