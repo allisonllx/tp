@@ -12,51 +12,51 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox GridPane.columnIndex="0">
-         <VBox alignment="CENTER_LEFT" style="-fx-background-color: #3c3e3f">
-            <children>
-            <HBox alignment="TOP_CENTER" spacing="0.5">
-              <Label fx:id="id" styleClass="cell_big_label">
-                <minWidth>
-                  <!-- Ensures that the label text is never truncated -->
-                  <Region fx:constant="USE_PREF_SIZE" />
-                </minWidth>
-              </Label>
-              <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                  <Pane HBox.hgrow="ALWAYS" />
-                  <Label fx:id="lastUpdated" alignment="TOP_RIGHT" minWidth="-Infinity" styleClass="cell_soft_label, italic" text="\$lastUpdated">
-                     <padding>
-                        <Insets right="2.0" top="2.0" />
-                     </padding></Label>
-            </HBox>
-            <FlowPane fx:id="tags" />
-            </children>
-            <padding>
-               <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
-            </padding>
-         </VBox>
-         <VBox alignment="CENTER_LEFT">
-            <children>
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-            </children>
-            <padding>
-               <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
-            </padding>
-         </VBox>
-         <VBox fx:id="notesContainer" alignment="CENTER_LEFT" maxHeight="62.4" style="-fx-background-color: #000000" styleClass="cell_small_label">
-            <padding>
-               <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
-            </padding>
-         </VBox>
-    </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
-  </GridPane>
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
+        <VBox GridPane.columnIndex="0">
+            <VBox alignment="CENTER_LEFT" styleClass="card-title-background">
+                <children>
+                    <HBox alignment="TOP_CENTER" spacing="0.5">
+                        <Label fx:id="id" styleClass="cell_big_label">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label fx:id="lastUpdated" alignment="TOP_RIGHT" minWidth="-Infinity" styleClass="cell_soft_label, italic" text="\$lastUpdated">
+                            <padding>
+                                <Insets right="2.0" top="2.0" />
+                            </padding></Label>
+                    </HBox>
+                    <FlowPane fx:id="tags" />
+                </children>
+                <padding>
+                    <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                </padding>
+            </VBox>
+            <VBox alignment="CENTER_LEFT">
+                <children>
+                    <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                    <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                    <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                </children>
+                <padding>
+                    <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                </padding>
+            </VBox>
+            <VBox fx:id="notesContainer" alignment="CENTER_LEFT" maxHeight="62.4" styleClass="cell_small_label, notes-cell-background">
+                <padding>
+                    <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+                </padding>
+            </VBox>
+        </VBox>
+        <rowConstraints>
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
 </HBox>
