@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.ui.UiUtil;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -19,6 +20,8 @@ public class GuiSettings implements Serializable {
     private final double windowHeight;
     private final Point windowCoordinates;
 
+    private final String themeUrl;
+
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
      */
@@ -26,15 +29,17 @@ public class GuiSettings implements Serializable {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        themeUrl = UiUtil.getUrl("DarkTheme.css").toString();
     }
 
     /**
-     * Constructs a {@code GuiSettings} with the specified height, width and position.
+     * Constructs a {@code GuiSettings} with the specified height, width, position and theme.
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String themeUrl) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+        this.themeUrl = themeUrl;
     }
 
     public double getWindowWidth() {
@@ -47,6 +52,10 @@ public class GuiSettings implements Serializable {
 
     public Point getWindowCoordinates() {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    }
+
+    public String getThemeUrl() {
+        return themeUrl;
     }
 
     @Override

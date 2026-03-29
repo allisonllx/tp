@@ -1,15 +1,15 @@
 .root {
     -main-background-color: #E8E8E8;
-    -secondary-background-color: #383838;
+    -secondary-background-color: #B5B5B5;
     -main-font-color: black;
     -detail-font-color: #888888;
     -contact-reference-fill: #6ec6ff;
-    -card-title-fill: #3c3e3f;
-    -card-fill: #515658;
-    -card-selected: #424d5f;
-    -note-cell-fill: black;
-    -button-fill: gray;
+    -card-title-fill: #D6D6D6;
+    -card-fill: white;
+    -card-selected: #BCD1D9;
+    -note-cell-fill: #C7C7C7;
+    -button-fill: darkgray;
     -highlight: #3e7b91;
     -warning: #d06651;
-    -command-text-underline: white;
+    -command-text-underline: black;
 }

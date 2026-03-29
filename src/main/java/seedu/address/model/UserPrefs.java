@@ -20,7 +20,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-    private String themeUrl = UiUtil.getUrl("DarkTheme.css").toString();
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -54,11 +53,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public String getThemeUrl() {
-        return themeUrl;
+        return guiSettings.getThemeUrl();
     }
 
     public void setThemeUrl(String themeUrl) {
-        this.themeUrl = themeUrl;
+        this.guiSettings = new GuiSettings(guiSettings.getWindowWidth(), guiSettings.getWindowHeight(),
+                guiSettings.getWindowCoordinates().x, guiSettings.getWindowCoordinates().y, themeUrl);
     }
 
     public Path getAddressBookFilePath() {
