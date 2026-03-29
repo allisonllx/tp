@@ -104,9 +104,7 @@ public class MainWindow extends UiPart<Stage> {
 
         List<String> essentialStylesheets = primaryStage.getScene().getStylesheets();
         stylesheets = new String[essentialStylesheets.size() + 1];
-        for (int i = 0; i < essentialStylesheets.size(); i++) {
-            stylesheets[i + 1] = essentialStylesheets.get(i);
-        }
+        essentialStylesheets.toArray(stylesheets);
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -199,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
 
         if (logic.getDisplayedContactList().stream().anyMatch(Contact::hasDueReminders)) {
             reminderWindow = new ReminderWindow(logic.getDisplayedContactList());
+            reminderWindow.setTheme(logic.getThemeUrl());
             reminderWindow.show();
         }
 
@@ -266,10 +265,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    public void setTheme(String themeFileName) {
-        stylesheets[0] = UiUtil.getUrl(themeFileName).toString();
+    /**
+     * Sets the theme of the MainWindow.
+     * @param themeUrl URL of the desired theme.
+     */
+    public void setTheme(String themeUrl) {
+        stylesheets[stylesheets.length - 1] = themeUrl;
         primaryStage.getScene().getStylesheets().setAll(stylesheets);
-        helpWindow.setTheme(themeFileName);
+        helpWindow.setTheme(themeUrl);
+        if (reminderWindow != null) {
+            reminderWindow.setTheme(themeUrl);
+        }
     }
 
     /**
@@ -293,7 +299,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-        setTheme("DarkTheme.css");
+        setTheme(logic.getThemeUrl());
 
         primaryStage.show();
     }

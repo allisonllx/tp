@@ -92,6 +92,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getThemeUrl() {
+        return userPrefs.getThemeUrl();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return userPrefs.getAddressBookFilePath();
     }

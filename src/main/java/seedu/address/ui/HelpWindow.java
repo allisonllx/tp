@@ -22,7 +22,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
-    private Stage primaryStage;
+    private Stage stage;
     private String[] stylesheets;
 
     @FXML
@@ -38,9 +38,9 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        primaryStage = root;
+        stage = root;
 
-        List<String> essentialStylesheets = primaryStage.getScene().getStylesheets();
+        List<String> essentialStylesheets = stage.getScene().getStylesheets();
         stylesheets = new String[essentialStylesheets.size() + 1];
         essentialStylesheets.toArray(stylesheets);
 
@@ -110,8 +110,12 @@ public class HelpWindow extends UiPart<Stage> {
         clipboard.setContent(url);
     }
 
-    public void setTheme(String themeFileName) {
-        stylesheets[stylesheets.length - 1] = UiUtil.getUrl(themeFileName).toString();
-        primaryStage.getScene().getStylesheets().setAll(stylesheets);
+    /**
+     * Sets the theme of the HelpWindow.
+     * @param themeUrl URL of the desired theme.
+     */
+    public void setTheme(String themeUrl) {
+        stylesheets[stylesheets.length - 1] = themeUrl;
+        stage.getScene().getStylesheets().setAll(stylesheets);
     }
 }
