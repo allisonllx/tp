@@ -169,5 +169,15 @@ public class MainWindowTest extends GuiUnitTest {
         public void setGuiSettings(GuiSettings guiSettings) {
             // no-op for testing
         }
+
+        @Override
+        public boolean modelCanUndo() {
+            return false;
+        }
+
+        @Override
+        public boolean modelCanRedo() {
+            return false;
+        }
     }
 }

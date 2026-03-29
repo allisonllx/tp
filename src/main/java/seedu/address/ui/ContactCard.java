@@ -43,8 +43,6 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label lastContacted;
-    @FXML
     private Label lastUpdated;
     @FXML
     private VBox notesContainer;
@@ -80,31 +78,30 @@ public class ContactCard extends UiPart<Region> {
             this.email.setText("");
             NodeUtil.hide(this.email);
         });
-        contact.getLastContacted().ifPresentOrElse(lastContacted -> {
-            this.lastContacted.setText("Last Contacted: " + lastContacted);
-            NodeUtil.show(this.lastContacted);
-        }, () -> {
-            this.lastContacted.setText("");
-            NodeUtil.hide(this.lastContacted);
-        });
         this.lastUpdated.setText("Last Updated: " + DateTimeUtil.toDisplayString(contact.getLastUpdated().value));
         NodeUtil.show(this.lastUpdated);
         if (!(contact.getNotes().isEmpty())) {
-            contact.getNotes().forEach(
-                    note -> {
-                        notesContainer.getChildren().add(
-                                new NoteLabel(note, notesContainer.getStyleClass().toString(),
-                                allContacts)); });
+            NotesTextFlow notes = new NotesTextFlow(contact.getNotes(), allContacts);
+            notes.setNewMaxHeight(notesContainer.getMaxHeight()
+                    - (notesContainer.getPadding().getTop() + notesContainer.getPadding().getBottom()));
+            notesContainer.getChildren().add(notes);
         } else {
             NodeUtil.hide(notesContainer);
         }
-        if (!(contact.getTags().isEmpty() && contact.getReminders().isEmpty())) {
+        if (!(contact.getTags().isEmpty()
+                && contact.getReminders().isEmpty()
+                && contact.getLastContacted().isEmpty())) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.name))
                     .forEach(tag -> tags.getChildren().add(
                         tag instanceof RankedTag
                             ? new RankedTagLabel((RankedTag) tag)
                             : new Label(tag.name)));
+
+            if (!contact.getLastContacted().isEmpty()) {
+                Label lastContactedLabel = new Label("Last Contacted: " + contact.getLastContacted().get());
+                tags.getChildren().add(lastContactedLabel);
+            }
 
             if (!contact.getReminders().isEmpty()) {
                 Label reminderLabel = new Label("Reminder");

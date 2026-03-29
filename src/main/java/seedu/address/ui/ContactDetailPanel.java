@@ -5,10 +5,12 @@ import java.util.Comparator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.timepoint.DateTimeUtil;
 
 /**
  * A UI component that displays detailed information of a {@code Contact}.
@@ -32,7 +34,7 @@ public class ContactDetailPanel extends UiPart<Region> {
     @FXML
     private Label lastUpdated;
     @FXML
-    private VBox notes;
+    private ScrollPane notesScrollPane;
     @FXML
     private FlowPane tags;
     @FXML
@@ -105,17 +107,14 @@ public class ContactDetailPanel extends UiPart<Region> {
         }
 
         // Last Updated
-        lastUpdated.setText(contact.getLastUpdated().toString());
+        lastUpdated.setText(DateTimeUtil.toDisplayString(contact.getLastUpdated().value));
         NodeUtil.show(lastUpdatedContainer);
 
         // Notes
-        notes.getChildren().clear();
         if (!contact.getNotes().isEmpty()) {
-            contact.getNotes().forEach(note -> {
-                NoteLabel noteLabel = new NoteLabel(note,
-                        notes.getStyleClass().toString(), allContacts);
-                noteLabel.hideHeader();
-                notes.getChildren().add(noteLabel); });
+            NotesTextFlow notesTextFlow = new NotesTextFlow(contact.getNotes(), allContacts);
+            notesTextFlow.addStyleClass("detail-text-flow");
+            notesScrollPane.setContent(notesTextFlow);
             NodeUtil.show(notesContainer);
         } else {
             NodeUtil.hide(notesContainer);
@@ -146,7 +145,6 @@ public class ContactDetailPanel extends UiPart<Region> {
         lastContacted.setText("");
         lastUpdated.setText("");
         tags.getChildren().clear();
-        notes.getChildren().clear();
 
         NodeUtil.hide(phoneContainer);
         NodeUtil.hide(emailContainer);

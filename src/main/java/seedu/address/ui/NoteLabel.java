@@ -49,9 +49,6 @@ public class NoteLabel extends HBox {
             throw new RuntimeException(e);
         }
 
-        // Apply cell_small_label font to match phone/email/address style
-        text.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 13px;");
-
         if (note.hasContactReferences() && contacts != null) {
             // Replace the plain label with a TextFlow containing styled contact names
             int idx = getChildren().indexOf(text);
@@ -83,6 +80,7 @@ public class NoteLabel extends HBox {
     public NoteLabel(Note note, String style, ObservableList<Contact> contacts) {
         this(note, contacts);
         reminderHeader.getStyleClass().add(style);
+        text.getStyleClass().add(style);
         reminderSeparator.getStyleClass().add(style);
         time.getStyleClass().add(style);
     }

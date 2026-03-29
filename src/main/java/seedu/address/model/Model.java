@@ -106,6 +106,16 @@ public interface Model {
     public Snapshot getSnapshot();
 
     /**
+     * Returns true if there exists previous snapshots to undo towards.
+     */
+    public boolean canUndo();
+
+    /**
+     * Returns true if there exists snapshots to redo towards.
+     */
+    public boolean canRedo();
+
+    /**
      * Saves a {@code Snapshot} internally for undo/redo features
      * @param description Description of the snapshot.
      */

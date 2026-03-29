@@ -18,7 +18,7 @@ import seedu.address.model.contact.Note;
  */
 public class NoteAddCommand extends NoteCommand {
 
-    public static final String MESSAGE_ADD_NOTES_SUCCESS = "Added Note";
+    public static final String MESSAGE_ADD_NOTES_SUCCESS = "Added note";
 
     private final Index index;
     private final Note note;

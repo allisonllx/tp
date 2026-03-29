@@ -41,7 +41,6 @@ public class ContactCardTest extends GuiUnitTest {
             Label phone = getPrivateField(card, "phone", Label.class);
             Label email = getPrivateField(card, "email", Label.class);
             Label address = getPrivateField(card, "address", Label.class);
-            Label lastContacted = getPrivateField(card, "lastContacted", Label.class);
             Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
             VBox notesContainer = getPrivateField(card, "notesContainer", VBox.class);
             FlowPane tags = getPrivateField(card, "tags", FlowPane.class);
@@ -52,8 +51,6 @@ public class ContactCardTest extends GuiUnitTest {
             assertTrue(email.isVisible() && email.isManaged());
             assertEquals("123, Jurong West Ave 6, #08-111", address.getText());
             assertTrue(address.isVisible() && address.isManaged());
-            assertEquals("Last Contacted: 22/02/26", lastContacted.getText());
-            assertTrue(lastContacted.isVisible() && lastContacted.isManaged());
             assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
             assertTrue(lastUpdated.isVisible() && lastUpdated.isManaged());
             assertTrue(notesContainer.isVisible() && notesContainer.isManaged());
@@ -77,7 +74,6 @@ public class ContactCardTest extends GuiUnitTest {
             Label phone = getPrivateField(card, "phone", Label.class);
             Label email = getPrivateField(card, "email", Label.class);
             Label address = getPrivateField(card, "address", Label.class);
-            Label lastContacted = getPrivateField(card, "lastContacted", Label.class);
             Label lastUpdated = getPrivateField(card, "lastUpdated", Label.class);
             VBox notesContainer = getPrivateField(card, "notesContainer", VBox.class);
             FlowPane tags = getPrivateField(card, "tags", FlowPane.class);
@@ -88,8 +84,6 @@ public class ContactCardTest extends GuiUnitTest {
             assertFalse(email.isVisible() || email.isManaged());
             assertEquals("", address.getText());
             assertFalse(address.isVisible() || address.isManaged());
-            assertEquals("", lastContacted.getText());
-            assertFalse(lastContacted.isVisible() || lastContacted.isManaged());
             assertTrue(lastUpdated.getText().startsWith("Last Updated: "));
             assertTrue(lastUpdated.isVisible() && lastUpdated.isManaged());
             assertFalse(notesContainer.isVisible() || notesContainer.isManaged());

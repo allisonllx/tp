@@ -139,6 +139,13 @@
     -fx-text-fill: #010504;
 }
 
+.cell_soft_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 10px;
+    -fx-text-fill: #010504;
+    -fx-opacity: 0.8;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -388,6 +395,11 @@
     -fx-text-fill: #888888;
 }
 
+.detail-text-flow {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
 .contact-detail-panel .detail-value {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;
@@ -421,4 +433,8 @@
     -fx-font-weight: bold;
     -fx-underline: true;
     -fx-fill: #6ec6ff;
+}
+
+.text-flow-label {
+    -fx-fill: white;
 }

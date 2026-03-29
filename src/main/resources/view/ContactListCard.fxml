@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
@@ -18,7 +19,7 @@
     <VBox GridPane.columnIndex="0">
          <VBox alignment="CENTER_LEFT" style="-fx-background-color: #3c3e3f">
             <children>
-            <HBox alignment="CENTER_LEFT" spacing="0.5">
+            <HBox alignment="TOP_CENTER" spacing="0.5">
               <Label fx:id="id" styleClass="cell_big_label">
                 <minWidth>
                   <!-- Ensures that the label text is never truncated -->
@@ -26,6 +27,11 @@
                 </minWidth>
               </Label>
               <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lastUpdated" alignment="TOP_RIGHT" minWidth="-Infinity" styleClass="cell_soft_label, italic" text="\$lastUpdated">
+                     <padding>
+                        <Insets right="2.0" top="2.0" />
+                     </padding></Label>
             </HBox>
             <FlowPane fx:id="tags" />
             </children>
@@ -38,14 +44,12 @@
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
             <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
             <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-            <Label fx:id="lastContacted" styleClass="cell_small_label" text="\$lastContacted" />
-            <Label fx:id="lastUpdated" styleClass="cell_small_label" text="\$lastUpdated" />
             </children>
             <padding>
                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
             </padding>
          </VBox>
-         <VBox fx:id="notesContainer" styleClass="cell_small_label" alignment="CENTER_LEFT" maxHeight="62.4" style="-fx-background-color: #000000">
+         <VBox fx:id="notesContainer" alignment="CENTER_LEFT" maxHeight="62.4" style="-fx-background-color: #000000" styleClass="cell_small_label">
             <padding>
                <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
             </padding>

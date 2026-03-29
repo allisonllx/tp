@@ -47,4 +47,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns true if there exists previous snapshots for the model to undo towards.
+     */
+    public boolean modelCanUndo();
+
+    /**
+     * Returns true if there exists snapshots for the model to redo towards.
+     */
+    public boolean modelCanRedo();
 }

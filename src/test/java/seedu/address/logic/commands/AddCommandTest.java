@@ -189,6 +189,16 @@ public class AddCommandTest {
         public String moveSnapshot(int offset) throws IndexOutOfBoundsException {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -56,6 +58,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private MenuItem undoMenuItem;
+
+    @FXML
+    private MenuItem redoMenuItem;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -115,6 +123,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(undoMenuItem, new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN));
+        setAccelerator(redoMenuItem,
+                new KeyCodeCombination(KeyCode.Z, KeyCombination.SHIFT_DOWN, KeyCombination.SHORTCUT_DOWN));
     }
 
     /**
@@ -181,6 +192,9 @@ public class MainWindow extends UiPart<Stage> {
             reminderWindow = new ReminderWindow(logic.getDisplayedContactList());
             reminderWindow.show();
         }
+
+        undoMenuItem.setDisable(!logic.modelCanUndo());
+        redoMenuItem.setDisable(!logic.modelCanRedo());
     }
 
     /**
@@ -244,10 +258,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Executes a "help" command.
+     */
+    @FXML
+    private void handleHelp() throws CommandException, ParseException {
+        executeCommand("help");
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    public void showHelpWindow() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
@@ -269,6 +291,38 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Executes an "undo" command.
+     */
+    @FXML
+    private void handleUndo() throws CommandException, ParseException {
+        executeCommand("undo");
+    }
+
+    /**
+     * Executes a "redo" command.
+     */
+    @FXML
+    private void handleRedo() throws CommandException, ParseException {
+        executeCommand("redo");
+    }
+
+    /**
+     * Executes a "view file/" command.
+     */
+    @FXML
+    private void handleViewFiles() throws CommandException, ParseException {
+        executeCommand("view file/");
+    }
+
+    /**
+     * Executes a "close view" command.
+     */
+    @FXML
+    private void handleCloseView() throws CommandException, ParseException {
+        executeCommand("close view");
     }
 
     public ContactListPanel getContactListPanel() {
@@ -301,7 +355,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
-                handleHelp();
+                showHelpWindow();
             }
 
             if (commandResult.isExit()) {
@@ -334,6 +388,8 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             statusBarFooter.updateSaveLocation(logic.getAddressBookFilePath());
+            undoMenuItem.setDisable(!logic.modelCanUndo());
+            redoMenuItem.setDisable(!logic.modelCanRedo());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

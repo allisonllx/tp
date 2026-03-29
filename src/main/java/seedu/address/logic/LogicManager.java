@@ -89,4 +89,14 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public boolean modelCanUndo() {
+        return model.canUndo();
+    }
+
+    @Override
+    public boolean modelCanRedo() {
+        return model.canRedo();
+    }
 }
