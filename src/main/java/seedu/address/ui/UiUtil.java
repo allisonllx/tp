@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
-import seedu.address.MainApp;
+import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
 
-import static java.util.Objects.requireNonNull;
+import javafx.scene.Node;
+import seedu.address.MainApp;
 
 /**
  * Utility functions for {@code Node}.

@@ -171,6 +171,11 @@ public class MainWindowTest extends GuiUnitTest {
         }
 
         @Override
+        public String getThemeUrl() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean modelCanUndo() {
             return false;
         }

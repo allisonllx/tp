@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 /**
  * Alerts the user of the deletion of a file containing data and requests for confirmation.
