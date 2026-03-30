@@ -14,9 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Note;
-import seedu.address.model.timepoint.TimePoint;
 import seedu.address.testutil.ContactBuilder;
 
 /**

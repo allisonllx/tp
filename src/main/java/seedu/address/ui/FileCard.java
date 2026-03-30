@@ -3,7 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.timepoint.DateTimeUtil;
+import seedu.address.commons.core.timepoint.DateTimeUtil;
 
 /**
  * A UI component that displays information of a B2B4U file.
