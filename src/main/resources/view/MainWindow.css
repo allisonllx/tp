@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: derive(-main-background-color, 20%);
-    background-color: -secondary-background-color; /* Used in the default.html file */
+    -fx-background-color: -main-background-color;
+    background-color: -main-background-color; /* Used in the default.html file */
 }
 
 .label {
@@ -23,20 +23,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(-main-background-color, 20%);
-    -fx-border-color: transparent transparent transparent derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
+    -fx-border-color: transparent transparent transparent -main-background-color;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
 }
 
 .list-cell {
@@ -90,17 +90,17 @@
 }
 
 .stack-pane {
-    -fx-background-color: derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
 }
 
 .pane-with-border {
-    -fx-background-color: derive(-main-background-color, 20%);
-    -fx-border-color: derive(-main-background-color, 10%);
+    -fx-background-color: -main-background-color;
+    -fx-border-color: -border-color;
     -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(-main-background-color, 30%);
+    -fx-background-color: -status-bar-fill;
 }
 
 .result-display {
@@ -118,7 +118,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(-main-background-color, 50%);
+    -fx-background-color: -secondary-background-color;
 }
 
 .context-menu .label {
@@ -126,7 +126,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
 }
 
 .menu-bar .label {
@@ -137,11 +137,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(-main-background-color, 50%);
+    -fx-background-color: -secondary-background-color;
     -fx-background-insets: 3;
 }
 
@@ -168,9 +168,9 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent -secondary-background-color transparent -secondary-background-color;
+    -fx-background-color: transparent -main-background-color transparent -main-background-color;
     -fx-background-insets: 0;
-    -fx-border-color: -secondary-background-color -secondary-background-color -main-font-color -secondary-background-color;
+    -fx-border-color: -main-background-color -main-background-color -main-font-color -main-background-color;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
@@ -183,7 +183,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, -secondary-background-color, transparent, -secondary-background-color;
+    -fx-background-color: transparent, -main-background-color, transparent, -main-background-color;
     -fx-background-radius: 0;
 }
 
@@ -207,11 +207,11 @@
 
 /* Contact Detail Panel Styles */
 .contact-detail-panel {
-    -fx-background-color: derive(-main-background-color, 20%);
+    -fx-background-color: -main-background-color;
 }
 
 .contact-detail-panel .detail-header {
-    -fx-border-color: derive(-main-background-color, 50%);
+    -fx-border-color: -secondary-background-color;
     -fx-border-width: 0 0 1 0;
 }
 

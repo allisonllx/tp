@@ -1,12 +1,14 @@
 .root {
-    -main-background-color: #1d1d1d;
-    -secondary-background-color: #383838;
+    -main-background-color: #383838;
+    -secondary-background-color: #606060;
+    -border-color: #2a2a2a;
     -main-font-color: white;
     -detail-font-color: #888888;
     -contact-reference-fill: #6ec6ff;
     -card-title-fill: #3c3e3f;
     -card-fill: #515658;
     -card-selected: #424d5f;
+    -status-bar-fill: #454545;
     -note-cell-fill: black;
     -button-fill: gray;
     -highlight: #3e7b91;
