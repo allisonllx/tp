@@ -1,27 +1,19 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_ALL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_LINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CLEAR_OLDEST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EDIT_LINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPEN;
 
-public abstract class FileCommand {
+/**
+ * Parent class for all file-related commands.
+ */
+public abstract class FileCommand extends Command {
     public static final String COMMAND_WORD = "file";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manages the contact list files being used. "
-            + "Format [Add]: " + COMMAND_WORD + " INDEX NOTE\n"
-            + "Format [Edit line]: " + COMMAND_WORD + " INDEX " + PREFIX_EDIT_LINE + "NOTE_INDEX NEW_NOTE\n"
-            + "Format [Clear line]: " + COMMAND_WORD + " INDEX " + PREFIX_CLEAR_LINE + "NOTE_INDEX\n"
-            + "Format [Clear oldest]: " + COMMAND_WORD + " INDEX " + PREFIX_CLEAR_OLDEST + "COUNT\n"
-            + "Format [Clear all]: " + COMMAND_WORD + " INDEX " + PREFIX_CLEAR_ALL + "\n"
+            + "Format [Open file]: " + COMMAND_WORD + PREFIX_OPEN + "FILE_NAME\n"
+            + "Format [Delete file]: " + COMMAND_WORD + PREFIX_DELETE + "FILE_NAME\n"
             + "Parameters:\n"
-            + "- INDEX (must be a positive integer)\n"
-            + "- NOTE (should be a non-empty string)\n"
-            + "- NOTE_INDEX (must be a positive integer)\n"
-            + "- COUNT (must be a non-negative integer)\n"
-            + "Example [Add]: " + COMMAND_WORD + " 1 " + "Likes to swim.\n"
-            + "Example [Edit line]: " + COMMAND_WORD + " 1 " + PREFIX_EDIT_LINE + "1 Updated note text.\n"
-            + "Example [Clear line]: " + COMMAND_WORD + " 1 " + PREFIX_CLEAR_LINE + "2\n"
-            + "Example [Clear oldest]: " + COMMAND_WORD + " 1 " + PREFIX_CLEAR_OLDEST + "1\n"
-            + "Example [Clear all]: " + COMMAND_WORD + " 1 " + PREFIX_CLEAR_ALL + "\n";
+            + "- FILE_NAME (should only contain alphanumeric characters and the underscore character '_'.)\n"
+            + "Format [Open file]: " + COMMAND_WORD + PREFIX_OPEN + "new_list\n"
+            + "Format [Delete file]: " + COMMAND_WORD + PREFIX_DELETE + "OldFile\n";
 }

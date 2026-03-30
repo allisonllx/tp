@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.ViewCommand;
@@ -25,10 +23,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             throw new ParseException(Messages.getCommandErrorWithUsage(
                     Messages.MESSAGE_MISSING_INDEX, ViewCommand.MESSAGE_USAGE));
         }
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE);
-        if (argMultimap.getPreamble().isEmpty()
-                && argMultimap.getValue(PREFIX_FILE).isPresent()
-                && argMultimap.getValue(PREFIX_FILE).get().isEmpty()) {
+        if (args.trim().equals(ViewCommand.FILE_COMMAND_SUBWORD)) {
             return new ViewFilesCommand();
         }
         try {
