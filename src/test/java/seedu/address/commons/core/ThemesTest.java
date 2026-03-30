@@ -16,7 +16,7 @@ public class ThemesTest {
         //Check that all themes intended to exist do exist
         assertTrue(Themes.contains("dark"));
         assertTrue(Themes.contains("light"));
-        assertTrue(Themes.contains("warm"));
+        assertTrue(Themes.contains("book"));
         assertTrue(Themes.contains("sakura"));
 
         //Non-existent theme returns false

@@ -10,7 +10,7 @@ import seedu.address.ui.UiUtil;
  * Contains a map of every theme URL and its respective command word.
  */
 public final class Themes {
-    public static final String AVAILABLE_THEMES_MESSAGE = "Available themes:\n -dark\n -light\n -warm\n -sakura";
+    public static final String AVAILABLE_THEMES_MESSAGE = "Available themes:\n -dark\n -light\n -book\n -sakura";
 
     private static final Map<String, String> AVAILABLE_THEMES;
 
@@ -21,7 +21,7 @@ public final class Themes {
         Map<String, String> map = new HashMap<>();
         map.put("dark", UiUtil.getUrl("DarkTheme.css").toString());
         map.put("light", UiUtil.getUrl("LightTheme.css").toString());
-        map.put("warm", UiUtil.getUrl("ReadingMode.css").toString());
+        map.put("book", UiUtil.getUrl("ReadingMode.css").toString());
         map.put("sakura", UiUtil.getUrl("Sakura.css").toString());
         AVAILABLE_THEMES = Collections.unmodifiableMap(map);
     }

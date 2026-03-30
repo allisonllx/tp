@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_THEME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -11,19 +10,15 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SetAddressBookFilePathCommand;
 import seedu.address.logic.commands.SetCommand;
-import seedu.address.logic.commands.SetThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 
 public class SetCommandParserTest {
     private static final String FILENAME = "new_book";
-    private static final String THEME = "light";
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE);
     private static final String MESSAGE_INVALID_FILENAME =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UserPrefs.FILENAME_CONSTRAINTS_MESSAGE);
-    private static final String MESSAGE_INVALID_THEME =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetThemeCommand.MESSAGE_USAGE);
 
     private SetCommandParser parser = new SetCommandParser();
 
@@ -35,21 +30,6 @@ public class SetCommandParserTest {
                 parser,
                 " " + PREFIX_FILE + FILENAME,
                 expectedSetAddressBookFilePathCommand);
-    }
-
-    @Test
-    public void parse_setThemeCommand_success() {
-        SetThemeCommand expectedSetThemeCommand =
-                new SetThemeCommand("light");
-        assertParseSuccess(
-                parser,
-                " " + PREFIX_THEME + THEME,
-                expectedSetThemeCommand);
-    }
-
-    @Test
-    public void parse_invalidTheme_failure() {
-        assertParseFailure(parser, " " + PREFIX_THEME + "foobar", MESSAGE_INVALID_THEME);
     }
 
     @Test
@@ -67,19 +47,5 @@ public class SetCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_FILE + "&newbook", MESSAGE_INVALID_FILENAME);
 
         assertThrows(ParseException.class, () -> parser.parse(PREFIX_FILE + "&newbook"));
-    }
-
-    @Test
-    public void parse_tooManyArguments_failure() {
-        // preamble and file name
-        assertParseFailure(parser, "1 " + PREFIX_FILE + FILENAME, MESSAGE_INVALID_FORMAT);
-        // preamble and theme
-        assertParseFailure(parser, "1 " + PREFIX_THEME + THEME, MESSAGE_INVALID_FORMAT);
-        // file name and theme
-        assertParseFailure(parser,
-                " " + PREFIX_THEME + THEME + " " + PREFIX_FILE + FILENAME, MESSAGE_INVALID_FORMAT);
-        // preamble, file name and theme
-        assertParseFailure(parser,
-                "1 " + PREFIX_THEME + THEME + " " + PREFIX_FILE + FILENAME, MESSAGE_INVALID_FORMAT);
     }
 }

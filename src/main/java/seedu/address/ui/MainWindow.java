@@ -353,7 +353,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void toggleDarkTheme() throws CommandException, ParseException {
-        executeCommand("set theme/dark");
+        executeCommand("theme dark");
     }
 
     /**
@@ -361,15 +361,15 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void toggleLightTheme() throws CommandException, ParseException {
-        executeCommand("set theme/light");
+        executeCommand("theme light");
     }
 
     /**
      * Sets the theme to reading mode.
      */
     @FXML
-    private void toggleWarmTheme() throws CommandException, ParseException {
-        executeCommand("set theme/warm");
+    private void toggleBookTheme() throws CommandException, ParseException {
+        executeCommand("theme book");
     }
 
     /**
@@ -377,7 +377,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void toggleSakuraTheme() throws CommandException, ParseException {
-        executeCommand("set theme/sakura");
+        executeCommand("theme sakura");
     }
 
     public ContactListPanel getContactListPanel() {

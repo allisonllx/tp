@@ -39,7 +39,7 @@
           <Menu mnemonicParsing="false" text="Theme">
             <MenuItem mnemonicParsing="false" onAction="#toggleDarkTheme" text="Dark" />
             <MenuItem mnemonicParsing="false" onAction="#toggleLightTheme" text="Light" />
-            <MenuItem mnemonicParsing="false" onAction="#toggleWarmTheme" text="Warm" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleBookTheme" text="Book" />
             <MenuItem mnemonicParsing="false" onAction="#toggleSakuraTheme" text="Sakura" />
           </Menu>
         </MenuBar>

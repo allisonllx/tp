@@ -29,6 +29,7 @@ import seedu.address.logic.commands.NoteAddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetAddressBookFilePathCommand;
 import seedu.address.logic.commands.SetCommand;
+import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.ViewContactCommand;
@@ -147,6 +148,11 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_set() throws Exception {
         assertTrue(parser.parseCommand(SetCommand.COMMAND_WORD + " file/newbook") instanceof SetCommand);
+    }
+
+    @Test
+    public void parseCommand_theme() throws Exception {
+        assertTrue(parser.parseCommand(ThemeCommand.COMMAND_WORD + " dark") instanceof ThemeCommand);
     }
 
     @Test

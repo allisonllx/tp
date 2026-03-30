@@ -13,13 +13,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-public class SetThemeCommandTest {
+public class ThemeCommandTest {
     private static final String DARK_THEME = Themes.get("dark");
     private static final String LIGHT_THEME = Themes.get("light");
 
     @Test
     public void invalidTheme_failure() {
-        assertThrows(AssertionError.class, () -> new SetThemeCommand("foo"));
+        assertThrows(AssertionError.class, () -> new ThemeCommand("foo"));
     }
 
     @Test
@@ -28,32 +28,32 @@ public class SetThemeCommandTest {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4, DARK_THEME));
         model.setUserPrefs(userPrefs);
-        SetThemeCommand setCommand = new SetThemeCommand("light");
-        String expectedMessage = String.format(SetThemeCommand.MESSAGE_SUCCESS, "light");
+        ThemeCommand themeCommand = new ThemeCommand("light");
+        String expectedMessage = String.format(ThemeCommand.MESSAGE_SUCCESS, "light");
         Model expectedModel = new ModelManager();
         UserPrefs expectedUserPrefs = new UserPrefs();
         expectedUserPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4, LIGHT_THEME));
         expectedModel.setUserPrefs(expectedUserPrefs);
-        assertCommandSuccess(setCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(themeCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
-        final SetThemeCommand setThemeCommand = new SetThemeCommand("dark");
+        final ThemeCommand themeCommand = new ThemeCommand("dark");
 
         // same object -> returns true
-        assertTrue(setThemeCommand.equals(setThemeCommand));
+        assertTrue(themeCommand.equals(themeCommand));
 
         // same theme word -> returns true
-        assertTrue(setThemeCommand.equals(new SetThemeCommand("dark")));
+        assertTrue(themeCommand.equals(new ThemeCommand("dark")));
 
         // null -> returns false
-        assertFalse(setThemeCommand.equals(null));
+        assertFalse(themeCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(setThemeCommand.equals(new ClearCommand()));
+        assertFalse(themeCommand.equals(new ClearCommand()));
 
         // different theme word -> returns false
-        assertFalse(setThemeCommand.equals(new SetThemeCommand("light")));
+        assertFalse(themeCommand.equals(new ThemeCommand("light")));
     }
 }

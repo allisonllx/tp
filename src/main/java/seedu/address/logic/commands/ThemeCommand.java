@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_THEME;
 
 import seedu.address.commons.core.Themes;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -10,19 +9,21 @@ import seedu.address.model.Model;
 /**
  * Changes the address book file path.
  */
-public class SetThemeCommand extends SetCommand {
+public class ThemeCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Set to \"%1$s\" theme";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + PREFIX_THEME + ": Changes the theme currently used"
+    public static final String COMMAND_WORD = "theme";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the theme currently used"
             + Themes.AVAILABLE_THEMES_MESSAGE
-            + "Example: " + COMMAND_WORD + " " + PREFIX_THEME + "sakura";
+            + "Example: " + COMMAND_WORD + "sakura";
 
     private final String key;
 
     /**
      * @param theme Name of the theme to set to.
      */
-    public SetThemeCommand(String theme) {
+    public ThemeCommand(String theme) {
         requireAllNonNull(theme);
         assert Themes.contains(theme);
         this.key = theme;
@@ -45,12 +46,12 @@ public class SetThemeCommand extends SetCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SetThemeCommand)) {
+        if (!(other instanceof ThemeCommand)) {
             return false;
         }
 
         // state check
-        SetThemeCommand o = (SetThemeCommand) other;
+        ThemeCommand o = (ThemeCommand) other;
         return key.equals(o.key);
     }
 }

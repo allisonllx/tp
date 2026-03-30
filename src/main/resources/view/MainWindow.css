@@ -137,6 +137,18 @@
     -fx-opacity: 0.9;
 }
 
+.menu:hover {
+    -fx-background-color: -highlight;
+}
+
+.menu:showing {
+    -fx-background-color: -highlight;
+}
+
+.menu-item:focused {
+    -fx-background-color: -highlight;
+}
+
 .scroll-bar {
     -fx-background-color: -main-background-color;
 }
