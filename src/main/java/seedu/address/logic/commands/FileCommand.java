@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPEN;
 public abstract class FileCommand extends Command {
     public static final String COMMAND_WORD = "file";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manages the contact list files being used. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manages the contact list files being used.\n"
             + "Format [Open file]: " + COMMAND_WORD + " " + PREFIX_OPEN + "FILE_NAME\n"
             + "Format [Delete file]: " + COMMAND_WORD + " " + PREFIX_DELETE + "FILE_NAME\n"
             + "Parameters:\n"

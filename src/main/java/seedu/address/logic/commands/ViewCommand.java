@@ -7,7 +7,7 @@ public abstract class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String FILE_COMMAND_SUBWORD = "file";
+    public static final String FILE_COMMAND_SUBWORD = "files";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the detailed information of the contact identified by the index number "
