@@ -36,6 +36,12 @@
             <MenuItem mnemonicParsing="false" onAction="#handleViewFiles" text="Files" />
             <MenuItem mnemonicParsing="false" onAction="#handleCloseView" text="Close" />
           </Menu>
+          <Menu mnemonicParsing="false" text="Theme">
+            <MenuItem mnemonicParsing="false" onAction="#toggleDarkTheme" text="Dark" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleLightTheme" text="Light" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleWarmTheme" text="Warm" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleSakuraTheme" text="Sakura" />
+          </Menu>
         </MenuBar>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">

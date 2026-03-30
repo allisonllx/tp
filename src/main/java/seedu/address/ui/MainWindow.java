@@ -348,6 +348,38 @@ public class MainWindow extends UiPart<Stage> {
         executeCommand("close view");
     }
 
+    /**
+     * Sets the theme to dark mode.
+     */
+    @FXML
+    private void toggleDarkTheme() throws CommandException, ParseException {
+        executeCommand("set theme/dark");
+    }
+
+    /**
+     * Sets the theme to light mode.
+     */
+    @FXML
+    private void toggleLightTheme() throws CommandException, ParseException {
+        executeCommand("set theme/light");
+    }
+
+    /**
+     * Sets the theme to reading mode.
+     */
+    @FXML
+    private void toggleWarmTheme() throws CommandException, ParseException {
+        executeCommand("set theme/warm");
+    }
+
+    /**
+     * Sets the theme to sakura mode.
+     */
+    @FXML
+    private void toggleSakuraTheme() throws CommandException, ParseException {
+        executeCommand("set theme/sakura");
+    }
+
     public ContactListPanel getContactListPanel() {
         return contactListPanel;
     }
