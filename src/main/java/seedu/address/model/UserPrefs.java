@@ -56,7 +56,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public void setThemeUrl(String themeUrl) {
         this.guiSettings = new GuiSettings(guiSettings.getWindowWidth(), guiSettings.getWindowHeight(),
-                guiSettings.getWindowCoordinates().x, guiSettings.getWindowCoordinates().y, themeUrl);
+                (int) guiSettings.getWindowCoordinates().getX(), (int) guiSettings.getWindowCoordinates().getY(),
+                themeUrl);
     }
 
     public Path getAddressBookFilePath() {
