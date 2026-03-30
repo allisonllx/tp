@@ -250,7 +250,7 @@
 
 .contact-detail-panel #tags .label {
     -fx-text-fill: -main-font-color;
-    -fx-background-color: -tag-fill;
+    -fx-background-color: -highlight;
     -fx-padding: 3 8 3 8;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
