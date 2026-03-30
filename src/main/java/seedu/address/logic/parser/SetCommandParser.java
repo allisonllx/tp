@@ -5,7 +5,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_THEME;
 
-import seedu.address.commons.core.Theme;
+import seedu.address.commons.core.Themes;
 import seedu.address.logic.commands.SetAddressBookFilePathCommand;
 import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.SetThemeCommand;
@@ -47,7 +47,7 @@ public class SetCommandParser implements Parser<SetCommand> {
             return new SetAddressBookFilePathCommand(argMultimap.getValue(PREFIX_FILE).get());
         }
         String theme = argMultimap.getValue(PREFIX_THEME).get();
-        if (!Theme.AVAILABLE_THEMES.containsKey(theme)) {
+        if (!Themes.contains(theme)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetThemeCommand.MESSAGE_USAGE));
         }
         return new SetThemeCommand(theme);

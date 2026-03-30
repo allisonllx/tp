@@ -11,13 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Theme;
+import seedu.address.commons.core.Themes;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
-    private static final String DARK_THEME = Theme.AVAILABLE_THEMES.get("dark");
+    private static final String DARK_THEME = Themes.get("dark");
 
     @TempDir
     public Path testFolder;

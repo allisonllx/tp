@@ -8,14 +8,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Theme;
+import seedu.address.commons.core.Themes;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class SetThemeCommandTest {
-    private static final String DARK_THEME = Theme.AVAILABLE_THEMES.get("dark");
-    private static final String LIGHT_THEME = Theme.AVAILABLE_THEMES.get("light");
+    private static final String DARK_THEME = Themes.get("dark");
+    private static final String LIGHT_THEME = Themes.get("light");
 
     @Test
     public void invalidTheme_failure() {

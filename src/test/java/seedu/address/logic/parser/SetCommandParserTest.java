@@ -22,6 +22,8 @@ public class SetCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE);
     private static final String MESSAGE_INVALID_FILENAME =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UserPrefs.FILENAME_CONSTRAINTS_MESSAGE);
+    private static final String MESSAGE_INVALID_THEME =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetThemeCommand.MESSAGE_USAGE);
 
     private SetCommandParser parser = new SetCommandParser();
 
@@ -43,6 +45,11 @@ public class SetCommandParserTest {
                 parser,
                 " " + PREFIX_THEME + THEME,
                 expectedSetThemeCommand);
+    }
+
+    @Test
+    public void parse_invalidTheme_failure() {
+        assertParseFailure(parser, " " + PREFIX_THEME + "foobar", MESSAGE_INVALID_THEME);
     }
 
     @Test

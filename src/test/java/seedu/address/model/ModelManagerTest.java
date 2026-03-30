@@ -14,7 +14,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Theme;
+import seedu.address.commons.core.Themes;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactFieldComparator;
 import seedu.address.model.contact.util.ContactPredicateBuilder;
@@ -23,7 +23,7 @@ import seedu.address.testutil.ContactBuilder;
 import seedu.address.ui.UiUtil;
 
 public class ModelManagerTest {
-    private static final String DARK_THEME = Theme.AVAILABLE_THEMES.get("dark");
+    private static final String DARK_THEME = Themes.get("dark");
 
     private ModelManager modelManager = new ModelManager();
 

@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Theme;
+import seedu.address.commons.core.Themes;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
-    private static final String DARK_THEME = Theme.AVAILABLE_THEMES.get("dark");
+    private static final String DARK_THEME = Themes.get("dark");
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 
