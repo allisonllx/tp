@@ -1,16 +1,16 @@
 .root {
-    -main-background-color: #383838;
-    -secondary-background-color: #606060;
-    -border-color: #2a2a2a;
+    -main-background-color: #E08A91;
+    -secondary-background-color: #E4ADB1;
+    -border-color: #AD666C;
     -main-font-color: white;
-    -detail-font-color: #888888;
-    -contact-reference-fill: #6ec6ff;
-    -card-title-fill: #3c3e3f;
-    -card-fill: #515658;
-    -card-selected: #424d5f;
-    -status-bar-fill: #454545;
-    -note-cell-fill: black;
-    -button-fill: gray;
-    -highlight: #3e7b91;
-    -warning: #d06651;
+    -detail-font-color: #E0D7F2;
+    -contact-reference-fill: #FD85BB;
+    -card-title-fill: #6B3C45;
+    -card-fill: #9B646F;
+    -card-selected: #B189A9;
+    -status-bar-fill: #BA7E83;
+    -note-cell-fill: #4B1620;
+    -button-fill: #7D738D;
+    -highlight: #bf8bff;
+    -warning: #FF4F73;
 }
