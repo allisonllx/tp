@@ -9,9 +9,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.core.timepoint.DateTimeUtil;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.tag.RankedTag;
-import seedu.address.model.timepoint.DateTimeUtil;
 
 /**
  * A UI component that displays information of a {@code Contact}.

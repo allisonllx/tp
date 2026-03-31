@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.timepoint.TimePoint;
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.testutil.ContactBuilder;
 
 public class ContactTest {

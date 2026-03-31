@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
@@ -30,7 +29,7 @@ public class ViewCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsViewFilesCommand() {
-        assertParseSuccess(parser, " " + PREFIX_FILE, new ViewFilesCommand());
+        assertParseSuccess(parser, " " + ViewCommand.FILE_COMMAND_SUBWORD, new ViewFilesCommand());
     }
 
     @Test

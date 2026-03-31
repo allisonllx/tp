@@ -15,9 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.contact.Note;
-import seedu.address.model.timepoint.TimePoint;
 import seedu.address.testutil.ContactBuilder;
 
 /**

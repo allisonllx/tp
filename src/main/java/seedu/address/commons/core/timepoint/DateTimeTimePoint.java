@@ -1,4 +1,4 @@
-package seedu.address.model.timepoint;
+package seedu.address.commons.core.timepoint;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -20,7 +20,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 /**
  * Changes the address book file path.
  */
-public class SetAddressBookFilePathCommand extends SetCommand {
+public class FileOpenCommand extends FileCommand {
     public static final String MESSAGE_SUCCESS = "Using data file: %1$s";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -30,7 +30,7 @@ public class SetAddressBookFilePathCommand extends SetCommand {
     /**
      * @param fileName Name of the address book file to change to.
      */
-    public SetAddressBookFilePathCommand(String fileName) {
+    public FileOpenCommand(String fileName) {
         requireAllNonNull(fileName);
         checkArgument(UserPrefs.isValidFileName(fileName), UserPrefs.FILENAME_CONSTRAINTS_MESSAGE);
         this.fileName = fileName;
@@ -72,12 +72,12 @@ public class SetAddressBookFilePathCommand extends SetCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof SetAddressBookFilePathCommand)) {
+        if (!(other instanceof FileOpenCommand)) {
             return false;
         }
 
         // state check
-        SetAddressBookFilePathCommand o = (SetAddressBookFilePathCommand) other;
+        FileOpenCommand o = (FileOpenCommand) other;
         return fileName.equals(o.fileName);
     }
 }

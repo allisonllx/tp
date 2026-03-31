@@ -76,6 +76,16 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseName_emptyString_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseName(""));
+    }
+
+    @Test
+    public void parseName_whitespaceOnly_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseName("   "));
+    }
+
+    @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(VALID_NAME_UNPARSED));

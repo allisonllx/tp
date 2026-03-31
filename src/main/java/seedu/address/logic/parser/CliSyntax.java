@@ -17,8 +17,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_CLEAR_ALL = new Prefix("ca/");
     public static final Prefix PREFIX_CLEAR_LINE = new Prefix("cl/");
     public static final Prefix PREFIX_EDIT_LINE = new Prefix("el/");
-    public static final Prefix PREFIX_FILE = new Prefix("file/");
     public static final Prefix PREFIX_ON = new Prefix("on/");
     public static final Prefix PREFIX_BEFORE = new Prefix("before/");
     public static final Prefix PREFIX_AFTER = new Prefix("after/");
+    public static final Prefix PREFIX_OPEN = new Prefix("open/");
+    public static final Prefix PREFIX_DELETE = new Prefix("delete/");
+
 }

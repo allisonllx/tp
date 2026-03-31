@@ -110,6 +110,10 @@ public class ReminderWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
     /**
      * Sets the theme of the ReminderWindow.
      * @param themeUrl URL of the desired theme.

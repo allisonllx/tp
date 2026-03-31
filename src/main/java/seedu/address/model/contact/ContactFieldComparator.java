@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 
+import seedu.address.commons.core.timepoint.TimePointComparator;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.timepoint.TimePointComparator;
 
 /**
  * Comparator for sorting contacts based on specified field and order.
