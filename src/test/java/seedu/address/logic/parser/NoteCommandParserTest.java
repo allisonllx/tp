@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_NOTE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.NoteAddCommand;
 import seedu.address.logic.commands.NoteClearAllCommand;
@@ -50,7 +51,8 @@ public class NoteCommandParserTest {
     @Test
     public void parse_stringReminderNoteAddCommand_success() {
         NoteAddCommand expectedNoteAddCommand =
-                new NoteAddCommand(INDEX_FIRST_CONTACT, new Note(NOTES_STRING));
+                new NoteAddCommand(INDEX_FIRST_CONTACT,
+                        new Note(NOTES_STRING, TimePoint.of("timeString")));
         assertParseSuccess(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_ON + "timeString",
@@ -60,7 +62,9 @@ public class NoteCommandParserTest {
     @Test
     public void parse_dateReminderNoteAddCommand_success() {
         NoteAddCommand expectedNoteAddCommand =
-                new NoteAddCommand(INDEX_FIRST_CONTACT, new Note(NOTES_STRING));
+                new NoteAddCommand(INDEX_FIRST_CONTACT,
+                        new Note(NOTES_STRING,
+                                seedu.address.logic.parser.TimePointParser.toTimePoint("March 11")));
         assertParseSuccess(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_ON + "March 11",
@@ -70,7 +74,9 @@ public class NoteCommandParserTest {
     @Test
     public void parse_datetimeReminderNoteAddCommand_success() {
         NoteAddCommand expectedNoteAddCommand =
-                new NoteAddCommand(INDEX_FIRST_CONTACT, new Note(NOTES_STRING));
+                new NoteAddCommand(INDEX_FIRST_CONTACT,
+                        new Note(NOTES_STRING,
+                                seedu.address.logic.parser.TimePointParser.toTimePoint("March 11 2025 13:30")));
         assertParseSuccess(
                 parser,
                 "1 " + NOTES_STRING + " " + PREFIX_ON + "March 11 2025 13:30",
@@ -121,7 +127,8 @@ public class NoteCommandParserTest {
     @Test
     public void parse_noteEditCommandWithReminder_success() {
         NoteEditCommand expectedNoteEditCommand =
-                new NoteEditCommand(INDEX_FIRST_CONTACT, INDEX_FIRST_NOTE, new Note(NOTES_STRING));
+                new NoteEditCommand(INDEX_FIRST_CONTACT, INDEX_FIRST_NOTE,
+                        new Note(NOTES_STRING, TimePoint.of("timeString")));
         assertParseSuccess(
                 parser,
                 "1 " + PREFIX_EDIT_LINE + "1 " + NOTES_STRING + " " + PREFIX_ON + "timeString",

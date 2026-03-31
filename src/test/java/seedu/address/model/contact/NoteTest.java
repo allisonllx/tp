@@ -83,6 +83,30 @@ public class NoteTest {
 
         // different values -> returns false
         assertFalse(notes.equals(new Note("Likes ice cream")));
+
+        // same text, different timePoint -> returns false
+        Note noteWithTime = new Note("To meet on February", TimePoint.of(LocalDate.of(2026, 3, 1)));
+        Note noteWithDiffTime = new Note("To meet on February", TimePoint.of(LocalDate.of(2026, 4, 1)));
+        assertFalse(noteWithTime.equals(noteWithDiffTime));
+
+        // same text, one with timePoint one without -> returns false
+        assertFalse(notes.equals(noteWithTime));
+        assertFalse(noteWithTime.equals(notes));
+
+        // same text and same timePoint -> returns true
+        assertTrue(noteWithTime.equals(new Note("To meet on February", TimePoint.of(LocalDate.of(2026, 3, 1)))));
+    }
+
+    @Test
+    public void hashcode() {
+        Note note1 = new Note("Hello");
+        Note note2 = new Note("Hello");
+        Note noteWithTime1 = new Note("Hello", TimePoint.of(LocalDate.of(2026, 3, 1)));
+        Note noteWithTime2 = new Note("Hello", TimePoint.of(LocalDate.of(2026, 3, 1)));
+
+        // same values -> same hashcode
+        assertEquals(note1.hashCode(), note2.hashCode());
+        assertEquals(noteWithTime1.hashCode(), noteWithTime2.hashCode());
     }
 
     @Test

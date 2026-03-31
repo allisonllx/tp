@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -126,11 +127,21 @@ public class Note {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof Note && value.equals(((Note) other).value));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Note)) {
+            return false;
+        }
+        Note otherNote = (Note) other;
+        return value.equals(otherNote.value)
+                && Objects.equals(
+                        timePoint == null ? null : timePoint.toString(),
+                        otherNote.timePoint == null ? null : otherNote.timePoint.toString());
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(value, timePoint == null ? null : timePoint.toString());
     }
 }
