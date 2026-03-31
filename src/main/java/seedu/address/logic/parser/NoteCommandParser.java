@@ -195,7 +195,12 @@ public class NoteCommandParser implements Parser<NoteCommand> {
      */
     private int parseNumLines(String numLines) throws ParseException {
         try {
-            return Integer.parseInt(numLines);
+            int result = Integer.parseInt(numLines);
+            if (result <= 0) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+            }
+            return result;
         } catch (NumberFormatException nfe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE), nfe);
         }

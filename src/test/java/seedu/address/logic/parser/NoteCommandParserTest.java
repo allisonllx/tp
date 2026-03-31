@@ -170,6 +170,18 @@ public class NoteCommandParserTest {
     }
 
     @Test
+    public void parse_negativeNumLines_failure() {
+        // negative number of lines for clear oldest
+        assertParseFailure(parser, "1 " + PREFIX_CLEAR_OLDEST + "-5", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_zeroNumLines_failure() {
+        // zero number of lines for clear oldest
+        assertParseFailure(parser, "1 " + PREFIX_CLEAR_OLDEST + "0", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
     public void parse_tooManyArguments_failure() {
         // add + clear (preamble is not a single index; index parse fails)
         assertParseFailure(
