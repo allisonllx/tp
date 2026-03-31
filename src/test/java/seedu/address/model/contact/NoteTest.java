@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.timepoint.TimePoint;
+import seedu.address.commons.core.timepoint.TimePoint;
 
 public class NoteTest {
     @Test

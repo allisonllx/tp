@@ -17,21 +17,21 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-public class DeleteFileCommandTest {
+public class FileDeleteCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void deleteNonExistentFile_throwsException() {
-        DeleteCommand deleteCommand = new DeleteFileCommand(Paths.get("dummy.txt"));
+        FileDeleteCommand fileDeleteCommand = new FileDeleteCommand(Paths.get("dummy.txt"));
 
-        assertCommandFailure(deleteCommand, model, DeleteFileCommand.MESSAGE_FAILURE_FILE_NOT_FOUND);
+        assertCommandFailure(fileDeleteCommand, model, FileDeleteCommand.MESSAGE_FAILURE_FILE_NOT_FOUND);
     }
 
     @Test
     public void deleteCurrentFile_throwsException() {
-        DeleteCommand deleteCommand = new DeleteFileCommand(model.getAddressBookFilePath());
+        FileDeleteCommand fileDeleteCommand = new FileDeleteCommand(model.getAddressBookFilePath());
 
-        assertCommandFailure(deleteCommand, model, DeleteFileCommand.MESSAGE_FAILURE_IS_CURRENT_FILE);
+        assertCommandFailure(fileDeleteCommand, model, FileDeleteCommand.MESSAGE_FAILURE_IS_CURRENT_FILE);
     }
 
     @Test
@@ -42,32 +42,32 @@ public class DeleteFileCommandTest {
                 Paths.get("src", "test", "data",
                         "JsonSerializableAddressBookTest", "emptyContactAddressBookDuplicate.json");
         Files.copy(emptyFilePath, filePath);
-        DeleteCommand deleteCommand = new DeleteFileCommand(filePath);
+        FileDeleteCommand fileDeleteCommand = new FileDeleteCommand(filePath);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         assertCommandSuccess(
-                deleteCommand, expectedModel,
-                String.format(DeleteFileCommand.MESSAGE_SUCCESS, filePath.getFileName()),
+                fileDeleteCommand, expectedModel,
+                String.format(FileDeleteCommand.MESSAGE_SUCCESS, filePath.getFileName()),
                 model);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteCommand = new DeleteFileCommand(Paths.get("dummy.txt"));
+        FileDeleteCommand fileDeleteCommand = new FileDeleteCommand(Paths.get("dummy.txt"));
 
         // same object -> returns true
-        assertTrue(deleteCommand.equals(deleteCommand));
+        assertTrue(fileDeleteCommand.equals(fileDeleteCommand));
 
         // null -> returns false
-        assertFalse(deleteCommand.equals(null));
+        assertFalse(fileDeleteCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(deleteCommand.equals(new ClearCommand()));
+        assertFalse(fileDeleteCommand.equals(new ClearCommand()));
 
         // same path -> returns true
-        assertTrue(deleteCommand.equals(new DeleteFileCommand(Paths.get("dummy.txt"))));
+        assertTrue(fileDeleteCommand.equals(new FileDeleteCommand(Paths.get("dummy.txt"))));
 
         // different path -> returns false
-        assertFalse(deleteCommand.equals(new DeleteFileCommand(Paths.get("temp.txt"))));
+        assertFalse(fileDeleteCommand.equals(new FileDeleteCommand(Paths.get("temp.txt"))));
     }
 }

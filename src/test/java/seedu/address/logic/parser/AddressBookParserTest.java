@@ -4,7 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPEN;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
@@ -18,17 +19,17 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CloseViewCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditContactDescriptor;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FileCommand;
+import seedu.address.logic.commands.FileDeleteCommand;
+import seedu.address.logic.commands.FileOpenCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NoteAddCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SetAddressBookFilePathCommand;
-import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.commands.ViewContactCommand;
@@ -60,7 +61,7 @@ public class AddressBookParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
             DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_CONTACT.getOneBased());
-        assertEquals(new DeleteContactCommand(INDEX_FIRST_CONTACT), command);
+        assertEquals(new DeleteCommand(INDEX_FIRST_CONTACT), command);
     }
 
     @Test
@@ -145,14 +146,15 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_set() throws Exception {
-        assertTrue(parser.parseCommand(SetCommand.COMMAND_WORD + " file/newbook") instanceof SetCommand);
+    public void parseCommand_fileOpen() throws Exception {
+        assertTrue(parser.parseCommand(
+                FileCommand.COMMAND_WORD + " " + PREFIX_OPEN + "newbook") instanceof FileOpenCommand);
     }
 
     @Test
-    public void parseCommand_setAddressBookFilePath() throws Exception {
-        assertTrue(parser.parseCommand(SetAddressBookFilePathCommand.COMMAND_WORD + " " + PREFIX_FILE + "newbook")
-                instanceof SetAddressBookFilePathCommand);
+    public void parseCommand_fileDelete() throws Exception {
+        assertTrue(parser.parseCommand(
+                FileCommand.COMMAND_WORD + " " + PREFIX_DELETE + "Old_Book") instanceof FileDeleteCommand);
     }
 
     @Test

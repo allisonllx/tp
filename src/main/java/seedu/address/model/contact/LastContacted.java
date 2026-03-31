@@ -5,8 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
 
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.logic.parser.TimePointParser;
-import seedu.address.model.timepoint.TimePoint;
 
 /**
  * Represents a contact's last contacted time.

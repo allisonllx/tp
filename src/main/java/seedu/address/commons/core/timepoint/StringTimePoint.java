@@ -1,4 +1,4 @@
-package seedu.address.model.timepoint;
+package seedu.address.commons.core.timepoint;
 
 /**
  * Custom time object that can represent a point in time using a {@code String}.
