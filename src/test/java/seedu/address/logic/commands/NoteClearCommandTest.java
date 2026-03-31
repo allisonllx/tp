@@ -38,7 +38,7 @@ public class NoteClearCommandTest {
                 contactToEdit.getAddress(), contactToEdit.getLastContacted(), NOTES, contactToEdit.getTags());
 
         String expectedMessage = Messages.formatNoteOutput(
-                NoteClearAllCommand.MESSAGE_REMOVE_NOTES_SUCCESS, contactToEdit);
+                String.format(NoteClearCommand.MESSAGE_REMOVE_NOTES_SUCCESS, REMOVE_ONE_LINE), contactToEdit);
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         testModel.resetDisplayedContactList();

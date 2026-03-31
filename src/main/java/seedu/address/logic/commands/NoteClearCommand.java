@@ -17,7 +17,7 @@ import seedu.address.model.contact.Note;
  */
 public class NoteClearCommand extends NoteCommand {
 
-    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Edited note";
+    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Cleared %d note(s)";
 
     private final Index index;
     private final int numLines;
@@ -48,6 +48,8 @@ public class NoteClearCommand extends NoteCommand {
         int numExistingLines = newNotes.size();
         newNotes = newNotes.subList(Math.min(numLines, numExistingLines), numExistingLines);
 
+        int numCleared = numExistingLines - newNotes.size();
+
         Contact editedContact = new Contact(contactToEdit.getId(), contactToEdit.getName(),
             contactToEdit.getPhone(), contactToEdit.getEmail(),
             contactToEdit.getAddress(), contactToEdit.getLastContacted(),
@@ -56,7 +58,7 @@ public class NoteClearCommand extends NoteCommand {
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
 
-        String feedback = generateSuccessMessage(editedContact);
+        String feedback = generateSuccessMessage(numCleared, editedContact);
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
     }
@@ -65,8 +67,9 @@ public class NoteClearCommand extends NoteCommand {
      * Generates a command execution success message.
      * {@code contactToEdit}.
      */
-    private String generateSuccessMessage(Contact contactToEdit) {
-        return Messages.formatNoteOutput(MESSAGE_REMOVE_NOTES_SUCCESS, contactToEdit);
+    private String generateSuccessMessage(int numCleared, Contact contactToEdit) {
+        return Messages.formatNoteOutput(
+                String.format(MESSAGE_REMOVE_NOTES_SUCCESS, numCleared), contactToEdit);
     }
 
     @Override

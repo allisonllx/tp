@@ -16,7 +16,7 @@ import seedu.address.model.contact.Contact;
  */
 public class NoteClearAllCommand extends NoteCommand {
 
-    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Edited note";
+    public static final String MESSAGE_REMOVE_NOTES_SUCCESS = "Cleared all notes";
 
     private final Index index;
 
