@@ -13,3 +13,11 @@ Example:
 * `view 1` displays the details of the 1st contact.
 
 ![view contact]({{ baseUrl }}/images/viewContact.png)
+
+# Viewing available files: `view files`
+
+Displays all the B2B4U contact list files in the data subfolder in a side panel, each with the number of contacts they contain.
+
+Image to be added
+
+Format: `view files`
