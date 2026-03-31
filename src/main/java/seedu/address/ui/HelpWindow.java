@@ -10,13 +10,14 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.HelpInfo;
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USER_GUIDE_URL = "https://ay2526s2-cs2103t-t08-1.github.io/tp/user-guide/index.html";
+    public static final String USER_GUIDE_URL = HelpInfo.USER_GUIDE_BASE_URL + "index.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USER_GUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
@@ -24,6 +25,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     private Stage stage;
     private String[] stylesheets;
+    private String currentUrl = USER_GUIDE_URL;
 
     @FXML
     private Button copyButton;
@@ -52,6 +54,14 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+    }
+
+    /**
+     * Updates the help window content with the given {@code HelpInfo}.
+     */
+    public void setHelpInfo(HelpInfo helpInfo) {
+        currentUrl = helpInfo.getUrl();
+        helpMessage.setText(helpInfo.getMessage() + "\n\nUser Guide: " + currentUrl);
     }
 
     /**
@@ -100,13 +110,13 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Copies the URL to the user guide to the clipboard.
+     * Copies the current URL to the clipboard.
      */
     @FXML
     private void copyUrl() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
-        url.putString(USER_GUIDE_URL);
+        url.putString(currentUrl);
         clipboard.setContent(url);
     }
 

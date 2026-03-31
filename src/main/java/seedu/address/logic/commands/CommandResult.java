@@ -15,8 +15,8 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    /** Help information to be shown to the user, or null if no help window needed. */
+    private final HelpInfo helpInfo;
 
     /** The application should exit. */
     private final boolean exit;
@@ -36,7 +36,7 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
             Contact contactToView, boolean hideViewPanel, boolean showFileList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
+        this.helpInfo = showHelp ? HelpInfo.DEFAULT : null;
         this.exit = exit;
         this.contactToView = contactToView;
         this.hideViewPanel = hideViewPanel;
@@ -51,12 +51,32 @@ public class CommandResult {
         this(feedbackToUser, false, false, null, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the given {@code HelpInfo}.
+     * The help window will be shown with the given help info.
+     */
+    public CommandResult(String feedbackToUser, HelpInfo helpInfo) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.helpInfo = requireNonNull(helpInfo);
+        this.exit = false;
+        this.contactToView = null;
+        this.hideViewPanel = false;
+        this.showFileList = false;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
     public boolean isShowHelp() {
-        return showHelp;
+        return helpInfo != null;
+    }
+
+    /**
+     * Returns the help info, if any.
+     */
+    public Optional<HelpInfo> getHelpInfo() {
+        return Optional.ofNullable(helpInfo);
     }
 
     public boolean isExit() {
@@ -104,7 +124,7 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
+                && Objects.equals(helpInfo, otherCommandResult.helpInfo)
                 && exit == otherCommandResult.exit
                 && Objects.equals(contactToView, otherCommandResult.contactToView)
                 && hideViewPanel == otherCommandResult.hideViewPanel;
@@ -112,14 +132,14 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, contactToView, hideViewPanel);
+        return Objects.hash(feedbackToUser, helpInfo, exit, contactToView, hideViewPanel);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("feedbackToUser", feedbackToUser)
-                .add("showHelp", showHelp)
+                .add("helpInfo", helpInfo)
                 .add("exit", exit)
                 .add("contactToView", contactToView)
                 .add("hideViewPanel", hideViewPanel)
@@ -129,12 +149,11 @@ public class CommandResult {
 
 class HelpCommandResult extends CommandResult {
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * {@code showHelp} set to {@code true},
-     * and other fields set to their default value.
+     * Constructs a {@code CommandResult} with the specified {@code HelpInfo},
+     * which will trigger the help window to open with the given info.
      */
-    public HelpCommandResult(String feedbackToUser) {
-        super(feedbackToUser, true, false, null, false, false);
+    public HelpCommandResult(String feedbackToUser, HelpInfo helpInfo) {
+        super(feedbackToUser, helpInfo);
     }
 }
 

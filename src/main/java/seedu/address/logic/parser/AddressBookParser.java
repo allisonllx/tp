@@ -87,7 +87,11 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            String helpArgs = arguments.trim();
+            if (helpArgs.isEmpty()) {
+                return new HelpCommand();
+            }
+            return new HelpCommand(helpArgs);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

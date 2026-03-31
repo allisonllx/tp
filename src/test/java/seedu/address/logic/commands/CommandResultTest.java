@@ -61,7 +61,7 @@ public class CommandResultTest {
     public void toStringMethod() {
         CommandResult commandResult = new CommandResult("feedback");
         String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
-                + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
+                + commandResult.getFeedbackToUser() + ", helpInfo=" + commandResult.getHelpInfo().orElse(null)
                 + ", exit=" + commandResult.isExit() + ", contactToView=null"
                 + ", hideViewPanel=false}";
         assertEquals(expected, commandResult.toString());
@@ -164,5 +164,36 @@ public class CommandResultTest {
         // different hideContactDetail -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
                 new CommandResult("feedback", false, false, null, false, false).hashCode());
+    }
+
+    @Test
+    public void constructor_withHelpInfo_setsFieldsCorrectly() {
+        HelpInfo helpInfo = new HelpInfo("msg", "https://example.com");
+        CommandResult result = new CommandResult("feedback", helpInfo);
+
+        assertEquals("feedback", result.getFeedbackToUser());
+        assertTrue(result.isShowHelp());
+        assertTrue(result.getHelpInfo().isPresent());
+        assertEquals(helpInfo, result.getHelpInfo().get());
+        assertFalse(result.isExit());
+        assertFalse(result.isShowContactDetail());
+        assertFalse(result.isHideViewPanel());
+        assertFalse(result.isShowFileList());
+    }
+
+    @Test
+    public void equals_withHelpInfo() {
+        HelpInfo helpInfo = new HelpInfo("msg", "https://example.com");
+        HelpInfo otherInfo = new HelpInfo("other", "https://other.com");
+        CommandResult result = new CommandResult("feedback", helpInfo);
+
+        // same values -> true
+        assertTrue(result.equals(new CommandResult("feedback", helpInfo)));
+
+        // different helpInfo -> false
+        assertFalse(result.equals(new CommandResult("feedback", otherInfo)));
+
+        // no helpInfo vs helpInfo -> false
+        assertFalse(result.equals(new CommandResult("feedback")));
     }
 }

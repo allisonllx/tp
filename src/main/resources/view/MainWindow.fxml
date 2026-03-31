@@ -30,7 +30,19 @@
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="User Guide" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpAdd" text="add" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpClear" text="clear" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpClose" text="close" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpDelete" text="delete" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpEdit" text="edit" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpFile" text="file" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpFind" text="find" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpList" text="list" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpNote" text="note" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpSort" text="sort" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpTheme" text="theme" />
+            <MenuItem mnemonicParsing="false" onAction="#handleHelpView" text="view" />
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <MenuItem mnemonicParsing="false" onAction="#handleViewFiles" text="Files" />

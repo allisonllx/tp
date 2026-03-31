@@ -285,6 +285,66 @@ public class MainWindow extends UiPart<Stage> {
         executeCommand("help");
     }
 
+    @FXML
+    private void handleHelpAdd() throws CommandException, ParseException {
+        executeCommand("help add");
+    }
+
+    @FXML
+    private void handleHelpClear() throws CommandException, ParseException {
+        executeCommand("help clear");
+    }
+
+    @FXML
+    private void handleHelpClose() throws CommandException, ParseException {
+        executeCommand("help close");
+    }
+
+    @FXML
+    private void handleHelpDelete() throws CommandException, ParseException {
+        executeCommand("help delete");
+    }
+
+    @FXML
+    private void handleHelpEdit() throws CommandException, ParseException {
+        executeCommand("help edit");
+    }
+
+    @FXML
+    private void handleHelpFile() throws CommandException, ParseException {
+        executeCommand("help file");
+    }
+
+    @FXML
+    private void handleHelpFind() throws CommandException, ParseException {
+        executeCommand("help find");
+    }
+
+    @FXML
+    private void handleHelpList() throws CommandException, ParseException {
+        executeCommand("help list");
+    }
+
+    @FXML
+    private void handleHelpNote() throws CommandException, ParseException {
+        executeCommand("help note");
+    }
+
+    @FXML
+    private void handleHelpSort() throws CommandException, ParseException {
+        executeCommand("help sort");
+    }
+
+    @FXML
+    private void handleHelpTheme() throws CommandException, ParseException {
+        executeCommand("help theme");
+    }
+
+    @FXML
+    private void handleHelpView() throws CommandException, ParseException {
+        executeCommand("help view");
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -415,6 +475,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
+                commandResult.getHelpInfo().ifPresent(helpWindow::setHelpInfo);
                 showHelpWindow();
             }
 
