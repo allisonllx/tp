@@ -13,10 +13,10 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.timepoint.TimePoint;
+import seedu.address.commons.core.timepoint.TimePointComparator;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.timepoint.TimePoint;
-import seedu.address.model.timepoint.TimePointComparator;
 
 /**
  * Represents a Contact in the address book.

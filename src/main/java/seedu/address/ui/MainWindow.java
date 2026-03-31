@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -47,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private FileListPanel fileListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ReminderWindow reminderWindow;
+    private ReminderWindow reminderWindow = null;
     private StatusBarFooter statusBarFooter;
 
     /** Listener to keep the split pane divider at the right edge when the detail panel is hidden */
@@ -170,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
         contactDetailPanelPlaceholder.getChildren().add(contactDetailPanel.getRoot());
 
         try {
-            fileListPanel = new FileListPanel(Paths.get("data"));
+            fileListPanel = new FileListPanel(logic.getAddressBookFilePath().getParent());
             fileListPanelPlaceholder.getChildren().add(fileListPanel.getRoot());
         } catch (IOException e) {
             logger.info("An error occurred while setting up file list: " + e);
@@ -291,6 +290,12 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        if (reminderWindow != null) {
+            if (reminderWindow.isShowing()) {
+                reminderWindow.hide();
+            }
+        }
+        fileListPanel.shutdownExecutorService();
     }
 
     /**

@@ -48,7 +48,11 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        String[] splitName = name.trim().split("\\s+");
+        String trimmedName = name.trim();
+        if (trimmedName.isEmpty()) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        String[] splitName = trimmedName.split("\\s+");
         String titledName = Arrays.stream(splitName)
                 .map(word -> Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase())
                 .collect(Collectors.joining(" "));

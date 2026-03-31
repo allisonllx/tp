@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.TimePointParser;
-import seedu.address.model.timepoint.TimePoint;
 
 /**
  * Represents a Contact's notes in the address book, may contain a {@code TimePoint} to act as a reminder.

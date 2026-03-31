@@ -18,7 +18,7 @@ import seedu.address.ui.DeleteFileAlert;
 /**
  * Deletes a given B2B4U data file.
  */
-public class DeleteFileCommand extends DeleteCommand {
+public class FileDeleteCommand extends FileCommand {
     public static final String MESSAGE_SUCCESS = "%1$s has been deleted.";
     public static final String MESSAGE_FAILURE_IS_CURRENT_FILE = "Cannot delete file currently being accessed.";
     public static final String MESSAGE_FAILURE_FILE_NOT_FOUND = "File not found.";
@@ -31,7 +31,7 @@ public class DeleteFileCommand extends DeleteCommand {
     /**
      * @param filePath Path of file to be deleted, without ".json" file format name.
      */
-    public DeleteFileCommand(Path filePath) {
+    public FileDeleteCommand(Path filePath) {
         requireNonNull(filePath);
         this.filePath = filePath;
     }
@@ -79,11 +79,11 @@ public class DeleteFileCommand extends DeleteCommand {
             return true;
         }
 
-        if (!(other instanceof DeleteFileCommand)) {
+        if (!(other instanceof FileDeleteCommand)) {
             return false;
         }
 
-        DeleteFileCommand otherDeleteFileCommand = (DeleteFileCommand) other;
+        FileDeleteCommand otherDeleteFileCommand = (FileDeleteCommand) other;
         return filePath.equals(otherDeleteFileCommand.filePath);
     }
 }

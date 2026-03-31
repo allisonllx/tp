@@ -7,7 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.timepoint.TimePoint;
+import seedu.address.commons.core.timepoint.TimePoint;
 
 public class LastContactedTest {
 

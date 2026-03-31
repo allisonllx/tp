@@ -30,6 +30,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.timepoint.TimePoint;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.FindAssociationsCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -39,7 +40,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.util.ContactPredicateBuilder;
-import seedu.address.model.timepoint.TimePoint;
 import seedu.address.testutil.TypicalIndexes;
 
 public class FindCommandParserTest {

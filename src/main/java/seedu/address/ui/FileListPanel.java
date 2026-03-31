@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -164,5 +165,19 @@ public class FileListPanel extends UiPart<Region> {
                 Thread.currentThread().interrupt();
             }
         });
+    }
+
+    /**
+     * Shuts down `EXECUTOR_SERVICE` used to watch for file changes and ensures it is terminated gracefully.
+     */
+    public void shutdownExecutorService() {
+        EXECUTOR_SERVICE.shutdown();
+        try {
+            if (!EXECUTOR_SERVICE.awaitTermination(200, TimeUnit.MILLISECONDS)) {
+                EXECUTOR_SERVICE.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            EXECUTOR_SERVICE.shutdownNow();
+        }
     }
 }
