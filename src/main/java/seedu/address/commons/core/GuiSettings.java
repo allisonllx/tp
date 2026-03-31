@@ -33,6 +33,16 @@ public class GuiSettings implements Serializable {
     }
 
     /**
+     * Constructs a {@code GuiSettings} with the specified height, width and theme.
+     */
+    public GuiSettings(double windowWidth, double windowHeight, String themeUrl) {
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        windowCoordinates = null;
+        this.themeUrl = themeUrl;
+    }
+
+    /**
      * Constructs a {@code GuiSettings} with the specified height, width, position and theme.
      */
     public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String themeUrl) {
@@ -77,7 +87,7 @@ public class GuiSettings implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, themeUrl);
     }
 
     @Override
@@ -86,6 +96,7 @@ public class GuiSettings implements Serializable {
                 .add("windowWidth", windowWidth)
                 .add("windowHeight", windowHeight)
                 .add("windowCoordinates", windowCoordinates)
+                .add("theme", themeUrl)
                 .toString();
     }
 }
