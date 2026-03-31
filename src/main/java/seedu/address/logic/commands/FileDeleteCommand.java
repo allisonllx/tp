@@ -54,7 +54,8 @@ public class FileDeleteCommand extends FileCommand {
             if (!addressBookOptional.get().getContactList().isEmpty()) {
                 DeleteFileAlert alert =
                         new DeleteFileAlert(filePath.getFileName().toString(),
-                                addressBookOptional.get().getContactList().size());
+                                addressBookOptional.get().getContactList().size(),
+                                model.getThemeUrl());
                 alert.show();
 
                 if (!(alert.getResult() == ButtonType.YES)) {

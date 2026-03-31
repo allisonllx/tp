@@ -1,9 +1,9 @@
 #reminderMessage {
-    -fx-text-fill: white;
+    -fx-text-fill: -main-font-color;
 }
 
 .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -main-font-color;
 }
 
 .name {
@@ -12,5 +12,5 @@
 }
 
 #reminderMessageContainer {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(-main-background-color, 20%);
 }

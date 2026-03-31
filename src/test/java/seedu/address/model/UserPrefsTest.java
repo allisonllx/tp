@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.ui.UiUtil;
+
 public class UserPrefsTest {
 
     @Test
@@ -21,6 +23,12 @@ public class UserPrefsTest {
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setAddressBookFilePath(null));
+    }
+
+    @Test
+    public void getThemeUrlTest() {
+        UserPrefs userPrefs = new UserPrefs();
+        assertEquals(UiUtil.getUrl("DarkTheme.css").toString(), userPrefs.getThemeUrl());
     }
 
     @Test

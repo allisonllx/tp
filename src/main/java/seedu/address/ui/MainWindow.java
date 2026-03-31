@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -39,6 +40,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+
+    private String[] stylesheets;
 
     // Independent Ui parts residing in this Ui container
     private ContactListPanel contactListPanel;
@@ -97,6 +100,10 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+
+        List<String> essentialStylesheets = primaryStage.getScene().getStylesheets();
+        stylesheets = new String[essentialStylesheets.size() + 1];
+        essentialStylesheets.toArray(stylesheets);
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -189,6 +196,7 @@ public class MainWindow extends UiPart<Stage> {
 
         if (logic.getDisplayedContactList().stream().anyMatch(Contact::hasDueReminders)) {
             reminderWindow = new ReminderWindow(logic.getDisplayedContactList());
+            reminderWindow.setTheme(logic.getThemeUrl());
             reminderWindow.show();
         }
 
@@ -200,9 +208,9 @@ public class MainWindow extends UiPart<Stage> {
      * Shows the contact detail panel.
      */
     private void showContactDetail() {
-        NodeUtil.show(viewPanelContainer);
-        NodeUtil.show(contactDetailPanelPlaceholder);
-        NodeUtil.hide(fileListPanelPlaceholder);
+        UiUtil.show(viewPanelContainer);
+        UiUtil.show(contactDetailPanelPlaceholder);
+        UiUtil.hide(fileListPanelPlaceholder);
         splitPane.setDividerPositions(0.6);
     }
 
@@ -210,9 +218,9 @@ public class MainWindow extends UiPart<Stage> {
      * Shows the file list panel.
      */
     private void showFileList() {
-        NodeUtil.show(viewPanelContainer);
-        NodeUtil.hide(contactDetailPanelPlaceholder);
-        NodeUtil.show(fileListPanelPlaceholder);
+        UiUtil.show(viewPanelContainer);
+        UiUtil.hide(contactDetailPanelPlaceholder);
+        UiUtil.show(fileListPanelPlaceholder);
         splitPane.setDividerPositions(0.6);
     }
 
@@ -220,7 +228,7 @@ public class MainWindow extends UiPart<Stage> {
      * Hides the contact detail panel.
      */
     private void hideViewPanel() {
-        NodeUtil.hide(viewPanelContainer);
+        UiUtil.hide(viewPanelContainer);
         splitPane.setDividerPositions(1.0);
         viewedContactId = null;
     }
@@ -257,6 +265,19 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the theme of the MainWindow.
+     * @param themeUrl URL of the desired theme.
+     */
+    public void setTheme(String themeUrl) {
+        stylesheets[stylesheets.length - 1] = themeUrl;
+        primaryStage.getScene().getStylesheets().setAll(stylesheets);
+        helpWindow.setTheme(themeUrl);
+        if (reminderWindow != null) {
+            reminderWindow.setTheme(themeUrl);
+        }
+    }
+
+    /**
      * Executes a "help" command.
      */
     @FXML
@@ -277,6 +298,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        setTheme(logic.getThemeUrl());
+
         primaryStage.show();
     }
 

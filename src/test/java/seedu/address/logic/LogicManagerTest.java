@@ -34,6 +34,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ContactBuilder;
+import seedu.address.ui.UiUtil;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
@@ -189,5 +190,10 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addContact(expectedContact);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void getThemeUrlTest() {
+        assertEquals(UiUtil.getUrl("DarkTheme.css").toString(), logic.getThemeUrl());
     }
 }

@@ -1,5 +1,5 @@
 .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -main-font-color;
 }
 
 .name {
@@ -8,18 +8,18 @@
 }
 
 .button {
-    -fx-text-fill: white;
-    -fx-background-color: dimgray;
+    -fx-text-fill: -main-font-color;
+    -fx-background-color: -button-fill;
 }
 
 .button:hover {
-    -fx-background-color: gray;
+    -fx-background-color: derive(-button-fill, 20%);
 }
 
 .button:armed {
-    -fx-background-color: darkgray;
+    -fx-background-color: derive(-button-fill, -20%);
 }
 
 #alertMessageContainer {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(-main-background-color, 20%);
 }

@@ -59,34 +59,34 @@ public class ContactCard extends UiPart<Region> {
         name.setText(contact.getName().fullName);
         contact.getPhone().ifPresentOrElse(phone -> {
             this.phone.setText(phone.value);
-            NodeUtil.show(this.phone);
+            UiUtil.show(this.phone);
         }, () -> {
             this.phone.setText("");
-            NodeUtil.hide(this.phone);
+            UiUtil.hide(this.phone);
         });
         contact.getAddress().ifPresentOrElse(address -> {
             this.address.setText(address.value);
-            NodeUtil.show(this.address);
+            UiUtil.show(this.address);
         }, () -> {
             this.address.setText("");
-            NodeUtil.hide(this.address);
+            UiUtil.hide(this.address);
         });
         contact.getEmail().ifPresentOrElse(email -> {
             this.email.setText(email.value);
-            NodeUtil.show(this.email);
+            UiUtil.show(this.email);
         }, () -> {
             this.email.setText("");
-            NodeUtil.hide(this.email);
+            UiUtil.hide(this.email);
         });
         this.lastUpdated.setText("Last Updated: " + DateTimeUtil.toDisplayString(contact.getLastUpdated().value));
-        NodeUtil.show(this.lastUpdated);
+        UiUtil.show(this.lastUpdated);
         if (!(contact.getNotes().isEmpty())) {
             NotesTextFlow notes = new NotesTextFlow(contact.getNotes(), allContacts);
             notes.setNewMaxHeight(notesContainer.getMaxHeight()
                     - (notesContainer.getPadding().getTop() + notesContainer.getPadding().getBottom()));
             notesContainer.getChildren().add(notes);
         } else {
-            NodeUtil.hide(notesContainer);
+            UiUtil.hide(notesContainer);
         }
         if (!(contact.getTags().isEmpty()
                 && contact.getReminders().isEmpty()
@@ -111,7 +111,7 @@ public class ContactCard extends UiPart<Region> {
                 tags.getChildren().add(reminderLabel);
             }
         } else {
-            NodeUtil.hide(tags);
+            UiUtil.hide(tags);
         }
     }
 }

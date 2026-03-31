@@ -108,6 +108,14 @@ public class MainWindowTest extends GuiUnitTest {
     }
 
     @Test
+    public void setThemeTest() throws Exception {
+        runAndWait(() -> {
+            mainWindow.setTheme("stubTheme");
+            assert mainWindow.getPrimaryStage().getScene().getStylesheets().contains("stubTheme");
+        });
+    }
+
+    @Test
     public void scrollToTop_success() throws Exception {
         runAndWait(() -> {
             logic.setNextResult(new CommandResult(ListCommand.MESSAGE_SUCCESS));
@@ -168,6 +176,11 @@ public class MainWindowTest extends GuiUnitTest {
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
             // no-op for testing
+        }
+
+        @Override
+        public String getThemeUrl() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

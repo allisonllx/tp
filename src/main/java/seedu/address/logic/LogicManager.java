@@ -91,6 +91,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public String getThemeUrl() {
+        return model.getThemeUrl();
+    }
+
+    @Override
     public boolean modelCanUndo() {
         return model.canUndo();
     }

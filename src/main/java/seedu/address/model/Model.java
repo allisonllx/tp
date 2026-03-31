@@ -33,6 +33,11 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
+     * Returns the current user prefs' theme URL.
+     */
+    String getThemeUrl();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();

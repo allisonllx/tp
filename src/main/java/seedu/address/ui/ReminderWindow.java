@@ -22,6 +22,9 @@ public class ReminderWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(ReminderWindow.class);
     private static final String FXML = "ReminderWindow.fxml";
 
+    private Stage stage;
+    private String[] stylesheets;
+
     @FXML
     private Label reminderMessage;
 
@@ -35,6 +38,12 @@ public class ReminderWindow extends UiPart<Stage> {
      */
     public ReminderWindow(Stage root, List<Contact> contactList) {
         super(FXML, root);
+        stage = root;
+
+        List<String> essentialStylesheets = stage.getScene().getStylesheets();
+        stylesheets = new String[essentialStylesheets.size() + 1];
+        essentialStylesheets.toArray(stylesheets);
+
         reminderMessage.setText(REMINDER_MESSAGE);
         contactList.stream().filter(Contact::hasDueReminders).forEach(contact -> {
             Label nameLabel = new Label(contact.getName().toString() + ":   ");
@@ -99,5 +108,18 @@ public class ReminderWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    /**
+     * Sets the theme of the ReminderWindow.
+     * @param themeUrl URL of the desired theme.
+     */
+    public void setTheme(String themeUrl) {
+        stylesheets[stylesheets.length - 1] = themeUrl;
+        stage.getScene().getStylesheets().setAll(stylesheets);
     }
 }

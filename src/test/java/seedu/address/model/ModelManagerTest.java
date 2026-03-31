@@ -19,6 +19,7 @@ import seedu.address.model.contact.ContactFieldComparator;
 import seedu.address.model.contact.util.ContactPredicateBuilder;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ContactBuilder;
+import seedu.address.ui.UiUtil;
 
 public class ModelManagerTest {
 
@@ -60,6 +61,11 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void getThemeUrlTest() {
+        assertEquals(UiUtil.getUrl("DarkTheme.css").toString(), modelManager.getThemeUrl());
     }
 
     @Test

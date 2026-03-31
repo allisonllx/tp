@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,9 +29,17 @@ public class DeleteFileAlert extends UiPart<Stage> {
      * Creates a new DeleteFileAlert window.
      * @param root Stage to use as the root of the DeleteFileAlert window.
      * @param alertText Text to display to user.
+     * @param themeUrl URL of theme to be used for this alert window.
      */
-    public DeleteFileAlert(Stage root, String alertText) {
+    public DeleteFileAlert(Stage root, String alertText, String themeUrl) {
         super(FXML, root);
+
+        List<String> essentialStylesheets = root.getScene().getStylesheets();
+        String[] stylesheets = new String[essentialStylesheets.size() + 1];
+        essentialStylesheets.toArray(stylesheets);
+        stylesheets[stylesheets.length - 1] = themeUrl;
+        root.getScene().getStylesheets().setAll(stylesheets);
+
         alertLabel.setText(alertText);
     }
 
@@ -38,8 +48,8 @@ public class DeleteFileAlert extends UiPart<Stage> {
      * @param fileName Name of file to be deleted.
      * @param contactCount Number of contacts within file to be deleted.
      */
-    public DeleteFileAlert(String fileName, int contactCount) {
-        this(new Stage(), String.format(ALERT_FORMAT, fileName, contactCount));
+    public DeleteFileAlert(String fileName, int contactCount, String themeUrl) {
+        this(new Stage(), String.format(ALERT_FORMAT, fileName, contactCount), themeUrl);
     }
 
     /**

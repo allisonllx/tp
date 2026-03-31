@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
-import seedu.address.MainApp;
 
 /**
  * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
@@ -15,7 +14,6 @@ import seedu.address.MainApp;
 public abstract class UiPart<T> {
 
     /** Resource folder where FXML files are stored. */
-    public static final String FXML_FILE_FOLDER = "/view/";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -32,7 +30,7 @@ public abstract class UiPart<T> {
      * @see #UiPart(URL)
      */
     public UiPart(String fxmlFileName) {
-        this(getFxmlFileUrl(fxmlFileName));
+        this(UiUtil.getUrl(fxmlFileName));
     }
 
     /**
@@ -48,7 +46,7 @@ public abstract class UiPart<T> {
      * @see #UiPart(URL, T)
      */
     public UiPart(String fxmlFileName, T root) {
-        this(getFxmlFileUrl(fxmlFileName), root);
+        this(UiUtil.getUrl(fxmlFileName), root);
     }
 
     /**
@@ -73,16 +71,6 @@ public abstract class UiPart<T> {
         } catch (IOException e) {
             throw new AssertionError(e);
         }
-    }
-
-    /**
-     * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
-     */
-    private static URL getFxmlFileUrl(String fxmlFileName) {
-        requireNonNull(fxmlFileName);
-        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
-        URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
-        return requireNonNull(fxmlFileUrl);
     }
 
 }

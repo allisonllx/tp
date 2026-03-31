@@ -9,8 +9,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.core.timepoint.DateTimeUtil;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.timepoint.DateTimeUtil;
 
 /**
  * A UI component that displays detailed information of a {@code Contact}.
@@ -77,47 +77,47 @@ public class ContactDetailPanel extends UiPart<Region> {
         // Phone
         if (contact.getPhone().isPresent()) {
             phone.setText(contact.getPhone().get().value);
-            NodeUtil.show(phoneContainer);
+            UiUtil.show(phoneContainer);
         } else {
-            NodeUtil.hide(phoneContainer);
+            UiUtil.hide(phoneContainer);
         }
 
         // Email
         if (contact.getEmail().isPresent()) {
             email.setText(contact.getEmail().get().value);
-            NodeUtil.show(emailContainer);
+            UiUtil.show(emailContainer);
         } else {
-            NodeUtil.hide(emailContainer);
+            UiUtil.hide(emailContainer);
         }
 
         // Address
         if (contact.getAddress().isPresent()) {
             address.setText(contact.getAddress().get().value);
-            NodeUtil.show(addressContainer);
+            UiUtil.show(addressContainer);
         } else {
-            NodeUtil.hide(addressContainer);
+            UiUtil.hide(addressContainer);
         }
 
         // Last Contacted
         if (contact.getLastContacted().isPresent()) {
             lastContacted.setText(contact.getLastContacted().get().toString());
-            NodeUtil.show(lastContactedContainer);
+            UiUtil.show(lastContactedContainer);
         } else {
-            NodeUtil.hide(lastContactedContainer);
+            UiUtil.hide(lastContactedContainer);
         }
 
         // Last Updated
         lastUpdated.setText(DateTimeUtil.toDisplayString(contact.getLastUpdated().value));
-        NodeUtil.show(lastUpdatedContainer);
+        UiUtil.show(lastUpdatedContainer);
 
         // Notes
         if (!contact.getNotes().isEmpty()) {
             NotesTextFlow notesTextFlow = new NotesTextFlow(contact.getNotes(), allContacts);
             notesTextFlow.addStyleClass("detail-text-flow");
             notesScrollPane.setContent(notesTextFlow);
-            NodeUtil.show(notesContainer);
+            UiUtil.show(notesContainer);
         } else {
-            NodeUtil.hide(notesContainer);
+            UiUtil.hide(notesContainer);
         }
 
         // Tags
@@ -126,12 +126,12 @@ public class ContactDetailPanel extends UiPart<Region> {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.name))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.name)));
-            NodeUtil.show(tagsContainer);
+            UiUtil.show(tagsContainer);
         } else {
-            NodeUtil.hide(tagsContainer);
+            UiUtil.hide(tagsContainer);
         }
 
-        NodeUtil.show(detailPane);
+        UiUtil.show(detailPane);
     }
 
     /**
@@ -146,14 +146,14 @@ public class ContactDetailPanel extends UiPart<Region> {
         lastUpdated.setText("");
         tags.getChildren().clear();
 
-        NodeUtil.hide(phoneContainer);
-        NodeUtil.hide(emailContainer);
-        NodeUtil.hide(addressContainer);
-        NodeUtil.hide(lastContactedContainer);
-        NodeUtil.hide(lastUpdatedContainer);
-        NodeUtil.hide(notesContainer);
-        NodeUtil.hide(tagsContainer);
+        UiUtil.hide(phoneContainer);
+        UiUtil.hide(emailContainer);
+        UiUtil.hide(addressContainer);
+        UiUtil.hide(lastContactedContainer);
+        UiUtil.hide(lastUpdatedContainer);
+        UiUtil.hide(notesContainer);
+        UiUtil.hide(tagsContainer);
 
-        NodeUtil.hide(detailPane);
+        UiUtil.hide(detailPane);
     }
 }
