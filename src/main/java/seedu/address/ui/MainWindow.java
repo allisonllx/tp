@@ -398,11 +398,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Executes a "view file/" command.
+     * Executes a "view files" command.
      */
     @FXML
     private void handleViewFiles() throws CommandException, ParseException {
-        executeCommand("view file/");
+        executeCommand("view files");
     }
 
     /**

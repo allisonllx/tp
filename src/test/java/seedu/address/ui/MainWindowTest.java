@@ -70,7 +70,7 @@ public class MainWindowTest extends GuiUnitTest {
         runAndWait(() -> {
             Contact contact = new ContactBuilder().withName("Test").build();
             logic.setNextResult(new CommandResult("view files", false, false, null, false, true));
-            assertDoesNotThrow(() -> mainWindow.executeCommand("view file/"));
+            assertDoesNotThrow(() -> mainWindow.executeCommand("view files"));
             assertNull(mainWindow.getViewedContactId());
         });
     }
