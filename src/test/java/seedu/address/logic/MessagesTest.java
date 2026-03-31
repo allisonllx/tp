@@ -50,7 +50,7 @@ public class MessagesTest {
         assertFalse(formatted.contains("; Email:"));
         assertFalse(formatted.contains("; Address:"));
         assertFalse(formatted.contains("; Last Contacted:"));
-        assertTrue(formatted.contains("; Tags:"));
+        assertFalse(formatted.contains("; Tags:"));
     }
 
     @Test

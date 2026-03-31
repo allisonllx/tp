@@ -21,7 +21,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_KEYWORD = "Missing a keyword";
     public static final String MESSAGE_INVALID_INDEX = "INDEX should be between 1 and %d";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_DUPLICATE_TAGS = "Tag names should be unique";
 
     /**
@@ -49,8 +49,10 @@ public class Messages {
             builder.append("; Last Contacted: ");
             builder.append(lastContacted);
         });
-        builder.append("; Tags: ");
-        contact.getTags().forEach(builder::append);
+        if (!contact.getTags().isEmpty()) {
+            builder.append("; Tags: ");
+            contact.getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 
