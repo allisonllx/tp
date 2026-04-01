@@ -21,6 +21,28 @@ Examples:
 
 ![add note]({{ baseUrl }}/images/addNote.png)
 
+**Edit a specific note:**
+
+Format: `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`
+
+* Replaces the note at position `NOTE_INDEX` of the contact at the specified `INDEX` with `NEW_NOTE`.
+* `NOTE_INDEX` refers to the position of the note as displayed (starting from 1).
+* Optionally include `on/TIME` to set or update the reminder for the edited note.
+
+Examples:
+* `note 1 el/1 Updated note text.` replaces the 1st note of the 1st contact.
+* `note 2 el/3 Follow up call on/15 Apr` replaces the 3rd note for the 2nd contact and sets a reminder.
+
+**Remove a specific note:**
+
+Format: `note INDEX cl/NOTE_INDEX`
+
+* Removes the note at position `NOTE_INDEX` from the contact at the specified `INDEX`.
+* `NOTE_INDEX` refers to the position of the note as displayed (starting from 1).
+
+Example:
+* `note 1 cl/2` removes the 2nd note from the 1st contact.
+
 **Remove the first N notes:**
 
 Format: `note INDEX c/LINES_TO_REMOVE`
