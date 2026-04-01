@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.timepoint.TimePoint;
@@ -118,6 +120,48 @@ public class Note {
     public Note dereferenceContact(UUID contactId, String contactName) {
         String newValue = value.replace("@{" + contactId.toString() + "}", contactName);
         return new Note(newValue, timePoint);
+    }
+
+    /**
+     * Formats stored note text for user-facing output: each {@code @{UUID}} is shown with the
+     * contact's name. If they appear in {@code displayedContacts}, the form is
+     * {@code Name (@n)} (1-based index in that list). If only found in {@code allContacts},
+     * the name alone is used. Otherwise the original token is kept.
+     */
+    public static String formatContactReferencesForDisplay(String text, List<Contact> displayedContacts,
+            List<Contact> allContacts) {
+        requireNonNull(text);
+        if (displayedContacts == null) {
+            return text;
+        }
+        Matcher matcher = CONTACT_REF_PATTERN.matcher(text);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            String uuidStr = matcher.group(1);
+            UUID refId = UUID.fromString(uuidStr);
+            String replacement = null;
+            for (int i = 0; i < displayedContacts.size(); i++) {
+                if (displayedContacts.get(i).getId().equals(refId)) {
+                    String name = displayedContacts.get(i).getName().fullName;
+                    replacement = name + " (@" + (i + 1) + ")";
+                    break;
+                }
+            }
+            if (replacement == null && allContacts != null) {
+                for (Contact c : allContacts) {
+                    if (c.getId().equals(refId)) {
+                        replacement = c.getName().fullName;
+                        break;
+                    }
+                }
+            }
+            if (replacement == null) {
+                replacement = "@{" + uuidStr + "}";
+            }
+            matcher.appendReplacement(sb, Matcher.quoteReplacement(replacement));
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
     }
 
     @Override
