@@ -18,7 +18,7 @@ Examples:
 * `find n/Alex` returns contacts with `Alex` in their name.
 * `find p/94` returns contacts with `94` in their phone number.
 * `find a/street t/friends` returns contacts that have `street` in their address **and** the exact tag `friends`.
-* `find @1` shows all contacts associated with the 1st contact in the list. For example, if contact 1 has a note referencing contact 2, both contacts will be shown when running `find @1` or `find @2`, since they are linked.
+* `find @1` shows all contacts associated with the 1st contact in the list. For example, if the contact currently indexed 1 has a note referencing the contact currently indexed 2, both contacts will be shown when running `find @1` or `find @2`, since they are linked.
 * `find t/vendor` followed by `find @2` cross-references the 2nd vendor in the filtered list.
 
 ![find contacts]({{ baseUrl }}/images/findContacts.png)
