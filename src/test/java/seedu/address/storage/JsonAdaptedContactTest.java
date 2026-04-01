@@ -20,6 +20,7 @@ import seedu.address.model.contact.Email;
 import seedu.address.model.contact.LastContacted;
 import seedu.address.model.contact.LastUpdated;
 import seedu.address.model.contact.Name;
+import seedu.address.model.contact.Note;
 import seedu.address.model.contact.Phone;
 import seedu.address.testutil.ContactBuilder;
 
@@ -39,7 +40,7 @@ public class JsonAdaptedContactTest {
     private static final Optional<String> VALID_LAST_CONTACTED = BENSON.getLastContacted().map(Object::toString);
     private static final LocalDateTime VALID_LAST_UPDATED = BENSON.getLastUpdated().value;
     private static final List<String> VALID_NOTES = BENSON.getNotes().stream()
-            .map(note -> note.value)
+            .map(Note::toJsonString)
             .collect(Collectors.toList());
     private static final String VALID_TAG_NAME = "friends";
     private static final String VALID_TAG_RANK = "best";
