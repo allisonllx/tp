@@ -33,8 +33,7 @@ public class HelpCommand extends Command {
         COMMAND_HELP_MAP.put(AddCommand.COMMAND_WORD,
                 new HelpInfo(AddCommand.MESSAGE_USAGE, UG_COMMANDS_URL + "add-contact.html"));
         COMMAND_HELP_MAP.put(ClearCommand.COMMAND_WORD,
-                new HelpInfo("clear: Clears the address book.\nExample: clear",
-                        UG_COMMANDS_URL + "clear-contacts.html"));
+                new HelpInfo(ClearCommand.MESSAGE_USAGE, UG_COMMANDS_URL + "clear-contacts.html"));
         COMMAND_HELP_MAP.put(CloseViewCommand.COMMAND_WORD,
                 new HelpInfo(CloseViewCommand.MESSAGE_USAGE,
                         UG_COMMANDS_URL + "close-view-contact.html"));

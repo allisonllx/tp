@@ -65,7 +65,7 @@ public class AddressBookParser {
             return new AddCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommandParser().parse(arguments);
 
         case CloseViewCommand.COMMAND_WORD:
             if (!arguments.trim().equals(CloseViewCommand.COMMAND_SUBWORD)) {
