@@ -90,14 +90,17 @@ public class FindCommandTest {
                 .withNotes("meeting with @{" + secondId + "}").build();
         Contact second = new ContactBuilder().withName("Bob").withId(secondId)
                 .withPhone("98765432").withEmail("bob@example.com").build();
+        Contact unrelated = new ContactBuilder().withName("Charlie")
+                .withPhone("81234567").withEmail("charlie@example.com").build();
         ab.addContact(first);
         ab.addContact(second);
+        ab.addContact(unrelated);
         Model testModel = new ModelManager(ab, new UserPrefs());
 
         FindAssociationsCommand command = new FindAssociationsCommand(INDEX_FIRST_CONTACT);
         CommandResult result = command.execute(testModel);
         assertTrue(result.getFeedbackToUser().contains("Cross-referencing"));
-        // Should show both the target (Alice) and the referenced contact (Bob)
+        // Should show Alice (target) and Bob (referenced), but NOT Charlie (unrelated)
         assertEquals(2, testModel.getDisplayedContactList().size());
     }
 
@@ -122,6 +125,31 @@ public class FindCommandTest {
         assertTrue(result.getFeedbackToUser().contains("Cross-referencing"));
         // Should show both Bob (target) and Alice (who references Bob)
         assertEquals(2, testModel.getDisplayedContactList().size());
+    }
+
+    @Test
+    public void execute_crossRefReverseLookup_nonMatchingRef() throws CommandException {
+        // A references C, we search for B — A's notes contain a UUID that does not match B
+        UUID aliceId = UUID.randomUUID();
+        UUID bobId = UUID.randomUUID();
+        UUID charlieId = UUID.randomUUID();
+        AddressBook ab = new AddressBook();
+        Contact alice = new ContactBuilder().withName("Alice").withId(aliceId)
+                .withPhone("91234567").withEmail("alice@example.com")
+                .withNotes("meeting with @{" + charlieId + "}").build();
+        Contact bob = new ContactBuilder().withName("Bob").withId(bobId)
+                .withPhone("98765432").withEmail("bob@example.com").build();
+        Contact charlie = new ContactBuilder().withName("Charlie").withId(charlieId)
+                .withPhone("81234567").withEmail("charlie@example.com").build();
+        ab.addContact(alice);
+        ab.addContact(bob);
+        ab.addContact(charlie);
+        Model testModel = new ModelManager(ab, new UserPrefs());
+
+        // find @2 (Bob) — no one references Bob, Alice references Charlie only
+        FindAssociationsCommand command = new FindAssociationsCommand(INDEX_SECOND_CONTACT);
+        CommandResult result = command.execute(testModel);
+        assertTrue(result.getFeedbackToUser().contains("No contact references found in notes"));
     }
 
     @Test
