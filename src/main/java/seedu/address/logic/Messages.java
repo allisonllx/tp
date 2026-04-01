@@ -88,7 +88,7 @@ public class Messages {
      * Formats note command success output with updated full notes shown beneath contact details.
      */
     public static String formatNoteOutput(String headerPrefix, Contact contact) {
-        return String.format("%s: %s\n\n%s", headerPrefix, format(contact), contact.getNotesString());
+        return String.format("%s: %s\n\nNotes:\n%s", headerPrefix, format(contact), contact.getNotesString());
     }
 
 }
