@@ -16,4 +16,8 @@ public class ExitCommand extends Command {
         return new ExitCommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ExitCommand;
+    }
 }
