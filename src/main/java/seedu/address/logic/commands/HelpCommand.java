@@ -44,8 +44,7 @@ public class HelpCommand extends Command {
                 new HelpInfo(EditCommand.MESSAGE_USAGE,
                         UG_COMMANDS_URL + "edit-contact.html"));
         COMMAND_HELP_MAP.put(ExitCommand.COMMAND_WORD,
-                new HelpInfo("exit: Terminates the program.\nExample: exit",
-                        UG_COMMANDS_URL + "exit-program.html"));
+                new HelpInfo(ExitCommand.MESSAGE_USAGE, UG_COMMANDS_URL + "exit-program.html"));
         COMMAND_HELP_MAP.put(FileCommand.COMMAND_WORD,
                 new HelpInfo(FileCommand.MESSAGE_USAGE,
                         UG_COMMANDS_URL + "file.html"));
@@ -56,8 +55,7 @@ public class HelpCommand extends Command {
                 new HelpInfo(MESSAGE_USAGE,
                         UG_COMMANDS_URL + "view-help.html"));
         COMMAND_HELP_MAP.put(ListCommand.COMMAND_WORD,
-                new HelpInfo("list: Lists all contacts in the address book.\nExample: list",
-                        UG_COMMANDS_URL + "list-contacts.html"));
+                new HelpInfo(ListCommand.MESSAGE_USAGE, UG_COMMANDS_URL + "list-contacts.html"));
         COMMAND_HELP_MAP.put(NoteCommand.COMMAND_WORD,
                 new HelpInfo(NoteCommand.MESSAGE_USAGE,
                         UG_COMMANDS_URL + "notes.html"));

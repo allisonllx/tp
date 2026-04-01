@@ -70,7 +70,7 @@ public class AddressBookParser {
         case CloseViewCommand.COMMAND_WORD:
             if (!arguments.trim().equals(CloseViewCommand.COMMAND_SUBWORD)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CloseViewCommand.MESSAGE_USAGE));
+                        CloseViewCommand.MESSAGE_USAGE));
             }
             return new CloseViewCommand();
 
@@ -81,7 +81,7 @@ public class AddressBookParser {
             return new EditCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            return new ExitCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -94,7 +94,7 @@ public class AddressBookParser {
             return new HelpCommand(helpArgs);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case NoteCommand.COMMAND_WORD:
             return new NoteCommandParser().parse(arguments);

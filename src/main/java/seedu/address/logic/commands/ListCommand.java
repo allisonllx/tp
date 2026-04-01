@@ -10,7 +10,8 @@ import seedu.address.model.Model;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
-
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Lists all contacts in the address book.\nExample: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Listed all contacts";
 
 
@@ -23,5 +24,10 @@ public class ListCommand extends Command {
         String feedback = MESSAGE_SUCCESS;
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ListCommand;
     }
 }
