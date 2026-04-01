@@ -99,19 +99,31 @@ How the parsing works:
 ## Model component
 **API** : [`Model.java`](https://github.com/AY2526S2-CS2103T-T08-1/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="{{ baseUrl }}/diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="{{ baseUrl }}/diagrams/ModelClassDiagram.puml" width="520" />
 
 
 The `Model` component,
 
 * stores the contact list data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object).
 * stores the currently 'selected' `Contact` objects (e.g., results of a search query) as a separate _displayed_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPrefs` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPrefs` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+
+Each `Contact` also carries:
+
+* a stable **`UUID`** (persisted in JSON), used when notes store cross-references to other contacts; commands that resolve `@INDEX` in note text use the **displayed** contact list at parse time.
+* optional **`LastContacted`** for when the contact was last reached (flexible user phrasing, e.g. relative or absolute dates).
+* **`LastUpdated`**, always present (`LocalDateTime`), typically set to “now” when a contact is added or edited through the usual code paths; used for ordering and display logic.
+* a list of **`Note`** values: plain text plus an optional reminder; after parsing, stored text may contain `@{UUID}` cross-references to other contacts. Note command feedback uses `Messages.formatNoteOutput` (which uses `Contact.getNotesString()`); the GUI can resolve references when rendering (e.g. `NoteLabel`).
+* a set of **`Tag`** instances; in practice some entries are **`RankedTag`** (a subclass of `Tag`) for ranked friend tags—the class diagram shows only `Tag` to keep the overview simple.
+
+**Implementation detail (omitted from the model diagram):** both **`LastContacted`** and optional note reminders are represented using **`TimePoint`** from `seedu.address.commons.core.timepoint` for parsing and comparing those time phrases.
+
+`JsonAdaptedContact` persists `lastUpdated`, `lastContacted`, and `notes` alongside the other contact fields.
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` needing their own `Tag` objects.<br>
+**Note:** The diagram below is an **alternative** (arguably more OOP) design: a central `Tag` list on `AddressBook` that `Contact` references, so each unique tag exists once. **The running app does not use this structure**—`AddressBook` only contains a `UniqueContactList`, and each `Contact` owns its own `Tag` instances as in the main model diagram above.
 
 <puml src="{{ baseUrl }}/diagrams/BetterModelClassDiagram.puml" width="450" />
 
