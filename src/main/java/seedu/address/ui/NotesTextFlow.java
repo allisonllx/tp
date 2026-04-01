@@ -73,7 +73,7 @@ public class NotesTextFlow extends TextFlow {
                 reminderSeparator.getStyleClass().add("text-flow-label");
                 reminderSeparator.getStyleClass().add("italic");
                 getChildren().add(reminderSeparator);
-                Text time = new Text(note.timePoint.toString());
+                Text time = new Text(note.timePoint.map(Object::toString).orElse(""));
                 time.getStyleClass().add("text-flow-label");
                 getChildren().add(time);
             }

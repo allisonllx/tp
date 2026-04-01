@@ -128,7 +128,9 @@ public class Contact {
      * Returns the notes formatted as a string, with every note separated by line break.
      */
     public String getNotesString() {
-        return notes.stream().map(note -> note.value).collect(Collectors.joining("\n"));
+        return notes.stream()
+                .map(note -> note.value + note.timePoint.map(tp -> " on " + note.timePoint.get()).orElse(""))
+                .collect(Collectors.joining("\n"));
     }
 
     /**
