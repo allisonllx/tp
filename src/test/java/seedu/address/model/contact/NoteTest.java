@@ -150,4 +150,12 @@ public class NoteTest {
         Note result = note.dereferenceContact(id2, "Alice");
         assertEquals(note.value, result.value);
     }
+    
+    @Test
+    public void toString_test() {
+        Note note = new Note("Meeting notes", TimePoint.of(LocalDateTime.of(2025, 12, 25, 10, 30)));
+        String expected = "seedu.address.model.contact.Note{value=Meeting notes, timePoint=Optional[10:30, Dec 25, 2025]}";
+        assertEquals(expected, note.toString());
+
+    }
 }
