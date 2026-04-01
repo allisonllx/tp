@@ -14,5 +14,6 @@ public abstract class ViewCommand extends Command {
             + "used in the displayed contact list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1\n"
-            + "Or: " + COMMAND_WORD + " " + FILE_COMMAND_SUBWORD + " to view the list of all B2B4U data files in use.";
+            + "Or: \n"
+            + COMMAND_WORD + " " + FILE_COMMAND_SUBWORD + ": Displays the list of all B2B4U data files in use.";
 }
