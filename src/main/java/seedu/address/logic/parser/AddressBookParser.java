@@ -94,7 +94,7 @@ public class AddressBookParser {
             return new HelpCommand(helpArgs);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case NoteCommand.COMMAND_WORD:
             return new NoteCommandParser().parse(arguments);
