@@ -46,8 +46,9 @@ public class FindAssociationsCommand extends FindCommand {
         }
 
         Contact targetContact = lastShownList.get(associateIndex.getZeroBased());
+        UUID targetId = targetContact.getId();
 
-        // Collect UUIDs referenced in the target's notes
+        // Forward: collect UUIDs referenced in the target's notes
         Set<UUID> referencedIds = new HashSet<>();
         for (Note note : targetContact.getNotes()) {
             Matcher matcher = Note.CONTACT_REF_PATTERN.matcher(note.value);
@@ -56,14 +57,32 @@ public class FindAssociationsCommand extends FindCommand {
             }
         }
 
-        if (referencedIds.isEmpty()) {
+        // Reverse: collect IDs of contacts whose notes reference the target
+        Set<UUID> referencingIds = new HashSet<>();
+        for (Contact contact : model.getAddressBook().getContactList()) {
+            if (contact.isSameContact(targetContact)) {
+                continue;
+            }
+            for (Note note : contact.getNotes()) {
+                Matcher matcher = Note.CONTACT_REF_PATTERN.matcher(note.value);
+                while (matcher.find()) {
+                    if (UUID.fromString(matcher.group(1)).equals(targetId)) {
+                        referencingIds.add(contact.getId());
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (referencedIds.isEmpty() && referencingIds.isEmpty()) {
             return new CommandResult(
                     String.format(MESSAGE_NO_RELATED_CONTACTS, targetContact.getName()));
         }
 
         model.filterDisplayedContactList(contact ->
                 contact.isSameContact(targetContact)
-                || referencedIds.contains(contact.getId()));
+                || referencedIds.contains(contact.getId())
+                || referencingIds.contains(contact.getId()));
 
         int matchCount = model.getDisplayedContactList().size() - 1;
 

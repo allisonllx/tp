@@ -102,6 +102,29 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_crossRefReverseLookup_success() throws CommandException {
+        // Bob's notes reference Alice, so find @2 (Bob) should also find Alice
+        UUID aliceId = UUID.randomUUID();
+        UUID bobId = UUID.randomUUID();
+        AddressBook ab = new AddressBook();
+        Contact alice = new ContactBuilder().withName("Alice").withId(aliceId)
+                .withPhone("91234567").withEmail("alice@example.com")
+                .withNotes("meeting with @{" + bobId + "}").build();
+        Contact bob = new ContactBuilder().withName("Bob").withId(bobId)
+                .withPhone("98765432").withEmail("bob@example.com").build();
+        ab.addContact(alice);
+        ab.addContact(bob);
+        Model testModel = new ModelManager(ab, new UserPrefs());
+
+        // find @2 (Bob) — Bob has no references in his notes, but Alice references Bob
+        FindAssociationsCommand command = new FindAssociationsCommand(INDEX_SECOND_CONTACT);
+        CommandResult result = command.execute(testModel);
+        assertTrue(result.getFeedbackToUser().contains("Cross-referencing"));
+        // Should show both Bob (target) and Alice (who references Bob)
+        assertEquals(2, testModel.getDisplayedContactList().size());
+    }
+
+    @Test
     public void execute_crossRefNoNoteReferences_returnsNoRefsMessage() throws CommandException {
         AddressBook ab = new AddressBook();
         Contact noRefContact = new ContactBuilder().withName("No Ref Person")
