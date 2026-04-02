@@ -27,7 +27,7 @@
     <div class="nav-component slim-scroll">
       <site-nav>
 * [Home]({{ baseUrl }}/index.html)
-* [User Guide]({{ baseUrl }}/user-guide.html) :expanded:
+* [User Guide]({{ baseUrl }}/UserGuide.html) :expanded:
   * [Viewing Help]({{ baseUrl }}/user-guide/view-help.html)
   * [Adding a Contact]({{ baseUrl }}/user-guide/add-contact.html)
   * [Editing a Contact]({{ baseUrl }}/user-guide/edit-contact.html)
@@ -39,7 +39,7 @@
   * [Managing Notes]({{ baseUrl }}/user-guide/notes.html)
   * [Undoing a Command]({{ baseUrl }}/user-guide/undo-command.html)
   * [Redoing a Command]({{ baseUrl }}/user-guide/redo-command.html)
-  * [Viewing Contact Details]({{ baseUrl }}/user-guide/view-contact.html)
+  * [Viewing Contact Details]({{ baseUrl }}/user-guide/view.html)
   * [Closing the Contact View]({{ baseUrl }}/user-guide/close-view-contact.html)
   * [Exiting the Program]({{ baseUrl }}/user-guide/exit-program.html)
 * [Developer Guide]({{ baseUrl }}/developer-guide/index.html) :expanded:
