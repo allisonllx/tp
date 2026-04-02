@@ -209,6 +209,16 @@ public class AddCommandTest {
         public boolean canRedo() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean isAddressBookDirty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void markAddressBookClean() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

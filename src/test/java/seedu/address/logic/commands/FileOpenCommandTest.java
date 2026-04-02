@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-public class FileOpenTest {
+public class FileOpenCommandTest {
     private static final String FILE_NAME = "new_book";
 
     @Test
@@ -24,6 +24,14 @@ public class FileOpenTest {
                 String.format(FileOpenCommand.MESSAGE_SUCCESS,
                         UserPrefs.formatAddressBookFilePath("new_book")),
                 commandResult.getFeedbackToUser());
+
+        FileOpenCommand openCommand2 = new FileOpenCommand("new_book");
+        CommandResult commandResult2 = openCommand2.execute(model);
+        assertEquals(UserPrefs.formatAddressBookFilePath("new_book"), model.getAddressBookFilePath());
+        assertEquals(
+                String.format(FileOpenCommand.MESSAGE_SUCCESS,
+                        UserPrefs.formatAddressBookFilePath("new_book")),
+                commandResult2.getFeedbackToUser());
     }
 
     @Test

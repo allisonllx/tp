@@ -90,6 +90,16 @@ public interface Model {
      */
     void setContact(Contact target, Contact editedContact);
 
+    /**
+     * Returns true if the model has changes since last mark.
+     */
+    boolean isAddressBookDirty();
+
+    /**
+     * Marks the address book as clean (i.e., no changes since last mark).
+     */
+    void markAddressBookClean();
+
     /** Returns an unmodifiable view of the displayed contact list */
     ObservableList<Contact> getDisplayedContactList();
 

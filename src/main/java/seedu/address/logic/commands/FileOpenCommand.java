@@ -46,10 +46,14 @@ public class FileOpenCommand extends FileCommand {
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook data;
+        boolean isNewFile = true;
         try {
             addressBookOptional = new JsonAddressBookStorage(filePath).readAddressBook();
             if (addressBookOptional.isEmpty()) {
                 logger.info("Creating a new data file " + filePath + " with empty AddressBook.");
+            } else {
+                logger.info("Data file " + filePath + " found. Loading data from file.");
+                isNewFile = false;
             }
             data = addressBookOptional.orElseGet(AddressBook::new);
         } catch (DataLoadingException e) {
@@ -58,6 +62,9 @@ public class FileOpenCommand extends FileCommand {
             data = new AddressBook();
         }
         model.setAddressBook(data);
+        if (!isNewFile) {
+            model.markAddressBookClean();
+        }
 
         String feedback = String.format(MESSAGE_SUCCESS, filePath);
         model.saveSnapshot(feedback);

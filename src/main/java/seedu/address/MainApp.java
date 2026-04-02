@@ -74,6 +74,8 @@ public class MainApp extends Application {
             } catch (IOException ioe) {
                 logger.warning(String.format(LogicManager.FILE_OPS_ERROR_FORMAT, ioe.getMessage()));
             }
+        } else {
+            model.markAddressBookClean();
         }
 
         ui = new UiManager(logic);

@@ -17,6 +17,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueContactList contacts;
 
+    private boolean isDirty;
+
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -26,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         contacts = new UniqueContactList();
+        isDirty = true;
     }
 
     public AddressBook() {}
@@ -46,6 +49,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setContacts(List<Contact> contacts) {
         this.contacts.setContacts(contacts);
+        isDirty = true;
     }
 
     /**
@@ -81,6 +85,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addContact(Contact p) {
         contacts.add(p);
+        isDirty = true;
     }
 
     /**
@@ -93,6 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedContact);
 
         contacts.setContact(target, editedContact);
+        isDirty = true;
     }
 
     /**
@@ -101,6 +107,17 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeContact(Contact key) {
         contacts.remove(key);
+        isDirty = true;
+    }
+
+    //// setter/getter methods
+
+    public boolean isDirty() {
+        return isDirty;
+    }
+
+    public void markClean() {
+        isDirty = false;
     }
 
     //// util methods

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -276,6 +277,11 @@ public class ModelManager implements Model {
     //=========== Override ================================================================================
 
     @Override
+    public int hashCode() {
+        return Objects.hash(addressBook, userPrefs, displayedContacts);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -290,6 +296,16 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && displayedContacts.equals(otherModelManager.displayedContacts);
+    }
+
+    @Override
+    public boolean isAddressBookDirty() {
+        return addressBook.isDirty();
+    }
+
+    @Override
+    public void markAddressBookClean() {
+        addressBook.markClean();
     }
 
 }
