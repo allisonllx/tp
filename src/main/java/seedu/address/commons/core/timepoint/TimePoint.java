@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  * Custom time object that can represent a point in time using either string, LocalDate or LocalDateTime
  */
 
-public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
+public abstract class TimePoint<T> implements Comparable<TimePoint<?>> {
     /** Strings for months of the year. */
     public static final String[] MONTHS = {
         "JANUARY",
@@ -42,7 +42,7 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
      *
      * @param time String that represents a time.
      */
-    public static TimePoint of(String time) {
+    public static TimePoint<String> of(String time) {
         return new StringTimePoint(time);
     }
 
@@ -51,7 +51,7 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
      *
      * @param localDate LocalDate that represents a time.
      */
-    public static TimePoint of(LocalDate localDate) {
+    public static TimePoint<LocalDate> of(LocalDate localDate) {
         return new DateTimePoint(localDate);
     }
 
@@ -60,7 +60,7 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
      *
      * @param localDateTime LocalDateTime that represents a time.
      */
-    public static TimePoint of(LocalDateTime localDateTime) {
+    public static TimePoint<LocalDateTime> of(LocalDateTime localDateTime) {
         return new DateTimeTimePoint(localDateTime);
     }
 
@@ -86,7 +86,7 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
      * @param other Other TimePoint to compare against.
      * @return True only if both TimePoints are on the same day, given they are not stored as a string.
      */
-    public abstract boolean isSameDayAs(TimePoint other);
+    public abstract boolean isSameDayAs(TimePoint<?> other);
 
     /**
      * Compares against another TimePoint to check if this TimePoint is after it.
@@ -95,7 +95,7 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
      * @param other Other TimePoint to compare against
      * @return True only if this TimePoint is after other, given they are not stored as a string.
      */
-    public abstract boolean isAfter(TimePoint other);
+    public abstract boolean isAfter(TimePoint<?> other);
 
     /**
      * Compares against another TimePoint to check if this TimePoint is before it.
@@ -104,10 +104,10 @@ public abstract class TimePoint<T> implements Comparable<TimePoint<T>> {
      * @param other Other TimePoint to compare against
      * @return True only if this TimePoint is before other, given they are not stored as a string.
      */
-    public abstract boolean isBefore(TimePoint other);
+    public abstract boolean isBefore(TimePoint<?> other);
 
     @Override
-    public int compareTo(TimePoint<T> other) {
+    public int compareTo(TimePoint<?> other) {
         if (this.equals(other)) {
             return 0;
         }

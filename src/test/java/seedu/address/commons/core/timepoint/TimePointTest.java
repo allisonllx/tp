@@ -20,13 +20,13 @@ public class TimePointTest {
 
     @Test
     public void isSameDayAsTests() {
-        TimePoint stringDate = TimePoint.of("2024 Oct 10");
-        TimePoint stringNotDate = TimePoint.of("lorem ipsum");
-        TimePoint date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
-        TimePoint date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
-        TimePoint dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
-        TimePoint sameDayDateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 5, 0));
-        TimePoint diffDayDateTime = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
+        TimePoint<?> stringDate = TimePoint.of("2024 Oct 10");
+        TimePoint<?> stringNotDate = TimePoint.of("lorem ipsum");
+        TimePoint<?> date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
+        TimePoint<?> date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
+        TimePoint<?> dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
+        TimePoint<?> sameDayDateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 5, 0));
+        TimePoint<?> diffDayDateTime = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
 
         //String formatted TimePoint always returns false
         assertFalse(stringDate.isSameDayAs(stringDate));
@@ -70,13 +70,13 @@ public class TimePointTest {
 
     @Test
     public void isAfterTests() {
-        TimePoint stringDate = TimePoint.of("2024 Oct 10");
-        TimePoint stringNotDate = TimePoint.of("lorem ipsum");
-        TimePoint date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
-        TimePoint date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
-        TimePoint dateTime1 = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
-        TimePoint dateTimeDiffTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
-        TimePoint dateTime2 = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
+        TimePoint<?> stringDate = TimePoint.of("2024 Oct 10");
+        TimePoint<?> stringNotDate = TimePoint.of("lorem ipsum");
+        TimePoint<?> date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
+        TimePoint<?> date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
+        TimePoint<?> dateTime1 = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
+        TimePoint<?> dateTimeDiffTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
+        TimePoint<?> dateTime2 = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
 
         //String formatted TimePoint always returns false
         assertFalse(stringDate.isAfter(stringDate));
@@ -119,13 +119,13 @@ public class TimePointTest {
 
     @Test
     public void isBeforeTests() {
-        TimePoint stringDate = TimePoint.of("2024 Oct 10");
-        TimePoint stringNotDate = TimePoint.of("lorem ipsum");
-        TimePoint date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
-        TimePoint date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
-        TimePoint dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
-        TimePoint dateTimeDiffTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
-        TimePoint dateTimeDiffDay = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
+        TimePoint<?> stringDate = TimePoint.of("2024 Oct 10");
+        TimePoint<?> stringNotDate = TimePoint.of("lorem ipsum");
+        TimePoint<?> date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
+        TimePoint<?> date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
+        TimePoint<?> dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
+        TimePoint<?> dateTimeDiffTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
+        TimePoint<?> dateTimeDiffDay = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
 
         //String formatted TimePoint always returns false
         assertFalse(stringDate.isBefore(stringDate));
@@ -164,15 +164,14 @@ public class TimePointTest {
         assertFalse(dateTime.isBefore(null));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void compareToTests() {
-        TimePoint stringDateFirst = TimePoint.of("ABC");
-        TimePoint stringDateSecond = TimePoint.of("DEF");
-        TimePoint date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
-        TimePoint date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
-        TimePoint dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
-        TimePoint dateTime2 = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
+        TimePoint<?> stringDateFirst = TimePoint.of("ABC");
+        TimePoint<?> stringDateSecond = TimePoint.of("DEF");
+        TimePoint<?> date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
+        TimePoint<?> date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
+        TimePoint<?> dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
+        TimePoint<?> dateTime2 = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
 
         assertTrue(stringDateFirst.compareTo(stringDateFirst) == 0);
         assertTrue(stringDateFirst.compareTo(stringDateSecond) < 0);
@@ -186,13 +185,13 @@ public class TimePointTest {
 
     @Test
     public void equalsTests() {
-        TimePoint stringDate = TimePoint.of("2024 Oct 10");
-        TimePoint stringNotDate = TimePoint.of("lorem ipsum");
-        TimePoint date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
-        TimePoint date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
-        TimePoint dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
-        TimePoint dateTimeDiffTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
-        TimePoint dateTimeDiffDay = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
+        TimePoint<?> stringDate = TimePoint.of("2024 Oct 10");
+        TimePoint<?> stringNotDate = TimePoint.of("lorem ipsum");
+        TimePoint<?> date1 = TimePoint.of(LocalDate.of(2024, 5, 10));
+        TimePoint<?> date2 = TimePoint.of(LocalDate.of(2024, 5, 11));
+        TimePoint<?> dateTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 10, 0));
+        TimePoint<?> dateTimeDiffTime = TimePoint.of(LocalDateTime.of(2024, 5, 10, 15, 0));
+        TimePoint<?> dateTimeDiffDay = TimePoint.of(LocalDateTime.of(2024, 5, 11, 10, 0));
 
         //String formatted TimePoint is equal only to another string formatted TimePoint containing the same string
         assertTrue(stringDate.equals(stringDate));
@@ -233,13 +232,13 @@ public class TimePointTest {
 
     @Test
     public void toStringTests() {
-        TimePoint t1 = TimePoint.of("Someday");
+        TimePoint<?> t1 = TimePoint.of("Someday");
         assertTrue(t1.toString().equals("Someday"));
-        TimePoint t2 = TimePoint.of(LocalDate.of(2024, 1, 1));
+        TimePoint<?> t2 = TimePoint.of(LocalDate.of(2024, 1, 1));
         assertTrue(t2.toString().equals("Jan 1, 2024"));
-        TimePoint t3 = TimePoint.of(LocalDateTime.of(2024, 1, 19, 10, 0));
+        TimePoint<?> t3 = TimePoint.of(LocalDateTime.of(2024, 1, 19, 10, 0));
         assertTrue(t3.toString().equals("10:00, Jan 19, 2024"));
-        TimePoint t4 = TimePoint.of(LocalDateTime.of(2024, 1, 19, 10, 25));
+        TimePoint<?> t4 = TimePoint.of(LocalDateTime.of(2024, 1, 19, 10, 25));
         assertTrue(t4.toString().equals("10:25, Jan 19, 2024"));
     }
 }

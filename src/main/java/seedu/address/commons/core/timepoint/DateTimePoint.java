@@ -11,7 +11,7 @@ public class DateTimePoint extends TimePoint<LocalDate> {
     }
 
     @Override
-    public boolean isSameDayAs(TimePoint other) {
+    public boolean isSameDayAs(TimePoint<?> other) {
         if (other instanceof StringTimePoint) {
             return false;
         }
@@ -25,7 +25,7 @@ public class DateTimePoint extends TimePoint<LocalDate> {
     }
 
     @Override
-    public boolean isAfter(TimePoint other) {
+    public boolean isAfter(TimePoint<?> other) {
         if (other instanceof StringTimePoint) {
             return false;
         }
@@ -39,7 +39,7 @@ public class DateTimePoint extends TimePoint<LocalDate> {
     }
 
     @Override
-    public boolean isBefore(TimePoint other) {
+    public boolean isBefore(TimePoint<?> other) {
         if (other instanceof StringTimePoint) {
             return false;
         }

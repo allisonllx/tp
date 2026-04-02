@@ -28,13 +28,13 @@ public class TimePointParser {
      * @param timeString String that represents time to be converted.
      * @return Time as a TimePoint object.
      */
-    public static TimePoint toTimePoint(String timeString) {
+    public static TimePoint<?> toTimePoint(String timeString) {
         if (timeString == null || timeString.isEmpty()) {
             return null;
         }
         String timeStringCopy = parseFlexibleTime(timeString);
 
-        TimePoint result;
+        TimePoint<?> result;
         for (String format : VALID_TIME_FORMATS) {
             result = toTimePoint(timeStringCopy, format);
             if (result != null) {
@@ -50,7 +50,7 @@ public class TimePointParser {
      * @param format Format for timeString to be parsed in.
      * @return Time as a TimePoint object.
      */
-    private static TimePoint toTimePoint(String timeString, String format) {
+    private static TimePoint<?> toTimePoint(String timeString, String format) {
         assert(timeString != null && !timeString.isEmpty());
         assert(format != null && !format.isEmpty());
         TimeParameter[] parameters = splitTimePointFormatString(format);

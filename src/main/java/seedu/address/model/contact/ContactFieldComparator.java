@@ -18,7 +18,6 @@ public class ContactFieldComparator extends ContactComparator {
         NAME, PHONE, EMAIL, ADDRESS, LAST_CONTACTED, LAST_UPDATED
     }
 
-    @SuppressWarnings("unchecked")
     private static final Map<Field, Map<Order, Comparator<Contact>>> COMPARATORS = Map.of(
             Field.NAME, Map.of(
                     Order.ASCENDING, Comparator.comparing(Contact::getName, Comparator.naturalOrder()),

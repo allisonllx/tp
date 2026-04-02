@@ -170,10 +170,10 @@ public class ContactTest {
     @Test
     public void remindersTest() {
         String notes = "notes";
-        TimePoint dueReminderTime = TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS - 1));
+        TimePoint<?> dueReminderTime = TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS - 1));
         String dueReminderString = "notes " + PREFIX_ON + dueReminderTime.toString();
         Note dueReminder = new Note("notes", dueReminderTime);
-        TimePoint notDueReminderTime = TimePoint.of(LocalDate.now().minusDays(1));
+        TimePoint<?> notDueReminderTime = TimePoint.of(LocalDate.now().minusDays(1));
         Note notDueReminder = new Note("notes", notDueReminderTime);
         String notDueReminderString = "notes " + PREFIX_ON + notDueReminderTime.toString();
 

@@ -9,17 +9,17 @@ public class StringTimePoint extends TimePoint<String> {
     }
 
     @Override
-    public boolean isSameDayAs(TimePoint other) {
+    public boolean isSameDayAs(TimePoint<?> other) {
         return false;
     }
 
     @Override
-    public boolean isAfter(TimePoint other) {
+    public boolean isAfter(TimePoint<?> other) {
         return false;
     }
 
     @Override
-    public boolean isBefore(TimePoint other) {
+    public boolean isBefore(TimePoint<?> other) {
         return false;
     }
 

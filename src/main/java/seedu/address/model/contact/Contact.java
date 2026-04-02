@@ -253,7 +253,7 @@ public class Contact {
      * Returns true if the {@code LastContacted} is on the same day as a given timePoint.
      * @param timePoint {@code TimePoint} to check against this contact.
      */
-    public boolean lastContactedIsSameDayAs(TimePoint timePoint) {
+    public boolean lastContactedIsSameDayAs(TimePoint<?> timePoint) {
         if (timePoint == null) {
             return false;
         }
@@ -266,7 +266,7 @@ public class Contact {
      * Returns true if the {@code LastContacted} is before a given timePoint.
      * @param timePoint {@code TimePoint} to check against this contact.
      */
-    public boolean lastContactedIsBefore(TimePoint timePoint) {
+    public boolean lastContactedIsBefore(TimePoint<?> timePoint) {
         if (timePoint == null) {
             return false;
         }
@@ -279,7 +279,7 @@ public class Contact {
      * Returns true if the {@code LastContacted} is after a given timePoint.
      * @param timePoint {@code TimePoint} to check against this contact.
      */
-    public boolean lastContactedIsAfter(TimePoint timePoint) {
+    public boolean lastContactedIsAfter(TimePoint<?> timePoint) {
         if (timePoint == null) {
             return false;
         }

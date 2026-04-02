@@ -94,7 +94,7 @@ public class ContactCardTest extends GuiUnitTest {
     @Test
     public void constructor_dueReminder_addsReminderLabelWithWarningStyle() throws Exception {
         runAndWait(() -> {
-            TimePoint dueReminderTime = TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS - 1));
+            TimePoint<?> dueReminderTime = TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS - 1));
             String dueReminderString = "follow up " + CliSyntax.PREFIX_ON + dueReminderTime;
 
             ContactCard card = new ContactCard(new ContactBuilder()

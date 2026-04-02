@@ -137,7 +137,7 @@ public class NoteTest {
     @Test
     public void dereferenceContact_preservesTimePoint() {
         UUID id = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
-        TimePoint tp = TimePoint.of(LocalDate.of(2025, 6, 15));
+        TimePoint<?> tp = TimePoint.of(LocalDate.of(2025, 6, 15));
         Note note = new Note("worked with @{" + id + "}", tp);
         Note result = note.dereferenceContact(id, "Bob");
         assertEquals("worked with Bob", result.value);

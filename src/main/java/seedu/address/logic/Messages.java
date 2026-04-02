@@ -103,7 +103,7 @@ public class Messages {
         String notesBlock = contact.getNotes().stream()
                 .map(note -> Note.formatContactReferencesForDisplay(note.value, displayedContacts, allContacts))
                 .collect(Collectors.joining("\n"));
-        return String.format("%s: %s\n\n%s", headerPrefix, format(contact), notesBlock);
+        return String.format("%s: %s\nNotes:\n%s", headerPrefix, format(contact), notesBlock);
     }
 
 }
