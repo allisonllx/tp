@@ -66,8 +66,8 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 * Parameters can be in any order, however the order may affect results in certain commands (i.e. `sort`).<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will fail to execute.<br>
+  e.g. if the command specifies `help 123`, it will fail.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
