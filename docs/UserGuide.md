@@ -10,7 +10,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 --------------------------------------------------------------------------------------------------------------------
 
-# Quick start
+## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -41,11 +41,14 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
     * `exit` : Exits the app.
 
-1. Refer to [Features]({{ baseUrl }}/user-guide/features.html) for details of each command.
+1. Refer to [Features]({{ baseUrl }}/UserGuide.html#features) for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
-# Features
+## Features
+
+### Commands
+<!-- TODO: Add high-level overview of functionality brought by commands -->
 
 <box type="info" seamless>
 
@@ -60,11 +63,11 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* Parameters can be in any order, however the order may affect results in certain commands (i.e. `sort`).<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will fail to execute.<br>
+  e.g. if the command specifies `help 123`, it will fail.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
@@ -72,15 +75,12 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
   ![unknown command]({{ baseUrl }}/images/unknownCommand.png)
   </box>
 
-## Commands
-<!-- TODO: Add high-level overview of functionality brought by commands -->
-
-## Saving data
+### Saving data
 
 B2B4U data is saved to the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-## Editing the data file
+### Editing the data file
 
 B2B4U data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`.
 Advanced users are welcome to update data directly by editing that data file.
@@ -92,7 +92,7 @@ If your changes to the data file makes its format invalid, B2B4U will discard al
 Furthermore, certain edits can cause the B2B4U application to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-## Separate data files
+### Separate data files
 
 B2B4U allows you to maintain multiple separate data files.
 This is useful if you want to maintain separate contact lists for different purposes (e.g. work vs personal contacts).
@@ -107,23 +107,23 @@ or the specific pages for [viewing]({{ baseUrl }}/user-guide/view.html) and [man
 
 --------------------------------------------------------------------------------------------------------------------
 
-# FAQ & Known Issues
+## FAQ & Known Issues
 
-## FAQ
+### FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous B2B4U home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known Issues
+### Known Issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-# Command summary
+## Command summary
 
 | Action                            | Format         | Parameters                                                                                                                    | Examples                                                                                           |
 |-----------------------------------|----------------|-------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
