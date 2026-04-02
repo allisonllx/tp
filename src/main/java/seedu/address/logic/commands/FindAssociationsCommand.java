@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -49,30 +50,14 @@ public class FindAssociationsCommand extends FindCommand {
         UUID targetId = targetContact.getId();
 
         // Forward: collect UUIDs referenced in the target's notes
-        Set<UUID> referencedIds = new HashSet<>();
-        for (Note note : targetContact.getNotes()) {
-            Matcher matcher = Note.CONTACT_REF_PATTERN.matcher(note.value);
-            while (matcher.find()) {
-                referencedIds.add(UUID.fromString(matcher.group(1)));
-            }
-        }
+        Set<UUID> referencedIds = getReferencedUuids(targetContact.getNotes());
 
         // Reverse: collect IDs of contacts whose notes reference the target
-        Set<UUID> referencingIds = new HashSet<>();
-        for (Contact contact : model.getAddressBook().getContactList()) {
-            if (contact.isSameContact(targetContact)) {
-                continue;
-            }
-            for (Note note : contact.getNotes()) {
-                Matcher matcher = Note.CONTACT_REF_PATTERN.matcher(note.value);
-                while (matcher.find()) {
-                    if (UUID.fromString(matcher.group(1)).equals(targetId)) {
-                        referencingIds.add(contact.getId());
-                        break;
-                    }
-                }
-            }
-        }
+        Set<UUID> referencingIds = model.getAddressBook().getContactList().stream()
+                .filter(contact -> !contact.isSameContact(targetContact))
+                .filter(contact -> getReferencedUuids(contact.getNotes()).contains(targetId))
+                .map(Contact::getId)
+                .collect(Collectors.toSet());
 
         if (referencedIds.isEmpty() && referencingIds.isEmpty()) {
             return new CommandResult(
@@ -90,6 +75,20 @@ public class FindAssociationsCommand extends FindCommand {
                 targetContact.getName(), matchCount);
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
+    }
+
+    /**
+     * Extracts all {@code @{UUID}} references from the given list of notes.
+     */
+    private static Set<UUID> getReferencedUuids(List<Note> notes) {
+        Set<UUID> uuids = new HashSet<>();
+        for (Note note : notes) {
+            Matcher matcher = Note.CONTACT_REF_PATTERN.matcher(note.value);
+            while (matcher.find()) {
+                uuids.add(UUID.fromString(matcher.group(1)));
+            }
+        }
+        return uuids;
     }
 
     @Override
