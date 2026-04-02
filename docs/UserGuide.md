@@ -47,6 +47,9 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 ## Features
 
+### Commands
+<!-- TODO: Add high-level overview of functionality brought by commands -->
+
 <box type="info" seamless>
 
 **Notes about the command format:**<br>
@@ -60,7 +63,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* Parameters can be in any order, however the order may affect results in certain commands (i.e. `sort`).<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
@@ -71,9 +74,6 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 * If a command is not recognised, an error message will be displayed.<br>
   ![unknown command]({{ baseUrl }}/images/unknownCommand.png)
   </box>
-
-### Commands
-<!-- TODO: Add high-level overview of functionality brought by commands -->
 
 ### Saving data
 
