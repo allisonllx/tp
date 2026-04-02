@@ -135,29 +135,50 @@ public class Note {
         while (matcher.find()) {
             String uuidStr = matcher.group(1);
             UUID refId = UUID.fromString(uuidStr);
-            String replacement = null;
-            for (int i = 0; i < displayedContacts.size(); i++) {
-                if (displayedContacts.get(i).getId().equals(refId)) {
-                    String name = displayedContacts.get(i).getName().fullName;
-                    replacement = name + " (@" + (i + 1) + ")";
-                    break;
-                }
-            }
-            if (replacement == null && allContacts != null) {
-                for (Contact c : allContacts) {
-                    if (c.getId().equals(refId)) {
-                        replacement = c.getName().fullName;
-                        break;
-                    }
-                }
-            }
-            if (replacement == null) {
-                replacement = "@{" + uuidStr + "}";
-            }
+            String replacement = replacementForContactRef(refId, uuidStr, displayedContacts, allContacts);
             matcher.appendReplacement(sb, Matcher.quoteReplacement(replacement));
         }
         matcher.appendTail(sb);
         return sb.toString();
+    }
+
+    /**
+     * Returns {@code Name (@n)} if {@code refId} matches the {@code i}-th contact in {@code displayedContacts}
+     * (1-based {@code n = i + 1}).
+     */
+    private static Optional<String> displayFormForRef(UUID refId, List<Contact> displayedContacts) {
+        for (int i = 0; i < displayedContacts.size(); i++) {
+            Contact c = displayedContacts.get(i);
+            if (c.getId().equals(refId)) {
+                return Optional.of(c.getName().fullName + " (@" + (i + 1) + ")");
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Returns the contact's display name if {@code refId} exists in {@code allContacts}.
+     */
+    private static Optional<String> nameFromAllContacts(UUID refId, List<Contact> allContacts) {
+        if (allContacts == null) {
+            return Optional.empty();
+        }
+        for (Contact c : allContacts) {
+            if (c.getId().equals(refId)) {
+                return Optional.of(c.getName().fullName);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Resolves a single {@code @{uuid}} token to display text for CLI output.
+     */
+    private static String replacementForContactRef(UUID refId, String uuidStr, List<Contact> displayedContacts,
+            List<Contact> allContacts) {
+        return displayFormForRef(refId, displayedContacts)
+                .or(() -> nameFromAllContacts(refId, allContacts))
+                .orElse("@{" + uuidStr + "}");
     }
 
     @Override
