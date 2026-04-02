@@ -58,8 +58,8 @@ public class NoteLabel extends HBox {
             text.setText(note.value);
         }
 
-        if (note.timePoint != null) {
-            time.setText(note.timePoint.toString());
+        if (note.timePoint.isPresent()) {
+            time.setText(note.timePoint.map(Object::toString).orElse(""));
         } else {
             UiUtil.hide(reminderHeader);
             UiUtil.hide(reminderSeparator);
