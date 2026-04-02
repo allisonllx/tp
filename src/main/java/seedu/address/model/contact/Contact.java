@@ -129,7 +129,7 @@ public class Contact {
      */
     public String getNotesString() {
         return notes.stream()
-                .map(note -> note.value + note.timePoint.map(tp -> " on " + note.timePoint.get()).orElse(""))
+                .map(note -> note.value + note.timePoint.map(tp -> " on " + tp).orElse(""))
                 .collect(Collectors.joining("\n"));
     }
 
