@@ -177,6 +177,8 @@ public class NoteTest {
         String text = "met @{" + second.getId() + "}";
         assertEquals("met " + second.getName().fullName,
                 Note.formatContactReferencesForDisplay(text, displayed, all));
+    }
+
     @Test
     public void toString_test() {
         Note note = new Note("Meeting notes", TimePoint.of(LocalDateTime.of(2025, 12, 25, 10, 30)));
