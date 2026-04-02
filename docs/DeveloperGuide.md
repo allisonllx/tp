@@ -551,8 +551,6 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file.<br>
      Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown
@@ -568,16 +566,14 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
     Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
-
 ### Saving data
 
 1. Dealing with missing/corrupted data files
    
    1. Prerequisites: Ensure that app is closed. `preferences.json` and `config.json` files are present in the same folder as the jar file.
     
-   2. Test case: Delete data file (if present) and launch the app.
+   2. Test case: Delete data file (if present) and launch the app. <br>
     Expected: App loads with no contacts. A new data file is created when a contact is added.
 
-   3. Test case: Corrupt data file (e.g. by adding random text to the file) and launch the app.
+   3. Test case: Corrupt data file (e.g. by adding random text to the file) and launch the app. <br>
     Expected: App loads with no contacts. The data file is overwritten when a contact is added.
