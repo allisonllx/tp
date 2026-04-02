@@ -175,8 +175,7 @@ contains a `UniqueContactList`, and each `Contact` owns its own `Tag` instances 
 ## Storage component
 
 **API** :
-[
-`Storage.java`](https://github.com/AY2526S2-CS2103T-T08-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
+[`Storage.java`](https://github.com/AY2526S2-CS2103T-T08-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="{{ baseUrl }}/diagrams/StorageClassDiagram.puml" width="550" />
 
