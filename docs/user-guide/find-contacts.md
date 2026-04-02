@@ -15,14 +15,17 @@ or: `find @INDEX` to find contacts associated with the contact at INDEX
 * `t/TAG` filters by tag using **exact** matching (e.g. `t/friend` will not match a tag named `friends`).
 * All search conditions are combined with **AND** logic — only contacts satisfying **every** condition are returned.
 * At least one search condition must be provided.
-* `find @INDEX` shows all contacts that are associated with the contact at the given index. An association exists when one contact references another via notes. This helps consultants quickly understand which vendors have worked with which clients by finding shared project or relationship tags.
+* `find @INDEX` performs a **bidirectional** cross-reference lookup on the contact at the given index:
+  * It finds all contacts that are **referenced by** the target contact's notes (via `@INDEX` references).
+  * It also finds all contacts whose notes **reference** the target contact.
+  * This allows you to see all associations regardless of which direction the reference was made.
 
 Examples:
 * `find John` returns contacts containing `john` in any field.
 * `find n/Alex` returns contacts with `Alex` in their name.
 * `find p/94` returns contacts with `94` in their phone number.
 * `find a/street t/friends` returns contacts that have `street` in their address **and** the exact tag `friends`.
-* `find @1` shows all contacts associated with the 1st contact in the list. For example, if the contact currently indexed 1 has a note referencing the contact currently indexed 2, both contacts will be shown when running `find @1` or `find @2`, since they are linked.
-* `find t/vendor` followed by `find @2` cross-references the 2nd vendor in the filtered list.
+* `find @1` shows all contacts associated with the 1st contact — both contacts referenced in their notes and contacts that reference them.
+* If Contact 1's notes contain `@2` (a reference to Contact 2), both `find @1` and `find @2` will show the association between them.
 
 ![find contacts]({{ baseUrl }}/images/findContacts.png)
