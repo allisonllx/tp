@@ -1,11 +1,13 @@
 package seedu.address.logic;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Note;
 
 /**
  * Container for user visible messages.
@@ -86,9 +88,22 @@ public class Messages {
 
     /**
      * Formats note command success output with updated full notes shown beneath contact details.
+     * Contact references {@code @{UUID}} in stored notes are shown as {@code Name (@n)} (or name only)
+     * when {@code displayedContacts} and {@code allContacts} are provided; otherwise raw stored text is used.
      */
     public static String formatNoteOutput(String headerPrefix, Contact contact) {
-        return String.format("%s: %s\nNotes:\n%s", headerPrefix, format(contact), contact.getNotesString());
+        return formatNoteOutput(headerPrefix, contact, null, null);
+    }
+
+    /**
+     * @see #formatNoteOutput(String, Contact)
+     */
+    public static String formatNoteOutput(String headerPrefix, Contact contact, List<Contact> displayedContacts,
+            List<Contact> allContacts) {
+        String notesBlock = contact.getNotes().stream()
+                .map(note -> Note.formatContactReferencesForDisplay(note.value, displayedContacts, allContacts))
+                .collect(Collectors.joining("\n"));
+        return String.format("%s: %s\nNotes:\n%s", headerPrefix, format(contact), notesBlock);
     }
 
 }

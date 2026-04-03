@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.timepoint.TimePoint;
@@ -114,6 +116,69 @@ public class Note {
     public Note dereferenceContact(UUID contactId, String contactName) {
         String newValue = value.replace("@{" + contactId.toString() + "}", contactName);
         return timePoint.map(tp -> new Note(newValue, tp)).orElse(new Note(newValue));
+    }
+
+    /**
+     * Formats stored note text for user-facing output: each {@code @{UUID}} is shown with the
+     * contact's name. If they appear in {@code displayedContacts}, the form is
+     * {@code Name (@n)} (1-based index in that list). If only found in {@code allContacts},
+     * the name alone is used. Otherwise the original token is kept.
+     */
+    public static String formatContactReferencesForDisplay(String text, List<Contact> displayedContacts,
+            List<Contact> allContacts) {
+        requireNonNull(text);
+        if (displayedContacts == null) {
+            return text;
+        }
+        Matcher matcher = CONTACT_REF_PATTERN.matcher(text);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            String uuidStr = matcher.group(1);
+            UUID refId = UUID.fromString(uuidStr);
+            String replacement = replacementForContactRef(refId, uuidStr, displayedContacts, allContacts);
+            matcher.appendReplacement(sb, Matcher.quoteReplacement(replacement));
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    /**
+     * Returns {@code Name (@n)} if {@code refId} matches the {@code i}-th contact in {@code displayedContacts}
+     * (1-based {@code n = i + 1}).
+     */
+    private static Optional<String> displayFormForRef(UUID refId, List<Contact> displayedContacts) {
+        for (int i = 0; i < displayedContacts.size(); i++) {
+            Contact c = displayedContacts.get(i);
+            if (c.getId().equals(refId)) {
+                return Optional.of(c.getName().fullName + " (@" + (i + 1) + ")");
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Returns the contact's display name if {@code refId} exists in {@code allContacts}.
+     */
+    private static Optional<String> nameFromAllContacts(UUID refId, List<Contact> allContacts) {
+        if (allContacts == null) {
+            return Optional.empty();
+        }
+        for (Contact c : allContacts) {
+            if (c.getId().equals(refId)) {
+                return Optional.of(c.getName().fullName);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Resolves a single {@code @{uuid}} token to display text for CLI output.
+     */
+    private static String replacementForContactRef(UUID refId, String uuidStr, List<Contact> displayedContacts,
+            List<Contact> allContacts) {
+        return displayFormForRef(refId, displayedContacts)
+                .or(() -> nameFromAllContacts(refId, allContacts))
+                .orElse("@{" + uuidStr + "}");
     }
 
     @Override

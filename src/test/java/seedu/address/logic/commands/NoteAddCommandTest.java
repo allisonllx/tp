@@ -91,11 +91,12 @@ public class NoteAddCommandTest {
                 firstContact.getEmail(), firstContact.getAddress(), firstContact.getLastContacted(),
                 List.of(resolvedNote), firstContact.getTags());
 
-        String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact);
-
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstContact, editedContact);
         expectedModel.resetDisplayedContactList();
+
+        String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact,
+                expectedModel.getDisplayedContactList(), expectedModel.getAddressBook().getContactList());
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
