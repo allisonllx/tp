@@ -38,7 +38,7 @@ public class ViewCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, false, contactToView, false, false);
+                new CommandResult(expectedMessage, null, false, contactToView, false, false, -1);
         assertCommandSuccess(viewCommand, model, expectedCommandResult, expectedModel);
     }
 
@@ -51,7 +51,7 @@ public class ViewCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, false, null, false, true);
+                new CommandResult(expectedMessage, null, false, null, false, true, -1);
         assertCommandSuccess(viewCommand, model, expectedCommandResult, expectedModel);
     }
 
@@ -78,7 +78,7 @@ public class ViewCommandTest {
         showContactAtIndex(expectedModel, INDEX_FIRST_CONTACT);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, false, false, contactToView, false, false);
+                new CommandResult(expectedMessage, null, false, contactToView, false, false, -1);
         assertCommandSuccess(viewCommand, model, expectedCommandResult, expectedModel);
     }
 

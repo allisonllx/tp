@@ -22,30 +22,16 @@ public class ContactListPanelTest extends GuiUnitTest {
                     FXCollections.observableArrayList());
 
     @Test
-    public void scrollToTopTest() throws Exception {
+    public void scrollToIndexTest() throws Exception {
         runAndWait(() -> {
-            assertDoesNotThrow(() -> contactListPanel.scrollToTop());
+            assertDoesNotThrow(() -> contactListPanel.scrollToIndex(0));
         });
     }
 
     @Test
-    public void scrollToBottomTest() throws Exception {
+    public void emptyListScrollToIndexTest() throws Exception {
         runAndWait(() -> {
-            assertDoesNotThrow(() -> contactListPanel.scrollToBottom());
-        });
-    }
-
-    @Test
-    public void emptyListScrollToTopTest() throws Exception {
-        runAndWait(() -> {
-            assertDoesNotThrow(() -> emptyContactListPanel.scrollToTop());
-        });
-    }
-
-    @Test
-    public void emptyListScrollToBottomTest() throws Exception {
-        runAndWait(() -> {
-            assertDoesNotThrow(() -> emptyContactListPanel.scrollToBottom());
+            assertDoesNotThrow(() -> emptyContactListPanel.scrollToIndex(0));
         });
     }
 }

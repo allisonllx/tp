@@ -61,7 +61,9 @@ public class ContactListPanel extends UiPart<Region> {
      * Scrolls the list to the given index.
      */
     public void scrollToIndex(int index) {
-        assert index >= 0 && index < allContacts.size();
-        Platform.runLater(() -> contactListView.scrollTo(index));
+        if (!allContacts.isEmpty()) {
+            assert (index >= 0 && index < allContacts.size());
+            Platform.runLater(() -> contactListView.scrollTo(index));
+        }
     }
 }

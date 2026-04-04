@@ -17,7 +17,7 @@ public class CloseViewCommandTest {
     @Test
     public void execute_closeView_success() {
         CommandResult expectedResult = new CommandResult(CloseViewCommand.MESSAGE_SUCCESS,
-                false, false, null, true, false);
+                null, false, null, true, false, -1);
         assertCommandSuccess(new CloseViewCommand(), model, expectedResult, expectedModel);
     }
 
