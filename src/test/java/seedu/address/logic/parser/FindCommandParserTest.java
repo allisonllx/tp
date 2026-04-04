@@ -60,7 +60,7 @@ public class FindCommandParserTest {
         String expectedMessage = FindResetCommand.MESSAGE_SUCCESS;
         expectedModel.resetDisplayedContactList();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
     }
 
     @Test
