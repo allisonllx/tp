@@ -58,7 +58,6 @@ public class FindCommandParserTest {
     public void parse_resetFind_test() throws ParseException {
         FindCommand command = parser.parse("");
         String expectedMessage = FindResetCommand.MESSAGE_SUCCESS;
-        expectedModel.resetDisplayedContactList();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
     }
@@ -67,7 +66,6 @@ public class FindCommandParserTest {
     public void parse_spacesResetFind_test() throws ParseException {
         FindCommand command = parser.parse("   ");
         String expectedMessage = FindResetCommand.MESSAGE_SUCCESS;
-        expectedModel.resetDisplayedContactList();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
     }
