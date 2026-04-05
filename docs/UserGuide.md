@@ -125,7 +125,7 @@ B2B4U allows you to filter and sort the contact list to quickly find contacts th
 
 - To filter, use the [`find`]({{ baseUrl }}/user-guide/find-contacts.html) command with keywords or field-specific prefixes (e.g. `find n/Alex t/friends`). Use `find @INDEX` to find contacts associated with the contact at that index.
 - To remove contact filters, use the `find` command without any keywords.
-- To sort, use the [`sort`]({{ baseUrl }}/user-guide/sort-contacts.html) command with field prefixes and optional `asc`/`desc` direction (e.g. `sort n/asc` to sort by name ascending, `sort lc/desc` to sort by last contacted descending).
+- To sort, use the [`sort`]({{ baseUrl }}/user-guide/sort-contacts.html) command with field prefixes followed by `asc` or `desc` to specify the sort direction (e.g. `sort n/asc` to sort by name ascending, `sort lc/desc` to sort by last contacted descending).
 - To reset the sort order, use the `sort` command without any keywords.
 
 The effects of the `find` and `sort` commands will be maintained even when the other command is made, and will only be changed another iteration of its own command, with the exception of the following commands which can also change the filter/sort criteria:
