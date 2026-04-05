@@ -117,7 +117,7 @@ To manage notes and reminders for a contact, use the [`note`]({{ baseUrl }}/user
 * **Remove first N notes:** `note INDEX c/LINES_TO_REMOVE` — removes the first N notes.
 * **Clear all notes:** `note INDEX ca/` — removes all notes from the contact.
 
-Notes support **contact references** using the `@INDEX` syntax, which creates a link to another contact.
+Notes support **contact references** using the `@INDEX` syntax, which creates a bidirectional association between the two contacts. This means both contacts will appear when searching for either one using `find @INDEX`.
 
 ### Filtering and sorting the context list
 
@@ -125,7 +125,7 @@ B2B4U allows you to filter and sort the contact list to quickly find contacts th
 
 - To filter, use the [`find`]({{ baseUrl }}/user-guide/find-contacts.html) command with keywords or field-specific prefixes (e.g. `find n/Alex t/friends`). Use `find @INDEX` to find contacts associated with the contact at that index.
 - To remove contact filters, use the `find` command without any keywords.
-- To sort, use the [`sort`]({{ baseUrl }}/user-guide/sort-contacts.html) command with field prefixes (e.g. `sort n/` to sort by name, `sort lc/` to sort by last contacted).
+- To sort, use the [`sort`]({{ baseUrl }}/user-guide/sort-contacts.html) command with field prefixes and optional `asc`/`desc` direction (e.g. `sort n/asc` to sort by name ascending, `sort lc/desc` to sort by last contacted descending).
 - To reset the sort order, use the `sort` command without any keywords.
 
 The effects of the `find` and `sort` commands will be maintained even when the other command is made, and will only be changed another iteration of its own command, with the exception of the following commands which can also change the filter/sort criteria:
