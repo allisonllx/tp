@@ -64,6 +64,15 @@ public class FindCommandParserTest {
     }
 
     @Test
+    public void parse_spacesResetFind_test() throws ParseException {
+        FindCommand command = parser.parse("   ");
+        String expectedMessage = FindResetCommand.MESSAGE_SUCCESS;
+        expectedModel.resetDisplayedContactList();
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
+    }
+
+    @Test
     public void parse_findKeyword_test() throws ParseException {
         FindCommand command = parser.parse("ne");
         String expectedMessage = "Found 4 contacts matching 'ne'";
