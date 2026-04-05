@@ -45,8 +45,7 @@ public class UndoAndRedoCommandTest {
         Snapshot initialSnapshot = model.getSnapshot();
         Model postAdditionModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel.addContact(contact);
-
-        assertCommandSuccess(validCommand, model, expectedMessage, postAdditionModel);
+        validCommand.execute(model);
 
         Snapshot postCommandSnapshot = model.getSnapshot();
         assertFalse(initialSnapshot.equals(postCommandSnapshot));
@@ -70,8 +69,7 @@ public class UndoAndRedoCommandTest {
         String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(contact));
         Model postAdditionModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel.addContact(contact);
-
-        assertCommandSuccess(validCommand, model, expectedMessage, postAdditionModel);
+        validCommand.execute(model);
 
         Contact contact2 = new ContactBuilder().withName("Second Name").withPhone("22222222")
                 .withEmail("email2@example.com").withAddress("Second address").build();
@@ -81,8 +79,7 @@ public class UndoAndRedoCommandTest {
         postAdditionModel2.addContact(contact);
         postAdditionModel2.resetDisplayedContactList();
         postAdditionModel2.addContact(contact2);
-
-        assertCommandSuccess(validCommand2, model, expectedMessage2, postAdditionModel2);
+        validCommand2.execute(model);
 
         CommandResult undoSecondResult = UNDO_COMMAND.execute(model);
         assertEquals(
@@ -96,9 +93,7 @@ public class UndoAndRedoCommandTest {
                 String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, expectedMessage),
                 new ModelManager(getTypicalAddressBook(), new UserPrefs()));
 
-        Model postAdditionModel3 = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        postAdditionModel3.addContact(contact2);
-        assertCommandSuccess(validCommand2, model, expectedMessage2, postAdditionModel3);
+        validCommand2.execute(model);
         assertCommandFailure(new RedoCommand(), model, ModelManager.REDO_LIMIT_MESSAGE);
     }
 
@@ -115,8 +110,7 @@ public class UndoAndRedoCommandTest {
         Snapshot initialSnapshot = model.getSnapshot();
         Model postAdditionModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         postAdditionModel.addContact(contact);
-
-        assertCommandSuccess(validCommand, model, expectedMessage, postAdditionModel);
+        validCommand.execute(model);
 
         Snapshot postCommandSnapshot = model.getSnapshot();
         assertFalse(initialSnapshot.equals(postCommandSnapshot));

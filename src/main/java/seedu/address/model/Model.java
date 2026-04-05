@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -89,6 +90,11 @@ public interface Model {
      * book.
      */
     void setContact(Contact target, Contact editedContact);
+
+    /**
+     * Returns the {@code Index} of the {@code contact} in the displayed contact list.
+     */
+    Index getIndexOf(Contact contact);
 
     /**
      * Returns true if the model has changes since last mark.

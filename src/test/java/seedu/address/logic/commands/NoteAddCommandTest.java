@@ -37,14 +37,14 @@ public class NoteAddCommandTest {
         Contact editedContact = new Contact(contactToEdit.getName(), contactToEdit.getPhone(), contactToEdit.getEmail(),
                 contactToEdit.getAddress(), contactToEdit.getLastContacted(), NOTES, contactToEdit.getTags());
         NoteAddCommand notesCommand = new NoteAddCommand(INDEX_FIRST_CONTACT, NOTE);
-        String expectedMessage = String.format(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS,
-                Messages.format(editedContact));
-        expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact);
+        String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact);
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         expectedModel.resetDisplayedContactList();
 
-        assertCommandSuccess(notesCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(notesCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -97,8 +97,10 @@ public class NoteAddCommandTest {
 
         String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact,
                 expectedModel.getDisplayedContactList(), expectedModel.getAddressBook().getContactList());
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
 
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
     }
 
     @Test

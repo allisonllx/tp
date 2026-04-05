@@ -22,9 +22,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Themes;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
@@ -501,12 +499,8 @@ public class MainWindow extends UiPart<Stage> {
                 showFileList();
             }
 
-            if (commandResult.getFeedbackToUser().contains(ListCommand.MESSAGE_SUCCESS)) {
-                contactListPanel.scrollToTop();
-            }
-
-            if (commandResult.getFeedbackToUser().contains(String.format(AddCommand.MESSAGE_SUCCESS, ""))) {
-                contactListPanel.scrollToBottom();
+            if (commandResult.hasScrollToIndex()) {
+                contactListPanel.scrollToIndex(commandResult.getScrollToIndex());
             }
 
             if (!logic.getTheme().equals(stylesheets[stylesheets.length - 1])) {

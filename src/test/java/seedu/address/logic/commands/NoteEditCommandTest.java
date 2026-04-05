@@ -44,6 +44,8 @@ public class NoteEditCommandTest {
                 contactToEdit.getPhone(), contactToEdit.getEmail(), contactToEdit.getAddress(),
                 contactToEdit.getLastContacted(), List.of(NEW_NOTE, NOTE_B), contactToEdit.getTags());
         String expectedMessage = Messages.formatNoteOutput(NoteEditCommand.MESSAGE_EDIT_NOTE_SUCCESS, expectedContact);
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
 
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), contactWithNotes);
@@ -53,7 +55,7 @@ public class NoteEditCommandTest {
         expectedModel.setContact(model.getDisplayedContactList().get(0), expectedContact);
         expectedModel.resetDisplayedContactList();
 
-        assertCommandSuccess(command, testModel, expectedMessage, expectedModel);
+        assertCommandSuccess(command, testModel, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -69,6 +71,8 @@ public class NoteEditCommandTest {
                 contactToEdit.getPhone(), contactToEdit.getEmail(), contactToEdit.getAddress(),
                 contactToEdit.getLastContacted(), List.of(NOTE_A, NEW_NOTE), contactToEdit.getTags());
         String expectedMessage = Messages.formatNoteOutput(NoteEditCommand.MESSAGE_EDIT_NOTE_SUCCESS, expectedContact);
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
 
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), contactWithNotes);
@@ -78,7 +82,7 @@ public class NoteEditCommandTest {
         expectedModel.setContact(model.getDisplayedContactList().get(0), expectedContact);
         expectedModel.resetDisplayedContactList();
 
-        assertCommandSuccess(command, testModel, expectedMessage, expectedModel);
+        assertCommandSuccess(command, testModel, expectedCommandResult, expectedModel);
     }
 
     @Test

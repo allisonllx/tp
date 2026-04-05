@@ -6,13 +6,11 @@ import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -24,8 +22,6 @@ public class ContactListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Contact> contactListView;
-
-    private ScrollBar scrollBar;
 
     private final ObservableList<Contact> allContacts;
 
@@ -43,8 +39,6 @@ public class ContactListPanel extends UiPart<Region> {
         allContacts.addListener((ListChangeListener<Contact>) change -> {
             contactListView.refresh();
         });
-
-        Platform.runLater(this::setUp);
     }
 
     /**
@@ -65,40 +59,13 @@ public class ContactListPanel extends UiPart<Region> {
     }
 
     /**
-     * Sets up the custom scroll bar functions of {@code ContactListPanel};
+     * Scrolls the list to the given index.
      */
-    private void setUp() {
-        for (Node node : contactListView.lookupAll(".scroll-bar")) {
-            if (node instanceof ScrollBar) {
-                final ScrollBar bar = (ScrollBar) node;
-                if (bar.getOrientation().equals(Orientation.VERTICAL)) {
-                    scrollBar = bar;
-                }
-            }
-        }
-    }
-
-    /**
-     * Scrolls the list to the top.
-     */
-    public void scrollToTop() {
-        if (scrollBar == null) {
-            setUp();
-        }
-        if (scrollBar != null) {
-            Platform.runLater(() -> scrollBar.setValue(scrollBar.getMin()));
-        }
-    }
-
-    /**
-     * Scrolls the list to the bottom.
-     */
-    public void scrollToBottom() {
-        if (scrollBar == null) {
-            setUp();
-        }
-        if (scrollBar != null) {
-            Platform.runLater(() -> scrollBar.setValue(scrollBar.getMax()));
+    public void scrollToIndex(Index index) {
+        int contactPos = index.getZeroBased();
+        if (!allContacts.isEmpty()) {
+            assert (contactPos >= 0 && contactPos < allContacts.size());
+            Platform.runLater(() -> contactListView.scrollTo(contactPos));
         }
     }
 }

@@ -43,6 +43,8 @@ public class NoteRemoveCommandTest {
                 contactToEdit.getLastContacted(), List.of(NOTE_A), contactToEdit.getTags());
         String expectedMessage = String.format(NoteRemoveCommand.MESSAGE_REMOVE_NOTE_SUCCESS,
                 Messages.format(afterRemoveSecondNote));
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         testModel.resetDisplayedContactList();
@@ -51,7 +53,7 @@ public class NoteRemoveCommandTest {
         expectedModel.setContact(model.getDisplayedContactList().get(0), afterRemoveSecondNote);
         expectedModel.resetDisplayedContactList();
 
-        assertCommandSuccess(notesCommand, testModel, expectedMessage, expectedModel);
+        assertCommandSuccess(notesCommand, testModel, expectedCommandResult, expectedModel);
     }
 
     @Test

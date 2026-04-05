@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +20,8 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, null, false, false)));
+        assertTrue(commandResult.equals(
+                new CommandResult("feedback", null, false, null, false, false, Optional.empty())));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -32,10 +36,12 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, null, false, false)));
+        assertFalse(commandResult.equals(new CommandResult(
+                "feedback", HelpInfo.DEFAULT, false, null, false, false, Optional.empty())));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, null, false, false)));
+        assertFalse(commandResult.equals(
+                new CommandResult("feedback", null, true, null, false, false, Optional.empty())));
     }
 
     @Test
@@ -50,11 +56,12 @@ public class CommandResultTest {
 
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", true, false, null, false, false).hashCode());
+                new CommandResult(
+                        "feedback", HelpInfo.DEFAULT, false, null, false, false, Optional.empty()).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, true, null, false, false).hashCode());
+                new CommandResult("feedback", null, true, null, false, false, Optional.empty()).hashCode());
     }
 
     @Test
@@ -63,7 +70,20 @@ public class CommandResultTest {
         String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
                 + commandResult.getFeedbackToUser() + ", helpInfo=" + commandResult.getHelpInfo().orElse(null)
                 + ", exit=" + commandResult.isExit() + ", contactToView=null"
-                + ", hideViewPanel=false}";
+                + ", hideViewPanel=false" + ", showFileList=false"
+                + ", scrollToIndex=null}";
+        assertEquals(expected, commandResult.toString());
+    }
+
+    @Test
+    public void toStringMethod_withScrollToIndex() {
+        CommandResult commandResult =
+                new CommandResult("feedback", null, false, null, false, false, Optional.of(INDEX_FIRST_CONTACT));
+        String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
+                + commandResult.getFeedbackToUser() + ", helpInfo=" + commandResult.getHelpInfo().orElse(null)
+                + ", exit=" + commandResult.isExit() + ", contactToView=null"
+                + ", hideViewPanel=false" + ", showFileList=false"
+                + ", scrollToIndex=" + INDEX_FIRST_CONTACT + "}";
         assertEquals(expected, commandResult.toString());
     }
 
@@ -76,7 +96,8 @@ public class CommandResultTest {
     @Test
     public void getContactToView_withContact_returnsContact() {
         Contact contact = ALICE;
-        CommandResult commandResult = new CommandResult("feedback", false, false, contact, false, false);
+        CommandResult commandResult =
+                new CommandResult("feedback", null, false, contact, false, false, Optional.empty());
         assertTrue(commandResult.getContactToView().isPresent());
         assertEquals(contact, commandResult.getContactToView().get());
     }
@@ -90,17 +111,20 @@ public class CommandResultTest {
     @Test
     public void isShowContactDetail_withContact_returnsTrue() {
         Contact contact = ALICE;
-        CommandResult commandResult = new CommandResult("feedback", false, false, contact, false, false);
+        CommandResult commandResult =
+                new CommandResult("feedback", null, false, contact, false, false, Optional.empty());
         assertTrue(commandResult.isShowContactDetail());
     }
 
     @Test
     public void equals_withContactToView() {
         Contact contact = ALICE;
-        CommandResult commandResult = new CommandResult("feedback", false, false, contact, false, false);
+        CommandResult commandResult =
+                new CommandResult("feedback", null, false, contact, false, false, Optional.empty());
 
         // same values -> returns true
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, contact, false, false)));
+        assertTrue(commandResult.equals(
+                new CommandResult("feedback", null, false, contact, false, false, Optional.empty())));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -112,22 +136,24 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(0.5f));
 
         // different contactToView value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, null, false, false)));
+        assertFalse(commandResult.equals(
+                new CommandResult("feedback", null, false, null, false, false, Optional.empty())));
         assertFalse(commandResult.equals(new CommandResult("feedback")));
     }
 
     @Test
     public void hashcode_withContactToView() {
         Contact contact = ALICE;
-        CommandResult commandResult = new CommandResult("feedback", false, false, contact, false, false);
+        CommandResult commandResult =
+                new CommandResult("feedback", null, false, contact, false, false, Optional.empty());
 
         // same values -> returns same hashcode
         assertEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, contact, false, false).hashCode());
+                new CommandResult("feedback", null, false, contact, false, false, Optional.empty()).hashCode());
 
         // different contactToView value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, null, false, false).hashCode());
+                new CommandResult("feedback", null, false, null, false, false, Optional.empty()).hashCode());
     }
 
     @Test
@@ -138,38 +164,41 @@ public class CommandResultTest {
 
     @Test
     public void isHideContactDetail_setTrue() {
-        CommandResult commandResult = new CommandResult("feedback", false, false, null, true, false);
+        CommandResult commandResult =
+                new CommandResult("feedback", null, false, null, true, false, Optional.empty());
         assertTrue(commandResult.isHideViewPanel());
     }
 
     @Test
     public void equals_withHideContactDetail() {
-        CommandResult commandResult = new CommandResult("feedback", false, false, null, true, false);
+        CommandResult commandResult = new CommandResult("feedback", null, false, null, true, false, Optional.empty());
 
         // same values -> returns true
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, null, true, false)));
+        assertTrue(commandResult.equals(
+                new CommandResult("feedback", null, false, null, true, false, Optional.empty())));
 
         // different hideContactDetail -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, null, false, false)));
+        assertFalse(commandResult.equals(
+                new CommandResult("feedback", null, false, null, false, false, Optional.empty())));
     }
 
     @Test
     public void hashcode_withHideContactDetail() {
-        CommandResult commandResult = new CommandResult("feedback", false, false, null, true, false);
+        CommandResult commandResult = new CommandResult("feedback", null, false, null, true, false, Optional.empty());
 
         // same values -> returns same hashcode
         assertEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, null, true, false).hashCode());
+                new CommandResult("feedback", null, false, null, true, false, Optional.empty()).hashCode());
 
         // different hideContactDetail -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, null, false, false).hashCode());
+                new CommandResult("feedback", null, false, null, false, false, Optional.empty()).hashCode());
     }
 
     @Test
     public void constructor_withHelpInfo_setsFieldsCorrectly() {
         HelpInfo helpInfo = new HelpInfo("msg", "https://example.com");
-        CommandResult result = new CommandResult("feedback", helpInfo);
+        CommandResult result = new HelpCommandResult("feedback", helpInfo);
 
         assertEquals("feedback", result.getFeedbackToUser());
         assertTrue(result.isShowHelp());
@@ -185,13 +214,13 @@ public class CommandResultTest {
     public void equals_withHelpInfo() {
         HelpInfo helpInfo = new HelpInfo("msg", "https://example.com");
         HelpInfo otherInfo = new HelpInfo("other", "https://other.com");
-        CommandResult result = new CommandResult("feedback", helpInfo);
+        CommandResult result = new HelpCommandResult("feedback", helpInfo);
 
         // same values -> true
-        assertTrue(result.equals(new CommandResult("feedback", helpInfo)));
+        assertTrue(result.equals(new HelpCommandResult("feedback", helpInfo)));
 
         // different helpInfo -> false
-        assertFalse(result.equals(new CommandResult("feedback", otherInfo)));
+        assertFalse(result.equals(new HelpCommandResult("feedback", otherInfo)));
 
         // no helpInfo vs helpInfo -> false
         assertFalse(result.equals(new CommandResult("feedback")));

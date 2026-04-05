@@ -40,6 +40,8 @@ public class NoteClearAllCommandTest {
                 List.of(), contactToEdit.getTags());
         String expectedMessage = Messages.formatNoteOutput(
             NoteClearAllCommand.MESSAGE_REMOVE_NOTES_SUCCESS, afterClearAll);
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         testModel.resetDisplayedContactList();
@@ -48,7 +50,7 @@ public class NoteClearAllCommandTest {
         expectedModel.setContact(model.getDisplayedContactList().get(0), afterClearAll);
         expectedModel.resetDisplayedContactList();
 
-        assertCommandSuccess(notesCommand, testModel, expectedMessage, expectedModel);
+        assertCommandSuccess(notesCommand, testModel, expectedCommandResult, expectedModel);
     }
 
     @Test

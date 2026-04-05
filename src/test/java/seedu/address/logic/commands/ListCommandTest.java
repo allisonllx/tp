@@ -28,12 +28,16 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new ScrollToIndexCommandResult(ListCommand.MESSAGE_SUCCESS,
+                INDEX_FIRST_CONTACT);
+        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult expectedCommandResult = new ScrollToIndexCommandResult(ListCommand.MESSAGE_SUCCESS,
+                INDEX_FIRST_CONTACT);
+        assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 }
