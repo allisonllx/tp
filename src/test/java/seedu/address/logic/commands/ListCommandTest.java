@@ -29,7 +29,7 @@ public class ListCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(ListCommand.MESSAGE_SUCCESS,
-                INDEX_FIRST_CONTACT.getZeroBased());
+                INDEX_FIRST_CONTACT);
         assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 
@@ -37,7 +37,7 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showContactAtIndex(model, INDEX_FIRST_CONTACT);
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(ListCommand.MESSAGE_SUCCESS,
-                INDEX_FIRST_CONTACT.getZeroBased());
+                INDEX_FIRST_CONTACT);
         assertCommandSuccess(new ListCommand(), model, expectedCommandResult, expectedModel);
     }
 }

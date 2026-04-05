@@ -58,7 +58,7 @@ public class NoteAddCommand extends NoteCommand {
 
         String feedback = generateSuccessMessage(editedContact, model);
         model.saveSnapshot(feedback);
-        int editedContactIndex = model.getDisplayedContactList().indexOf(editedContact);
+        Index editedContactIndex = model.getIndexOf(editedContact);
         return new ScrollToIndexCommandResult(feedback, editedContactIndex);
     }
 

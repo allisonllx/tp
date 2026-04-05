@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -167,6 +168,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Index getIndexOf(Contact contact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Contact> getDisplayedContactList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -256,6 +262,11 @@ public class AddCommandTest {
         public void addContact(Contact contact) {
             requireNonNull(contact);
             contactsAdded.add(contact);
+        }
+
+        @Override
+        public Index getIndexOf(Contact contact) {
+            return Index.fromZeroBased(contactsAdded.indexOf(contact));
         }
 
         @Override

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,7 @@ public class MainWindowTest extends GuiUnitTest {
     public void executeCommand_hideContactDetail_hidesPanelAndClearsId() throws Exception {
         runAndWait(() -> {
             mainWindow.setViewedContactId(UUID.randomUUID());
-            logic.setNextResult(new CommandResult("closed", null, false, null, true, false, -1));
+            logic.setNextResult(new CommandResult("closed", null, false, null, true, false, Optional.empty()));
             assertDoesNotThrow(() -> mainWindow.executeCommand("close view"));
             assertNull(mainWindow.getViewedContactId());
         });
@@ -59,7 +60,7 @@ public class MainWindowTest extends GuiUnitTest {
     public void executeCommand_showContactDetail_showsPanelAndSetsId() throws Exception {
         runAndWait(() -> {
             Contact contact = new ContactBuilder().withName("Test").build();
-            logic.setNextResult(new CommandResult("viewed", null, false, contact, false, false, -1));
+            logic.setNextResult(new CommandResult("viewed", null, false, contact, false, false, Optional.empty()));
             assertDoesNotThrow(() -> mainWindow.executeCommand("view 1"));
             assertNotNull(mainWindow.getViewedContactId());
         });
@@ -69,7 +70,7 @@ public class MainWindowTest extends GuiUnitTest {
     public void executeCommand_showFileList() throws Exception {
         runAndWait(() -> {
             Contact contact = new ContactBuilder().withName("Test").build();
-            logic.setNextResult(new CommandResult("view files", null, false, null, false, true, -1));
+            logic.setNextResult(new CommandResult("view files", null, false, null, false, true, Optional.empty()));
             assertDoesNotThrow(() -> mainWindow.executeCommand("view files"));
             assertNull(mainWindow.getViewedContactId());
         });

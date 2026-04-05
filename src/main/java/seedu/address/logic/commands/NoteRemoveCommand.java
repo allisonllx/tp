@@ -64,7 +64,7 @@ public class NoteRemoveCommand extends NoteCommand {
 
         String feedback = generateSuccessMessage(editedContact);
         model.saveSnapshot(feedback);
-        int editedContactIndex = model.getDisplayedContactList().indexOf(editedContact);
+        Index editedContactIndex = model.getIndexOf(editedContact);
         return new ScrollToIndexCommandResult(feedback, editedContactIndex);
     }
 

@@ -39,7 +39,7 @@ public class NoteAddCommandTest {
         NoteAddCommand notesCommand = new NoteAddCommand(INDEX_FIRST_CONTACT, NOTE);
         String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact);
         CommandResult expectedCommandResult =
-                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT.getZeroBased());
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         expectedModel.resetDisplayedContactList();
@@ -98,7 +98,7 @@ public class NoteAddCommandTest {
         String expectedMessage = Messages.formatNoteOutput(NoteAddCommand.MESSAGE_ADD_NOTES_SUCCESS, editedContact,
                 expectedModel.getDisplayedContactList(), expectedModel.getAddressBook().getContactList());
         CommandResult expectedCommandResult =
-                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT.getZeroBased());
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
 
         assertCommandSuccess(command, model, expectedCommandResult, expectedModel);
     }

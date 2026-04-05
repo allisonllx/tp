@@ -10,6 +10,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -60,10 +61,11 @@ public class ContactListPanel extends UiPart<Region> {
     /**
      * Scrolls the list to the given index.
      */
-    public void scrollToIndex(int index) {
+    public void scrollToIndex(Index index) {
+        int contactPos = index.getZeroBased();
         if (!allContacts.isEmpty()) {
-            assert (index >= 0 && index < allContacts.size());
-            Platform.runLater(() -> contactListView.scrollTo(index));
+            assert (contactPos >= 0 && contactPos < allContacts.size());
+            Platform.runLater(() -> contactListView.scrollTo(contactPos));
         }
     }
 }

@@ -60,7 +60,7 @@ public class NoteClearCommand extends NoteCommand {
 
         String feedback = generateSuccessMessage(numCleared, editedContact, model);
         model.saveSnapshot(feedback);
-        int editedContactIndex = model.getDisplayedContactList().indexOf(editedContact);
+        Index editedContactIndex = model.getIndexOf(editedContact);
         return new ScrollToIndexCommandResult(feedback, editedContactIndex);
     }
 

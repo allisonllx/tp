@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -38,7 +40,7 @@ public class ViewCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, null, false, contactToView, false, false, -1);
+                new CommandResult(expectedMessage, null, false, contactToView, false, false, Optional.empty());
         assertCommandSuccess(viewCommand, model, expectedCommandResult, expectedModel);
     }
 
@@ -51,7 +53,7 @@ public class ViewCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, null, false, null, false, true, -1);
+                new CommandResult(expectedMessage, null, false, null, false, true, Optional.empty());
         assertCommandSuccess(viewCommand, model, expectedCommandResult, expectedModel);
     }
 
@@ -78,7 +80,7 @@ public class ViewCommandTest {
         showContactAtIndex(expectedModel, INDEX_FIRST_CONTACT);
 
         CommandResult expectedCommandResult =
-                new CommandResult(expectedMessage, null, false, contactToView, false, false, -1);
+                new CommandResult(expectedMessage, null, false, contactToView, false, false, Optional.empty());
         assertCommandSuccess(viewCommand, model, expectedCommandResult, expectedModel);
     }
 

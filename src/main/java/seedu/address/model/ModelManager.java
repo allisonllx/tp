@@ -17,6 +17,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactComparator;
 import seedu.address.model.contact.ContactFieldComparator;
@@ -152,6 +153,11 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedContact);
 
         addressBook.setContact(target, editedContact);
+    }
+
+    @Override
+    public Index getIndexOf(Contact contact) {
+        return Index.fromZeroBased(displayedContacts.indexOf(contact));
     }
 
     //=========== Displayed Contact List Accessors =============================================================

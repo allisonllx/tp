@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -24,14 +25,14 @@ public class ContactListPanelTest extends GuiUnitTest {
     @Test
     public void scrollToIndexTest() throws Exception {
         runAndWait(() -> {
-            assertDoesNotThrow(() -> contactListPanel.scrollToIndex(0));
+            assertDoesNotThrow(() -> contactListPanel.scrollToIndex(Index.fromZeroBased(0)));
         });
     }
 
     @Test
     public void emptyListScrollToIndexTest() throws Exception {
         runAndWait(() -> {
-            assertDoesNotThrow(() -> emptyContactListPanel.scrollToIndex(0));
+            assertDoesNotThrow(() -> emptyContactListPanel.scrollToIndex(Index.fromZeroBased(0)));
         });
     }
 }

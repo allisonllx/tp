@@ -41,7 +41,7 @@ public class NoteClearAllCommandTest {
         String expectedMessage = Messages.formatNoteOutput(
             NoteClearAllCommand.MESSAGE_REMOVE_NOTES_SUCCESS, afterClearAll);
         CommandResult expectedCommandResult =
-                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT.getZeroBased());
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         testModel.resetDisplayedContactList();

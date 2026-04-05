@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -74,7 +75,7 @@ public class AddCommand extends Command {
 
         String feedback = String.format(message, Messages.format(toAdd));
         model.saveSnapshot(feedback);
-        int toAddIndex = model.getDisplayedContactList().indexOf(toAdd);
+        Index toAddIndex = model.getIndexOf(toAdd);
         return new ScrollToIndexCommandResult(feedback, toAddIndex);
     }
 

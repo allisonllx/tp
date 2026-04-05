@@ -52,7 +52,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.format(editedContact));
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(expectedMessage,
-                INDEX_FIRST_CONTACT.getZeroBased());
+                INDEX_FIRST_CONTACT);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(contactToEdit, editedContact);
@@ -77,7 +77,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.format(editedContact));
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(expectedMessage,
-                indexLastContact.getZeroBased());
+                indexLastContact);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(lastContact, editedContact);
@@ -94,7 +94,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.format(editedContact));
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(expectedMessage,
-                INDEX_FIRST_CONTACT.getZeroBased());
+                INDEX_FIRST_CONTACT);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.resetDisplayedContactList();
@@ -114,7 +114,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.format(editedContact));
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(expectedMessage,
-                INDEX_FIRST_CONTACT.getZeroBased());
+                INDEX_FIRST_CONTACT);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(model.getDisplayedContactList().get(0), editedContact);
@@ -154,7 +154,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
                 Messages.format(editedContact));
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(expectedMessage,
-                INDEX_FIRST_CONTACT.getZeroBased());
+                INDEX_FIRST_CONTACT);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setContact(firstContact, editedContact);

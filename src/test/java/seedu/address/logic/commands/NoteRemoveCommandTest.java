@@ -44,7 +44,7 @@ public class NoteRemoveCommandTest {
         String expectedMessage = String.format(NoteRemoveCommand.MESSAGE_REMOVE_NOTE_SUCCESS,
                 Messages.format(afterRemoveSecondNote));
         CommandResult expectedCommandResult =
-                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT.getZeroBased());
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         testModel.resetDisplayedContactList();
