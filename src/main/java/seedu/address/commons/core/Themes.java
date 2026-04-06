@@ -24,6 +24,8 @@ public final class Themes {
         map.put("light", UiUtil.getUrl("LightTheme.css").toString());
         map.put("book", UiUtil.getUrl("ReadingMode.css").toString());
         map.put("sakura", UiUtil.getUrl("Sakura.css").toString());
+        map.put("jirai", UiUtil.getUrl("JiraiKei.css").toString());
+        map.put("tech", UiUtil.getUrl("Techcore.css").toString());
         AVAILABLE_THEMES = Collections.unmodifiableMap(map);
     }
 

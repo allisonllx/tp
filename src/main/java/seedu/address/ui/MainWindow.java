@@ -444,6 +444,22 @@ public class MainWindow extends UiPart<Stage> {
         executeCommand("theme sakura");
     }
 
+    /**
+     * Sets the theme to Jirai Kei.
+     */
+    @FXML
+    private void toggleJiraiTheme() throws CommandException, ParseException {
+        executeCommand("theme jirai");
+    }
+
+    /**
+     * Sets the theme to Jirai Kei.
+     */
+    @FXML
+    private void toggleTechTheme() throws CommandException, ParseException {
+        executeCommand("theme tech");
+    }
+
     public ContactListPanel getContactListPanel() {
         return contactListPanel;
     }

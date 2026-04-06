@@ -49,10 +49,12 @@
             <MenuItem mnemonicParsing="false" onAction="#handleCloseView" text="Close" />
           </Menu>
           <Menu mnemonicParsing="false" text="Theme">
-            <MenuItem mnemonicParsing="false" onAction="#toggleDarkTheme" text="Dark" />
-            <MenuItem mnemonicParsing="false" onAction="#toggleLightTheme" text="Light" />
-            <MenuItem mnemonicParsing="false" onAction="#toggleBookTheme" text="Book" />
-            <MenuItem mnemonicParsing="false" onAction="#toggleSakuraTheme" text="Sakura" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleDarkTheme" text="dark" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleLightTheme" text="light" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleBookTheme" text="book" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleSakuraTheme" text="sakura" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleJiraiTheme" text="jirai" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleTechTheme" text="tech" />
           </Menu>
         </MenuBar>
 

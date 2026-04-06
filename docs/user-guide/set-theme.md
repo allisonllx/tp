@@ -6,22 +6,32 @@ Format: `theme THEME_NAME`
 
 ## Available themes
 ### Dark Mode: `dark`
-Image to be inserted here
+![Dark Mode]({{ baseUrl }}/images/theme-dark.png)
 
 Command: `theme dark` <br>
 Perfect for late-night work.
 ### Light Mode: `light`
-Image to be inserted here
+![Light Mode]({{ baseUrl }}/images/theme-light.png)
 
 Command: `theme light` <br>
 For when you're in well-lit conditions.
 ### Reading Mode: `book`
-Image to be inserted here
+![Reading Mode]({{ baseUrl }}/images/theme-book.png)
 
 Command: `theme book` <br>
 To lesson the strain on the eyes.
 ### Sakura Theme: `sakura`
-Image to be inserted here
+![Sakura Theme]({{ baseUrl }}/images/theme-sakura.png)
 
 Command: `theme sakura` <br>
-For fans of the kawaii aesthetic.
+For fans of the kawaii and pink aesthetic.
+### Jirai Kei Theme: `jirai`
+![Jirai Kei Theme]({{ baseUrl }}/images/theme-jirai.png)
+
+Command: `theme jirai` <br>
+For fans of the Jirai Kei aesthetic.
+### Techcore Theme: `tech`
+![Techcore Theme]({{ baseUrl }}/images/theme-tech.png)
+
+Command: `theme tech` <br>
+For those who want to appear like they're at the forefront of technology
