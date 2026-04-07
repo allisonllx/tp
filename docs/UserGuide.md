@@ -26,7 +26,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
     - [Editing the data file directly](#editing-the-data-file-directly)
 3. [FAQ](#faq)
 4. [Known Issues](#known-issues)
-4. [Command Summary](#command-summary)
+5. [Command Summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
