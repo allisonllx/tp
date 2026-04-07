@@ -25,6 +25,8 @@ Examples:
 ### Similar contacts
 After a successful `add` command, the contact list will be reset to display every contact in the default sort order, then if there are similar contacts in the list, the contact list will be displayed to display the similar contacts.
 
-A contact is similar if:
+Two contacts are similar if:
 
-- <!-- TODO: Explain the similar contact filter the add command uses in further detail -->
+- Both contacts share the same name
+- Both contacts share the same phone number
+- Both contacts share the same email address

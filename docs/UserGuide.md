@@ -61,7 +61,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
     * `exit` : Exits the app.
 
-1. Refer to [Features]({{ baseUrl }}/UserGuide.html#features) for details of each command.
+1. Refer to [Features]({{ baseUrl }}/UserGuide.html#features) for a full list of commands, or each command's subpages for additional details.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -97,7 +97,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 ### Adding contacts
 
-To add a new contact, use the [`add`]({{ baseUrl }}/user-guide/add-contact.html) command.
+To add a new contact, use the [`add` command]({{ baseUrl }}/user-guide/add-contact.html).
 
 Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
@@ -111,7 +111,7 @@ Examples:
 
 ### Editing contacts
 
-To edit an existing contact, use the [`edit`]({{ baseUrl }}/user-guide/edit-contact.html) command.
+To edit an existing contact, use the [`edit` command]({{ baseUrl }}/user-guide/edit-contact.html).
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
@@ -124,49 +124,56 @@ Examples:
 
 ### Deleting contacts
 
-- To delete a specific displayed contact, use the [`delete INDEX`]({{ baseUrl }}/user-guide/delete-contact.html) command.
-- To delete all contacts at once, use the [`clear`]({{ baseUrl }}/user-guide/clear-contacts.html) command.
+- To delete a specific displayed contact, use the [`delete INDEX` command]({{ baseUrl }}/user-guide/delete-contact.html).
+- To delete all contacts at once, use the [`clear` command]({{ baseUrl }}/user-guide/clear-contacts.html).
 
 ### Adding notes to contacts
 
-To manage notes and reminders for a contact, use the [`note`]({{ baseUrl }}/user-guide/notes.html) command.
+To manage notes and reminders for a contact, use the [`note` command]({{ baseUrl }}/user-guide/notes.html).
 
-* **Add a note:** `note INDEX NOTE [on/TIME]` — appends a note to the contact. Including `on/TIME` turns it into a reminder.
-* **Edit a note:** `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]` — replaces a specific note.
-* **Remove a specific note:** `note INDEX cl/NOTE_INDEX` — removes the note at that position.
-* **Remove first N notes:** `note INDEX c/LINES_TO_REMOVE` — removes the first N notes.
-* **Clear all notes:** `note INDEX ca/` — removes all notes from the contact.
+* [**Add a note:** `note INDEX NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#add-a-note) — appends a note to the contact. Including `on/TIME` turns it into a reminder.
+* [**Edit a note:** `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#edit-a-note) — replaces a specific note.
+* [**Remove a specific note:** `note INDEX cl/NOTE_INDEX`]({{ baseUrl }}/user-guide/notes.html#remove-a-specific-note) — removes the note at that position.
+* [**Remove first N notes:** `note INDEX c/LINES_TO_REMOVE`]({{ baseUrl }}/user-guide/notes.html#remove-first-n-notes) — removes the first N notes.
+* [**Clear all notes:** `note INDEX ca/`]({{ baseUrl }}/user-guide/notes.html#clear-all-note) — removes all notes from the contact.
 
 Notes support **contact references** using the `@INDEX` syntax, which creates a bidirectional association between the two contacts. This means both contacts will appear when searching for either one using `find @INDEX`.
 
+### Reminders
+
+B2B4U can remind you of upcoming events, as every contact with a reminder in its notes will gain a `Reminder` tag which turns red once the reminder is due in 7 days.
+During this period, a window will also pop-up to remind you of the upcoming event every time you start B2B4U.
+<!-- TODO: Insert image of reminder window -->
+
 ### Filtering and sorting the context list
 
-B2B4U allows you to filter and sort the contact list to quickly find contacts that fit specific criteria in a sea of other contacts.
+By default, B2B4U will display every contact within the contact list, ordered to place the contacts with the most urgent reminders and (subsequently) the most recently contacted date.
+Of course, B2B4U does also provide commands to filter and sort the contact list to quickly find contacts that fit specific criteria in a sea of other contacts.
 
-- To filter, use the [`find`]({{ baseUrl }}/user-guide/find-contacts.html) command with keywords or field-specific prefixes (e.g. `find n/Alex t/friends`). Use `find @INDEX` to find contacts associated with the contact at that index.
-- To remove contact filters, use the `find` command without any keywords.
-- To sort, use the [`sort`]({{ baseUrl }}/user-guide/sort-contacts.html) command with field prefixes followed by `asc` or `desc` to specify the sort direction (e.g. `sort n/asc` to sort by name ascending, `sort lc/desc` to sort by last contacted descending).
-- To reset the sort order, use the `sort` command without any keywords.
+- To filter, use the [`find` command]({{ baseUrl }}/user-guide/find-contacts.html) with keywords or field-specific prefixes (e.g. `find n/Alex t/friends`). Use `find @INDEX` to find contacts associated with the contact at that index.
+- To remove contact filters, use the [`find` command without any keywords]({{ baseUrl }}/user-guide/find-contacts.html#clearing-filters).
+- To sort, use the [`sort` command]({{ baseUrl }}/user-guide/sort-contacts.html) with field prefixes followed by `asc` or `desc` to specify the [sort direction]({{ baseUrl }}/user-guide/sort-contacts.html#sort-order-by-field) (e.g. `sort n/asc` to sort by name ascending, `sort lc/desc` to sort by last contacted descending).
+- To reset the sort order, use the [`sort` command without any keywords]({{ baseUrl }}/user-guide/sort-contacts.html#resetting-sort-order).
 
 The effects of the `find` and `sort` commands will be maintained even when the other command is made, and will only be changed another iteration of its own command, with the exception of the following commands which can also change the filter/sort criteria:
 
-- A [`list`]({{ baseUrl }}/user-guide/list-contacts.html) command will display every contact in the default sort order.
-- A [`add`]({{ baseUrl }}/user-guide/add-contact.html#similar-contacts) command will reset the sort order, and may filter to display only similar contacts.
+- A [`list` command]({{ baseUrl }}/user-guide/list-contacts.html) will display every contact in the default sort order.
+- An [`add` command]({{ baseUrl }}/user-guide/add-contact.html#similar-contacts) will reset the sort order, and may filter to display only similar contacts.
 
 ### Undo and redo
 
 B2B4U allows you to undo and redo commands to prevent data loss due to mistakes.
 
-- To undo the last command, use the [`undo`]({{ baseUrl }}/user-guide/undo-command.html) command.
-- To redo the last command, use the [`redo`]({{ baseUrl }}/user-guide/redo-command.html) command.
+- To undo the last command, use the [`undo` command]({{ baseUrl }}/user-guide/undo-command.html).
+- To redo the last command, use the [`redo` command]({{ baseUrl }}/user-guide/redo-command.html).
 
 ### Setting the theme
 
 B2B4U features a variety of color palettes(referred to as 'themes') to customise your experience.
 
-To change to a different theme, use the [`theme THEME_NAME`]({{ baseUrl }}/user-guide/set-theme.html) command.
+To change to a different theme, use the [`theme THEME_NAME` command]({{ baseUrl }}/user-guide/set-theme.html).
 
-Available themes: [`dark`]({{ baseUrl }}/user-guide/set-theme.html#dark-mode-dark), [`light`]({{ baseUrl }}/user-guide/set-theme.html#light-mode-light), [`book`]({{ baseUrl }}/user-guide/set-theme.html#reading-mode-book), [`sakura`]({{ baseUrl }}/user-guide/set-theme.html#sarkua-mode-sakura)
+Available themes: [Dark mode: `dark`]({{ baseUrl }}/user-guide/set-theme.html#dark-mode-dark), [Light mode: `light`]({{ baseUrl }}/user-guide/set-theme.html#light-mode-light), [Reading mode: `book`]({{ baseUrl }}/user-guide/set-theme.html#reading-mode-book), [Sakura theme: `sakura`]({{ baseUrl }}/user-guide/set-theme.html#sarkua-mode-sakura)
 
 ### Maintaining separate data files
 
@@ -180,7 +187,7 @@ All data files must be placed in the data folder: `[JAR file location]/data/`.
 
 ### Exiting B2B4U
 
-To exit B2B4U, use the [`exit`]({{ baseUrl }}/user-guide/exit.html) command.
+To exit B2B4U, use the [`exit`]({{ baseUrl }}/user-guide/exit-program.html) command.
 
 ### Saving data
 

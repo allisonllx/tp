@@ -1,4 +1,4 @@
-### Finding contacts: `find`
+# Finding contacts: `find`
 
 Finds contacts whose fields match the specified search criteria.
 
@@ -29,3 +29,13 @@ Examples:
 * If Contact 1's notes contain `@2` (a reference to Contact 2), both `find @1` and `find @2` will show the association between them.
 
 ![find contacts]({{ baseUrl }}/images/findContacts.png)
+
+### Clearing filters
+
+To remove the current filters and display every contact, use the `find` command without any additional keywords.
+
+<box type="info" seamless>
+**Note: ** Changing or resetting the `find` filters has no impact on the current sort order. To reset both the applied filters and sort order at the same time, use the [`list` command]({{ baseUrl }}/user-guide/list-contacts.html) instead. 
+</box>
+
+<!-- TODO: Add picture of filters being cleared by using solitary `find` command. -->
