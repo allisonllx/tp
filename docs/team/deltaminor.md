@@ -29,7 +29,7 @@ Given below are my contributions to the project.
   - Non-trivial pull-requests: [#189](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/189)
 - GUI overhaul
   - Changes: New contact card design, additional colour palettes, autoscroll to newly added/edited contact.
-  - Rationale: 
+  - Rationale:
     - Give B2B4U a more unique visual identity to separate it from AB3.
     - Provide users a better experience as the new design is more user-friendly, while additional colour palettes allow for user freedom in customising their experience.
   - Non-trivial pull-requests: [#198](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/198), [#208](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/208), [#287](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/287)
@@ -52,6 +52,6 @@ Given below are my contributions to the project.
 - Setup project milestones
 - Managed v1.3 and v1.4 releases
 - Setup issue tracker for alpha release bugs
-- Extensive bug-testing and providing suggestions for fixes: [#80](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/80), [#100](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/100), [#115](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/115), [#204](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/204), 
+- Extensive bug-testing and providing suggestions for fixes: [#80](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/80), [#100](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/100), [#115](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/115), [#204](https://github.com/AY2526S2-CS2103T-T08-1/tp/issues/204)
 - Extensive bug-fixing: [#147](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/147), [#205](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/205), [#201](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/201), [#286](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/286)
 - Examples of PRs reviewed (with non-trivial review comments): [#70](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/70), [#151](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/151), [#154](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/154), [#173](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/173), [#223](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/223), [#253](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/253)
