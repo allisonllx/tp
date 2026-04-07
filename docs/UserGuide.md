@@ -173,7 +173,7 @@ B2B4U features a variety of color palettes(referred to as 'themes') to customise
 
 To change to a different theme, use the [`theme THEME_NAME` command]({{ baseUrl }}/user-guide/set-theme.html).
 
-Available themes: [Dark mode: `dark`]({{ baseUrl }}/user-guide/set-theme.html#dark-mode-dark), [Light mode: `light`]({{ baseUrl }}/user-guide/set-theme.html#light-mode-light), [Reading mode: `book`]({{ baseUrl }}/user-guide/set-theme.html#reading-mode-book), [Sakura theme: `sakura`]({{ baseUrl }}/user-guide/set-theme.html#sarkua-mode-sakura)
+Available themes: [Dark mode: `dark`]({{ baseUrl }}/user-guide/set-theme.html#dark-mode-dark), [Light mode: `light`]({{ baseUrl }}/user-guide/set-theme.html#light-mode-light), [Reading mode: `book`]({{ baseUrl }}/user-guide/set-theme.html#reading-mode-book), [Sakura theme: `sakura`]({{ baseUrl }}/user-guide/set-theme.html#sakura-mode-sakura), [Jirai Kei theme: `jirai`]({{ baseUrl }}/user-guide/set-theme.html#jirai-kei-mode-kei), [Techcore theme: `tech`]({{ baseUrl }}/user-guide/set-theme.html#techcore-theme-tech)
 
 ### Maintaining separate data files
 
