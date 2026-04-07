@@ -33,6 +33,7 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addContact(validContact);
+        expectedModel.resetDisplayedContactList();
         CommandResult expectedCommandResult = new ScrollToIndexCommandResult(
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
                 Index.fromZeroBased(expectedModel.getDisplayedContactList().indexOf(validContact)));
