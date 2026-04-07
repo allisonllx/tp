@@ -187,6 +187,7 @@ public class ModelManager implements Model {
     @Override
     public void sortDisplayedContactList(Comparator<Contact> comparator) {
         requireNonNull(comparator);
+        sortedContacts.setComparator(null);
         sortedContacts.setComparator(comparator.thenComparing(DEFAULT_DISPLAY_COMPARATOR));
     }
 
