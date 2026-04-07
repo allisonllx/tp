@@ -65,13 +65,15 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
+        boolean modelHasSimilarContact = model.hasContact(toAdd);
+
+        model.addContact(toAdd);
+
         model.resetDisplayedContactList();
-        if (model.hasSimilarContact(toAdd)) {
+        if (modelHasSimilarContact) {
             message = MESSAGE_SUCCESS_SIMILAR;
             model.filterDisplayedContactList(toAdd::isSimilarContact);
         }
-
-        model.addContact(toAdd);
 
         String feedback = String.format(message, Messages.format(toAdd));
         model.saveSnapshot(feedback);
