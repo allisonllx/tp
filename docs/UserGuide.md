@@ -8,6 +8,11 @@
 
 Business to Business for You (B2B4U) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, B2B4U can get your contact management tasks done faster than traditional GUI apps.
 
+## Table of Contents
+
+* Table of Contents
+  {:toc}
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -47,7 +52,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 ## Features
 
-### Commands
+### Command Format
 
 <box type="info" seamless>
 
@@ -184,16 +189,14 @@ or the specific pages for [viewing]({{ baseUrl }}/user-guide/view.html) and [man
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ & Known Issues
-
-### FAQ
+## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous B2B4U home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Known Issues
+## Known Issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
