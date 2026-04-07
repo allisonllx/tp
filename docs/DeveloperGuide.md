@@ -569,9 +569,9 @@ testers are expected to do more *exploratory* testing.
 ### Saving data
 
 1. Dealing with missing/corrupted data files
-   
+
    1. Prerequisites: Ensure that app is closed. `preferences.json` and `config.json` files are present in the same folder as the jar file.
-    
+
    2. Test case: Delete data file (if present) and launch the app. <br>
     Expected: App loads with no contacts. A new data file is created when a contact is added.
 
