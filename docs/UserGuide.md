@@ -10,22 +10,8 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 ## Table of Contents
 
-1. [Quick Start](#quick-start)
-2. [Features](#features)
-    - [Command Format](#command-format)
-    - [Adding contacts](#adding-contacts)
-    - [Editing contacts](#editing-contacts)
-    - [Deleting contacts](#deleting-contacts)
-    - [Adding notes to contacts](#adding-notes-to-contacts)
-    - [Filtering and sorting the context list](#filtering-and-sorting-the-context-list)
-    - [Undo and redo](#undo-and-redo)
-    - [Setting the theme](#setting-the-theme)
-    - [Maintaining separate data files](#maintaining-separate-data-files)
-    - [Exiting B2B4U](#exiting-b2b4u)
-    - [Saving data](#saving-data)
-    - [Editing the data file directly](#editing-the-data-file-directly)
-3. [FAQ & Known Issues](#faq--known-issues)
-4. [Command Summary](#command-summary)
+* Table of Contents
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -203,16 +189,14 @@ or the specific pages for [viewing]({{ baseUrl }}/user-guide/view.html) and [man
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ & Known Issues
-
-### FAQ
+## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous B2B4U home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-### Known Issues
+## Known Issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
