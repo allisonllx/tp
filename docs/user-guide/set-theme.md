@@ -19,7 +19,7 @@ For when you're in well-lit conditions.
 ![Reading Mode]({{ baseUrl }}/images/theme-book.png)
 
 Command: `theme book` <br>
-To lesson the strain on the eyes.
+To lessen the strain on the eyes.
 ### Sakura Theme: `sakura`
 ![Sakura Theme]({{ baseUrl }}/images/theme-sakura.png)
 

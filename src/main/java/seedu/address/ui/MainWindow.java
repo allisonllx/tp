@@ -453,7 +453,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the theme to Jirai Kei.
+     * Sets the theme to Techcore.
      */
     @FXML
     private void toggleTechTheme() throws CommandException, ParseException {
