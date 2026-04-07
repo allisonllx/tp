@@ -65,7 +65,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 
-        boolean modelHasSimilarContact = model.hasContact(toAdd);
+        boolean modelHasSimilarContact = model.hasSimilarContact(toAdd);
 
         model.addContact(toAdd);
 
