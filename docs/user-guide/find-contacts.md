@@ -8,7 +8,7 @@ or: `find @INDEX` to find contacts associated with the contact at INDEX
 * The search is case-insensitive. e.g. `hans` will match `Hans`.
 * Unprefixed `KEYWORD`s search across all fields (name, phone, email, address, notes, tags) using partial matching. Each keyword must appear somewhere in the contact.
   * Note: As months are abbreviated in reminders, a search with the full name of a month exceeding 3 letters in length will not successfully filter for reminders with that month.
-  * Example: Given contact "Alex Yeoh" with note "to meet _on_ Jun 19, 2026", 
+  * Example: Given contact "Alex Yeoh" with note "to meet _on_ Jun 19, 2026"
     * `find Jun` will display contact "Alex Yeoh"
     * `find June` **will not** display contact "Alex Yeoh"
 * Prefixed searches (`n/`, `p/`, `e/`, `a/`) filter by the specified field using partial matching.

@@ -35,7 +35,7 @@ Check us out on [Github](https://github.com/AY2526S2-CS2103T-T08-1/tp)!
 
 <img src="images/deltaminor.png" width="200px">
 
-[[github](http://github.com/deltaMinor)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/deltaMinor)] [[portfolio](team/deltaminor.md)]
 
 * Role: Developer
 * Responsibilities: Code Quality, In charge of UI Mockup
