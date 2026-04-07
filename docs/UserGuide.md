@@ -8,6 +8,25 @@
 
 Business to Business for You (B2B4U) is a **desktop app for managing contacts, optimized for use via a  Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, B2B4U can get your contact management tasks done faster than traditional GUI apps.
 
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Features](#features)
+    - [Command Format](#command-format)
+    - [Adding contacts](#adding-contacts)
+    - [Editing contacts](#editing-contacts)
+    - [Deleting contacts](#deleting-contacts)
+    - [Adding notes to contacts](#adding-notes-to-contacts)
+    - [Filtering and sorting the context list](#filtering-and-sorting-the-context-list)
+    - [Undo and redo](#undo-and-redo)
+    - [Setting the theme](#setting-the-theme)
+    - [Maintaining separate data files](#maintaining-separate-data-files)
+    - [Exiting B2B4U](#exiting-b2b4u)
+    - [Saving data](#saving-data)
+    - [Editing the data file directly](#editing-the-data-file-directly)
+3. [FAQ & Known Issues](#faq--known-issues)
+4. [Command Summary](#command-summary)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -47,7 +66,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 ## Features
 
-### Commands
+### Command Format
 
 <box type="info" seamless>
 
