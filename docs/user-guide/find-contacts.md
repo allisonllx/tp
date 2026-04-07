@@ -1,4 +1,4 @@
-### Finding contacts: `find`
+# Finding contacts: `find`
 
 Finds contacts whose fields match the specified search criteria.
 
@@ -8,7 +8,7 @@ or: `find @INDEX` to find contacts associated with the contact at INDEX
 * The search is case-insensitive. e.g. `hans` will match `Hans`.
 * Unprefixed `KEYWORD`s search across all fields (name, phone, email, address, notes, tags) using partial matching. Each keyword must appear somewhere in the contact.
   * Note: As months are abbreviated in reminders, a search with the full name of a month exceeding 3 letters in length will not successfully filter for reminders with that month.
-  * Example: Given contact "Alex Yeoh" with note "to meet _on_ Jun 19, 2026", 
+  * Example: Given contact "Alex Yeoh" with note "to meet _on_ Jun 19, 2026"
     * `find Jun` will display contact "Alex Yeoh"
     * `find June` **will not** display contact "Alex Yeoh"
 * Prefixed searches (`n/`, `p/`, `e/`, `a/`) filter by the specified field using partial matching.
@@ -29,3 +29,13 @@ Examples:
 * If Contact 1's notes contain `@2` (a reference to Contact 2), both `find @1` and `find @2` will show the association between them.
 
 ![find contacts]({{ baseUrl }}/images/findContacts.png)
+
+### Clearing filters
+
+To remove the current filters and display every contact, use the `find` command without any additional keywords.
+
+<box type="info" seamless>
+**Note: ** Changing or resetting the `find` filters has no impact on the current sort order. To reset both the applied filters and sort order at the same time, use the [`list` command]({{ baseUrl }}/user-guide/list-contacts.html) instead. 
+</box>
+
+<!-- TODO: Add picture of filters being cleared by using solitary `find` command. -->
