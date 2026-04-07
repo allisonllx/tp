@@ -1,6 +1,6 @@
 ---
-layout: page
-title: deltaMinor's Project Portfolio Page
+  layout: default.md
+  title: "deltaMinor's Project Portfolio Page"
 ---
 
 <img src="../images/deltaminor.png" width="200px">
