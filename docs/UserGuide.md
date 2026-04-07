@@ -111,11 +111,11 @@ Examples:
 
 To manage notes and reminders for a contact, use the [`note` command]({{ baseUrl }}/user-guide/notes.html).
 
-* [**Add a note:** `note INDEX NOTE [on/TIME]`]({ baseUrl }}/user-guide/notes.html#add-a-note) — appends a note to the contact. Including `on/TIME` turns it into a reminder.
-* [**Edit a note:** `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`]({ baseUrl }}/user-guide/notes.html#edit-a-note) — replaces a specific note.
-* [**Remove a specific note:** `note INDEX cl/NOTE_INDEX`]({ baseUrl }}/user-guide/notes.html#remove-a-specific-note) — removes the note at that position.
-* [**Remove first N notes:** `note INDEX c/LINES_TO_REMOVE`]({ baseUrl }}/user-guide/notes.html#remove-first-n-notes) — removes the first N notes.
-* [**Clear all notes:** `note INDEX ca/`]({ baseUrl }}/user-guide/notes.html#clear-all-note) — removes all notes from the contact.
+* [**Add a note:** `note INDEX NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#add-a-note) — appends a note to the contact. Including `on/TIME` turns it into a reminder.
+* [**Edit a note:** `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#edit-a-note) — replaces a specific note.
+* [**Remove a specific note:** `note INDEX cl/NOTE_INDEX`]({{ baseUrl }}/user-guide/notes.html#remove-a-specific-note) — removes the note at that position.
+* [**Remove first N notes:** `note INDEX c/LINES_TO_REMOVE`]({{ baseUrl }}/user-guide/notes.html#remove-first-n-notes) — removes the first N notes.
+* [**Clear all notes:** `note INDEX ca/`]({{ baseUrl }}/user-guide/notes.html#clear-all-note) — removes all notes from the contact.
 
 Notes support **contact references** using the `@INDEX` syntax, which creates a bidirectional association between the two contacts. This means both contacts will appear when searching for either one using `find @INDEX`.
 
