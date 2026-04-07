@@ -49,6 +49,18 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_contactHasSimilarContact_addSuccessful() throws Exception {
+        ModelStubHasSimilarContact modelStub = new ModelStubHasSimilarContact();
+        Contact validContact = new ContactBuilder().build();
+
+        CommandResult commandResult = new AddCommand(validContact).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_SIMILAR, Messages.format(validContact)),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
+    }
+
+    @Test
     public void execute_duplicateContact_throwsCommandException() {
         Contact validContact = new ContactBuilder().build();
         AddCommand addCommand = new AddCommand(validContact);
@@ -290,6 +302,16 @@ public class AddCommandTest {
 
         @Override
         public void resetDisplayedContactList() {
+        }
+    }
+
+    /**
+     * A Model stub that always returns true for {@code hasSimilarContact}.
+     */
+    private class ModelStubHasSimilarContact extends ModelStubAcceptingContactAdded {
+        @Override
+        public boolean hasSimilarContact(Contact contact) {
+            return true;
         }
     }
 
