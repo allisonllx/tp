@@ -1,6 +1,6 @@
 .root {
     -main-background-color: #1D5A9D;
-    -secondary-background-color: #D99A12;
+    -secondary-background-color: #EDB337;
     -border-color: #222C4F;
     -main-font-color: white;
     -detail-font-color: #EDB337;
@@ -11,6 +11,6 @@
     -status-bar-fill: #1C3756;
     -note-cell-fill: #091235;
     -button-fill: #222C4F;
-    -highlight: #EDB337;
+    -highlight: #CF6D0A;
     -warning: #ED2828;
 }
