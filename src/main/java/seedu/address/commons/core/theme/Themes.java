@@ -10,8 +10,8 @@ import seedu.address.ui.UiUtil;
  * Contains a map of every theme URL and its respective command word.
  */
 public final class Themes {
-    public static final String AVAILABLE_THEMES_MESSAGE = "Available themes: dark, light, book, sakura, grass, tech, jirai";
-    public static final String DEFAULT_THEME = UiUtil.getUrl("DarkTheme.css").toString();
+    public static final String AVAILABLE_THEMES_MESSAGE =
+            "Available themes: dark, light, book, sakura, grass, tech, jirai";
 
     private static final Map<String, Theme> AVAILABLE_THEMES;
 
