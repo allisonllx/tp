@@ -41,7 +41,7 @@ Examples:
 To reset the current sort order, use the `sort` command without any additional keywords.
 
 <box type="info" seamless>
-**Note: ** Changing or resetting the sort order has no impact on the current 'find' filters. To reset both the applied filters and sort order at the same time, use the [`list` command]({{ baseUrl }}/user-guide/list-contacts.html) instead. 
+**Note: ** Changing or resetting the sort order has no impact on the current 'find' filters. To reset both the applied filters and sort order at the same time, use the [`list` command]({{ baseUrl }}/user-guide/list-contacts.html) instead.
 </box>
 
 <!-- TODO: Add picture of sort order being reset by using solitary `sort` command. -->

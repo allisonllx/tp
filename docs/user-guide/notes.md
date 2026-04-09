@@ -69,12 +69,13 @@ Example:
 ## Reminders
 
 By including a `/on` prefix and a time afterwards in a `note`, users can create reminders attached to a contact, which is useful to scheduling meetings and events relating to those contacts. <br>
-Contacts with a reminder will gain a special `Reminder` tag.
+Contacts with a reminder will gain a special `Reminder` tag and automatically be placed towards the top of the contact list.
 
 ![Reminder]({{ baseUrl }}/images/notes-reminder.png)
 
 Users will be notified that the reminder of a contact is due within 7 days in the following ways:
 - The `Reminder` tag of the contact will turn reddish
+- The contact will be placed at the very top of the contact list, above other contacts without a due reminder
 - A reminder window will pop-up during startup
 
 ![Due Reminder]({{ baseUrl }}/images/notes-dueReminder.png)
