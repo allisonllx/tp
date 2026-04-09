@@ -33,6 +33,8 @@ Examples:
 * `note 1 el/1 Updated note text.` replaces the 1st note of the 1st contact.
 * `note 2 el/3 Follow up call on/15 Apr` replaces the 3rd note for the 2nd contact and sets a reminder.
 
+![edit note]({{ baseUrl }}/images/editNote.png)
+
 ### Remove a specific note
 
 Format: `note INDEX cl/NOTE_INDEX`
@@ -42,6 +44,8 @@ Format: `note INDEX cl/NOTE_INDEX`
 
 Example:
 * `note 1 cl/2` removes the 2nd note from the 1st contact.
+
+![remove specific note]({{ baseUrl }}/images/removeSpecificNote.png)
 
 ### Remove the first N notes
 
@@ -55,7 +59,7 @@ Examples:
 * `note 1 c/1` removes the first note from the 1st contact.
 * `note 2 c/3` removes the first 3 notes from the 2nd contact.
 
-![remove note]({{ baseUrl }}/images/removeNote.png)
+![remove notes]({{ baseUrl }}/images/removeNotes.png)
 
 ### Clear all notes
 
@@ -65,6 +69,8 @@ Format: `note INDEX ca/`
 
 Example:
 * `note 1 ca/`
+
+![remove all notes]({{ baseUrl }}/images/removeAllNotes.png)
 
 ## Reminders
 
