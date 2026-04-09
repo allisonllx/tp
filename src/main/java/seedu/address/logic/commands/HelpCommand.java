@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command: %s\n"
             + "Available commands: %s";
 
-    private static final String UG_COMMANDS_URL = HelpInfo.USER_GUIDE_BASE_URL + "commands/";
+    private static final String UG_COMMANDS_URL = HelpInfo.USER_GUIDE_BASE_URL;
 
     private static final Map<String, HelpInfo> COMMAND_HELP_MAP = new LinkedHashMap<>();
 
@@ -36,7 +36,7 @@ public class HelpCommand extends Command {
                 new HelpInfo(ClearCommand.MESSAGE_USAGE, UG_COMMANDS_URL + "clear-contacts.html"));
         COMMAND_HELP_MAP.put(CloseViewCommand.COMMAND_WORD,
                 new HelpInfo(CloseViewCommand.MESSAGE_USAGE,
-                        UG_COMMANDS_URL + "close-view-contact.html"));
+                        UG_COMMANDS_URL + "close-view.html"));
         COMMAND_HELP_MAP.put(DeleteCommand.COMMAND_WORD,
                 new HelpInfo(DeleteCommand.MESSAGE_USAGE,
                         UG_COMMANDS_URL + "delete-contact.html"));
@@ -73,7 +73,7 @@ public class HelpCommand extends Command {
                         UG_COMMANDS_URL + "undo-command.html"));
         COMMAND_HELP_MAP.put(ViewCommand.COMMAND_WORD,
                 new HelpInfo(ViewCommand.MESSAGE_USAGE,
-                        UG_COMMANDS_URL + "view-contact.html"));
+                        UG_COMMANDS_URL + "view.html"));
     }
 
     private final String commandWord;
