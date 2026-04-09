@@ -114,6 +114,7 @@ public class FileListPanel extends UiPart<Region> {
         return Instant.ofEpochMilli(epoch).atZone(ZONE_ID).toLocalDateTime();
     }
 
+    //Method below produced with assistance from Claude AI
     private void setUpWatcher(Path directory) throws IOException {
         directory.register(watchService,
                 StandardWatchEventKinds.ENTRY_CREATE,
@@ -167,6 +168,7 @@ public class FileListPanel extends UiPart<Region> {
         });
     }
 
+    //Method below adapted from https://www.baeldung.com/java-executor-service-tutorial
     /**
      * Shuts down `EXECUTOR_SERVICE` used to watch for file changes and ensures it is terminated gracefully.
      */
