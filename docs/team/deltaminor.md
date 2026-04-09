@@ -38,8 +38,6 @@ Given below are my contributions to the project.
 [[RepoSense report](https://nus-cs2103-ay2526-s2.github.io/tp-dashboard/?search=t08&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2026-02-20T00%3A00%3A00&filteredFileName=&tabOpen=true&tabType=zoom&zA=deltaMinor&zR=AY2526S2-CS2103T-T08-1%2Ftp%5Bmaster%5D&zACS=247.18897637795277&zS=2026-02-20T00%3A00%3A00&zFS=t08&zU=2026-04-07T23%3A59%3A59&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)]
 <iframe src="https://nus-cs2103-ay2526-s2.github.io/tp-dashboard/#/widget/?search=t08&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2026-02-20T00%3A00%3A00&filteredFileName=&chartGroupIndex=0&chartIndex=3" frameBorder="0" width="800px" height="240px"></iframe>
 
-**Project management**:
-
 ### Contribution to Documentation
 - User Guide
     - Rewrote overall document hierarchy: [#280](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/280)
