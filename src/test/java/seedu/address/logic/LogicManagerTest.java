@@ -193,6 +193,6 @@ public class LogicManagerTest {
 
     @Test
     public void getThemeTest() {
-        assertEquals("dark", logic.getTheme());
+        assertEquals("dark", logic.getTheme().getName());
     }
 }

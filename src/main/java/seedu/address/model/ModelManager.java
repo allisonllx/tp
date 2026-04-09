@@ -18,6 +18,7 @@ import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactComparator;
 import seedu.address.model.contact.ContactFieldComparator;
@@ -94,12 +95,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getTheme() {
+    public Theme getTheme() {
         return userPrefs.getTheme();
     }
 
     @Override
-    public void setTheme(String theme) {
+    public void setTheme(Theme theme) {
         userPrefs.setTheme(theme);
     }
 

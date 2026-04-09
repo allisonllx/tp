@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.commons.core.Themes;
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.logic.commands.ThemeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -22,7 +22,7 @@ public class ThemeCommandParser implements Parser<ThemeCommand> {
         if (!Themes.contains(theme)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ThemeCommand.MESSAGE_USAGE));
         }
-        return new ThemeCommand(theme);
+        return new ThemeCommand(Themes.get(theme));
     }
 
 }

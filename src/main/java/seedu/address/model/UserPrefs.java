@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.theme.Theme;
 
 /**
  * Represents User's preferences.
@@ -50,11 +51,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public String getTheme() {
+    public Theme getTheme() {
         return guiSettings.getTheme();
     }
 
-    public void setTheme(String theme) {
+    public void setTheme(Theme theme) {
         this.guiSettings = new GuiSettings(guiSettings.getWindowWidth(), guiSettings.getWindowHeight(), theme);
     }
 
