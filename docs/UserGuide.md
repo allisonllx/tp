@@ -131,11 +131,11 @@ Examples:
 
 To manage notes and reminders for a contact, use the [`note` command]({{ baseUrl }}/user-guide/notes.html).
 
-* [**Add a note:** `note INDEX NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#add-a-note) — appends a note to the contact. Including `on/TIME` turns it into a reminder.
-* [**Edit a note:** `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#edit-a-note) — replaces a specific note.
+* [**Add a note:** `note INDEX NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#add-a-note) — appends a note to the contact. Including `on/TIME` turns it into a [reminder]({{ baseUrl }}/user-guide/notes.html#reminders).
+* [**Edit a note:** `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`]({{ baseUrl }}/user-guide/notes.html#edit-a-specific-note) — replaces a specific note.
 * [**Remove a specific note:** `note INDEX cl/NOTE_INDEX`]({{ baseUrl }}/user-guide/notes.html#remove-a-specific-note) — removes the note at that position.
-* [**Remove first N notes:** `note INDEX c/LINES_TO_REMOVE`]({{ baseUrl }}/user-guide/notes.html#remove-first-n-notes) — removes the first N notes.
-* [**Clear all notes:** `note INDEX ca/`]({{ baseUrl }}/user-guide/notes.html#clear-all-note) — removes all notes from the contact.
+* [**Remove first N notes:** `note INDEX c/LINES_TO_REMOVE`]({{ baseUrl }}/user-guide/notes.html#remove-the-first-n-notes) — removes the first N notes, where N = `LINES_TO_REMOVE`.
+* [**Clear all notes:** `note INDEX ca/`]({{ baseUrl }}/user-guide/notes.html#clear-all-notes) — removes all notes from the contact.
 
 Notes support **contact references** using the `@INDEX` syntax, which creates a bidirectional association between the two contacts. This means both contacts will appear when searching for either one using `find @INDEX`.
 
@@ -188,13 +188,13 @@ B2B4U allows you to maintain multiple separate data files.
 This is useful if you want to maintain separate contact lists for different purposes (e.g. work vs personal contacts).
 All data files must be placed in the data folder: `[JAR file location]/data/`.
 
-- To view a list of all available data files, use the [`view files`]({{ baseUrl }}/user-guide/view.html#viewing-available-files-view-files) command.
-- To open a specific data file, use the [`file open/FILE_NAME`]({{ baseUrl }}/user-guide/file.html#open-file-file-open) command.
-- To delete a specific data file, use the [`file delete/FILE_NAME`]({{ baseUrl }}/user-guide/file.html#deleting-a-file-file-delete) command.
+- To view a list of all available data files, use the [`view files` command]({{ baseUrl }}/user-guide/view.html#viewing-available-files-view-files).
+- To open a specific data file, use the [`file open/FILE_NAME` command]({{ baseUrl }}/user-guide/file.html#open-file-file-open).
+- To delete a specific data file, use the [`file delete/FILE_NAME` command]({{ baseUrl }}/user-guide/file.html#deleting-a-file-file-delete).
 
 ### Exiting B2B4U
 
-To exit B2B4U, use the [`exit`]({{ baseUrl }}/user-guide/exit-program.html) command.
+To exit B2B4U, use the [`exit` command]({{ baseUrl }}/user-guide/exit-program.html).
 
 ### Saving data
 
@@ -203,7 +203,7 @@ There is no need to save manually.
 
 ### Editing the data file directly
 
-B2B4U data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`.
+By default, B2B4U data is saved automatically as JSON files within the `[JAR file location]/data` folder.
 Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
