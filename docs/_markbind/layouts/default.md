@@ -40,7 +40,7 @@
   * [Undoing a Command]({{ baseUrl }}/user-guide/undo-command.html)
   * [Redoing a Command]({{ baseUrl }}/user-guide/redo-command.html)
   * [Viewing Contact/File Details]({{ baseUrl }}/user-guide/view.html)
-  * [Closing the Contact View]({{ baseUrl }}/user-guide/close-view-contact.html)
+  * [Closing the View Panel]({{ baseUrl }}/user-guide/close-view.html)
   * [Managing Files]({{ baseUrl }}/user-guide/file.html)
   * [Changing the Theme]({{ baseUrl }}/user-guide/set-theme.html)
   * [Exiting the Program]({{ baseUrl }}/user-guide/exit-program.html)
