@@ -30,5 +30,5 @@ Examples:
 ![Delete empty file]({{ baseUrl }}/images/deleteEmptyFile.png)
 
 * If oldContactList.json contains at least one contact, `file delete/oldContactList` will trigger an alert window to appear and prompt for confirmation.
-  
+
 ![Delete file]({{ baseUrl }}/images/deleteFile.png)
