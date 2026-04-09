@@ -9,7 +9,7 @@ Format: `note INDEX NOTE [on/TIME]`
 * Appends `NOTE` to the contact at the specified `INDEX`. The index **must be a positive integer** 1, 2, 3, …​
 * New notes are stacked underneath existing ones.
 * `TIME` can accept most conventional date/time formats and may omit the year. If unable to parse as a date, it will be saved as a plain string.
-* Filling the `on/TIME` field turns the note into a reminder. The system will warn of reminders due within 1 week.
+* Filling the `on/TIME` field turns the note into a [reminder](#reminders). The system will warn of reminders due within 1 week.
 * Notes support **contact references** using the `@INDEX` syntax. When you include `@INDEX` in a note, it creates a link to the contact at that index. The reference is displayed as the contact's name in **bold and underlined** text.
 * If a referenced contact's name changes, the displayed name updates automatically.
 * If a referenced contact is deleted, the reference is replaced with the contact's name as plain text.
@@ -68,4 +68,14 @@ Example:
 
 ## Reminders
 
-<!-- TODO: Add details about reminder and photo of reminder window -->
+By including a `/on` prefix and a time afterwards in a `note`, users can create reminders attached to a contact, which is useful to scheduling meetings and events relating to those contacts. <br>
+Contacts with a reminder will gain a special `Reminder` tag and automatically be placed towards the top of the contact list.
+
+![Reminder]({{ baseUrl }}/images/notes-reminder.png)
+
+Users will be notified that the reminder of a contact is due within 7 days in the following ways:
+- The `Reminder` tag of the contact will turn reddish
+- The contact will be placed at the very top of the contact list, above other contacts without a due reminder
+- A reminder window will pop-up during startup
+
+![Due Reminder]({{ baseUrl }}/images/notes-dueReminder.png)
