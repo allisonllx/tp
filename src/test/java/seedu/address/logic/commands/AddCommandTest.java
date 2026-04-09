@@ -15,8 +15,11 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -42,6 +45,18 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validContact).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
+    }
+
+    @Test
+    public void execute_contactHasSimilarContact_addSuccessful() throws Exception {
+        ModelStubHasSimilarContact modelStub = new ModelStubHasSimilarContact();
+        Contact validContact = new ContactBuilder().build();
+
+        CommandResult commandResult = new AddCommand(validContact).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS_SIMILAR, Messages.format(validContact)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
     }
@@ -111,12 +126,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public String getThemeUrl() {
+        public Theme getTheme() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setThemeUrl(String themeUrl) {
+        public void setTheme(Theme theme) {
             //no-op for testing
         }
 
@@ -162,6 +177,11 @@ public class AddCommandTest {
 
         @Override
         public void setContact(Contact target, Contact editedContact) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Index getIndexOf(Contact contact) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -258,6 +278,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Index getIndexOf(Contact contact) {
+            return Index.fromZeroBased(contactsAdded.indexOf(contact));
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
@@ -268,11 +293,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Contact> getDisplayedContactList() {
+            return FXCollections.observableList(contactsAdded);
+        }
+
+        @Override
         public void filterDisplayedContactList(Predicate<Contact> predicate) {
         }
 
         @Override
         public void resetDisplayedContactList() {
+        }
+    }
+
+    /**
+     * A Model stub that always returns true for {@code hasSimilarContact}.
+     */
+    private class ModelStubHasSimilarContact extends ModelStubAcceptingContactAdded {
+        @Override
+        public boolean hasSimilarContact(Contact contact) {
+            return true;
         }
     }
 

@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BENSON;
 import static seedu.address.testutil.TypicalContacts.CARL;
@@ -31,9 +32,9 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.timepoint.TimePoint;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.FindAssociationsCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindResetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -50,8 +51,23 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_success() {
-        assertParseFailure(parser, "     ", Messages.getCommandErrorWithUsage(
-                Messages.MESSAGE_MISSING_KEYWORD, FindCommand.MESSAGE_USAGE));
+        assertParseSuccess(parser, "", new FindResetCommand());
+    }
+
+    @Test
+    public void parse_resetFind_test() throws ParseException {
+        FindCommand command = parser.parse("");
+        String expectedMessage = FindResetCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
+    }
+
+    @Test
+    public void parse_spacesResetFind_test() throws ParseException {
+        FindCommand command = parser.parse("   ");
+        String expectedMessage = FindResetCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA, DANIEL, ELLE, ALICE, BENSON), model.getDisplayedContactList());
     }
 
     @Test

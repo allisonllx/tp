@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.logic.commands.ThemeCommand;
 
 public class ThemeCommandParserTest {
@@ -19,7 +20,7 @@ public class ThemeCommandParserTest {
     @Test
     public void parse_setThemeCommand_success() {
         ThemeCommand expectedSetThemeCommand =
-                new ThemeCommand("light");
+                new ThemeCommand(Themes.get("light"));
         assertParseSuccess(
                 parser,
                 " " + THEME,

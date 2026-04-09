@@ -11,14 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Themes;
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
-    private static final String DARK_THEME = Themes.get("dark");
-
     @TempDir
     public Path testFolder;
 
@@ -43,7 +41,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
          */
         UserPrefs original = new UserPrefs();
-        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, DARK_THEME));
+        original.setGuiSettings(new GuiSettings(300, 600, 4, 6, Themes.get("dark")));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);

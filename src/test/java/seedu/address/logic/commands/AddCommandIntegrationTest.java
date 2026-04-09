@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -32,10 +33,12 @@ public class AddCommandIntegrationTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addContact(validContact);
-
-        assertCommandSuccess(new AddCommand(validContact), model,
+        expectedModel.resetDisplayedContactList();
+        CommandResult expectedCommandResult = new ScrollToIndexCommandResult(
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
-                expectedModel);
+                Index.fromZeroBased(expectedModel.getDisplayedContactList().indexOf(validContact)));
+
+        assertCommandSuccess(new AddCommand(validContact), model, expectedCommandResult, expectedModel);
     }
 
     @Test

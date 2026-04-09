@@ -8,6 +8,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.commons.core.theme.Theme;
 
 /**
  * Alerts the user of the deletion of a file containing data and requests for confirmation.
@@ -29,15 +30,15 @@ public class DeleteFileAlert extends UiPart<Stage> {
      * Creates a new DeleteFileAlert window.
      * @param root Stage to use as the root of the DeleteFileAlert window.
      * @param alertText Text to display to user.
-     * @param themeUrl URL of theme to be used for this alert window.
+     * @param theme Theme to be used for this alert window.
      */
-    public DeleteFileAlert(Stage root, String alertText, String themeUrl) {
+    public DeleteFileAlert(Stage root, String alertText, Theme theme) {
         super(FXML, root);
 
         List<String> essentialStylesheets = root.getScene().getStylesheets();
         String[] stylesheets = new String[essentialStylesheets.size() + 1];
         essentialStylesheets.toArray(stylesheets);
-        stylesheets[stylesheets.length - 1] = themeUrl;
+        stylesheets[stylesheets.length - 1] = theme.getUrl();
         root.getScene().getStylesheets().setAll(stylesheets);
 
         alertLabel.setText(alertText);
@@ -48,8 +49,8 @@ public class DeleteFileAlert extends UiPart<Stage> {
      * @param fileName Name of file to be deleted.
      * @param contactCount Number of contacts within file to be deleted.
      */
-    public DeleteFileAlert(String fileName, int contactCount, String themeUrl) {
-        this(new Stage(), String.format(ALERT_FORMAT, fileName, contactCount), themeUrl);
+    public DeleteFileAlert(String fileName, int contactCount, Theme theme) {
+        this(new Stage(), String.format(ALERT_FORMAT, fileName, contactCount), theme);
     }
 
     /**

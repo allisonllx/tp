@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.theme.Theme;
 
 /**
  * Represents User's preferences.
@@ -50,12 +51,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public String getThemeUrl() {
-        return guiSettings.getThemeUrl();
+    public Theme getTheme() {
+        return guiSettings.getTheme();
     }
 
-    public void setThemeUrl(String themeUrl) {
-        this.guiSettings = new GuiSettings(guiSettings.getWindowWidth(), guiSettings.getWindowHeight(), themeUrl);
+    public void setTheme(Theme theme) {
+        this.guiSettings = new GuiSettings(guiSettings.getWindowWidth(), guiSettings.getWindowHeight(), theme);
     }
 
     public Path getAddressBookFilePath() {

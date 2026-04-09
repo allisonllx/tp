@@ -1,8 +1,8 @@
-### Adding notes/reminders to a contact: `note`
+# Adding notes/reminders to a contact: `note`
 
 Manages notes and reminders for an existing contact in the contact list.
 
-**Add a note:**
+### Add a note
 
 Format: `note INDEX NOTE [on/TIME]`
 
@@ -21,7 +21,7 @@ Examples:
 
 ![add note]({{ baseUrl }}/images/addNote.png)
 
-**Edit a specific note:**
+### Edit a specific note
 
 Format: `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`
 
@@ -33,7 +33,7 @@ Examples:
 * `note 1 el/1 Updated note text.` replaces the 1st note of the 1st contact.
 * `note 2 el/3 Follow up call on/15 Apr` replaces the 3rd note for the 2nd contact and sets a reminder.
 
-**Remove a specific note:**
+### Remove a specific note
 
 Format: `note INDEX cl/NOTE_INDEX`
 
@@ -43,7 +43,7 @@ Format: `note INDEX cl/NOTE_INDEX`
 Example:
 * `note 1 cl/2` removes the 2nd note from the 1st contact.
 
-**Remove the first N notes:**
+### Remove the first N notes
 
 Format: `note INDEX c/LINES_TO_REMOVE`
 
@@ -57,7 +57,7 @@ Examples:
 
 ![remove note]({{ baseUrl }}/images/removeNote.png)
 
-**Clear all notes:**
+### Clear all notes
 
 Format: `note INDEX ca/`
 
@@ -65,3 +65,7 @@ Format: `note INDEX ca/`
 
 Example:
 * `note 1 ca/`
+
+## Reminders
+
+<!-- TODO: Add details about reminder and photo of reminder window -->

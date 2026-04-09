@@ -1,0 +1,16 @@
+.root {
+    -main-background-color: #1D5A9D;
+    -secondary-background-color: #EDB337;
+    -border-color: #222C4F;
+    -main-font-color: white;
+    -detail-font-color: #EDB337;
+    -contact-reference-fill: #6ec6ff;
+    -card-title-fill: #222C4F;
+    -card-fill: #5C6CA4;
+    -card-selected: #C19D58;
+    -status-bar-fill: #1C3756;
+    -note-cell-fill: #091235;
+    -button-fill: #222C4F;
+    -highlight: #EDB337;
+    -warning: #ED2828;
+}

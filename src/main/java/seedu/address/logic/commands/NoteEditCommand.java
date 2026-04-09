@@ -68,9 +68,10 @@ public class NoteEditCommand extends NoteCommand {
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
 
-        String feedback = generateSuccessMessage(editedContact);
+        String feedback = generateSuccessMessage(editedContact, model);
         model.saveSnapshot(feedback);
-        return new CommandResult(feedback);
+        Index editedContactIndex = model.getIndexOf(editedContact);
+        return new ScrollToIndexCommandResult(feedback, editedContactIndex);
     }
 
     /**
@@ -91,8 +92,9 @@ public class NoteEditCommand extends NoteCommand {
         return new Note(sb.toString(), note.timePoint.orElse(null));
     }
 
-    private String generateSuccessMessage(Contact contactToEdit) {
-        return Messages.formatNoteOutput(MESSAGE_EDIT_NOTE_SUCCESS, contactToEdit);
+    private String generateSuccessMessage(Contact contactToEdit, Model model) {
+        return Messages.formatNoteOutput(MESSAGE_EDIT_NOTE_SUCCESS, contactToEdit,
+                model.getDisplayedContactList(), model.getAddressBook().getContactList());
     }
 
     @Override

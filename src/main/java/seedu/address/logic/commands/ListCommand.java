@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 
 /**
@@ -23,7 +24,7 @@ public class ListCommand extends Command {
 
         String feedback = MESSAGE_SUCCESS;
         model.saveSnapshot(feedback);
-        return new CommandResult(feedback);
+        return new ScrollToIndexCommandResult(feedback, Index.fromZeroBased(0));
     }
 
     @Override

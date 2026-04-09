@@ -56,9 +56,10 @@ public class NoteAddCommand extends NoteCommand {
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
 
-        String feedback = generateSuccessMessage(editedContact);
+        String feedback = generateSuccessMessage(editedContact, model);
         model.saveSnapshot(feedback);
-        return new CommandResult(feedback);
+        Index editedContactIndex = model.getIndexOf(editedContact);
+        return new ScrollToIndexCommandResult(feedback, editedContactIndex);
     }
 
     /**
@@ -83,8 +84,9 @@ public class NoteAddCommand extends NoteCommand {
      * Generates a command execution success message based on whether the notes are added to or removed from
      * {@code contactToEdit}.
      */
-    private String generateSuccessMessage(Contact contactToEdit) {
-        return Messages.formatNoteOutput(MESSAGE_ADD_NOTES_SUCCESS, contactToEdit);
+    private String generateSuccessMessage(Contact contactToEdit, Model model) {
+        return Messages.formatNoteOutput(MESSAGE_ADD_NOTES_SUCCESS, contactToEdit,
+                model.getDisplayedContactList(), model.getAddressBook().getContactList());
     }
 
     @Override

@@ -58,18 +58,20 @@ public class NoteClearCommand extends NoteCommand {
         model.setContact(contactToEdit, editedContact);
         model.resetDisplayedContactList();
 
-        String feedback = generateSuccessMessage(numCleared, editedContact);
+        String feedback = generateSuccessMessage(numCleared, editedContact, model);
         model.saveSnapshot(feedback);
-        return new CommandResult(feedback);
+        Index editedContactIndex = model.getIndexOf(editedContact);
+        return new ScrollToIndexCommandResult(feedback, editedContactIndex);
     }
 
     /**
      * Generates a command execution success message.
      * {@code contactToEdit}.
      */
-    private String generateSuccessMessage(int numCleared, Contact contactToEdit) {
+    private String generateSuccessMessage(int numCleared, Contact contactToEdit, Model model) {
         return Messages.formatNoteOutput(
-                String.format(MESSAGE_REMOVE_NOTES_SUCCESS, numCleared), contactToEdit);
+                String.format(MESSAGE_REMOVE_NOTES_SUCCESS, numCleared), contactToEdit,
+                model.getDisplayedContactList(), model.getAddressBook().getContactList());
     }
 
     @Override

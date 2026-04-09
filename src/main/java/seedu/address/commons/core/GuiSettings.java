@@ -4,8 +4,9 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
+import seedu.address.commons.core.theme.Theme;
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.ui.UiUtil;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -15,12 +16,13 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 670;
     private static final double DEFAULT_WIDTH = 830;
+    private static final String DEFAULT_THEME = "dark";
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
 
-    private final String themeUrl;
+    private final Theme theme;
 
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
@@ -29,27 +31,28 @@ public class GuiSettings implements Serializable {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
-        themeUrl = UiUtil.getUrl("DarkTheme.css").toString();
+        assert Themes.contains(DEFAULT_THEME);
+        theme = Themes.get(DEFAULT_THEME);
     }
 
     /**
      * Constructs a {@code GuiSettings} with the specified height, width and theme.
      */
-    public GuiSettings(double windowWidth, double windowHeight, String themeUrl) {
+    public GuiSettings(double windowWidth, double windowHeight, Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = null;
-        this.themeUrl = themeUrl;
+        this.theme = theme;
     }
 
     /**
      * Constructs a {@code GuiSettings} with the specified height, width, position and theme.
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String themeUrl) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
-        this.themeUrl = themeUrl;
+        this.theme = theme;
     }
 
     public double getWindowWidth() {
@@ -64,8 +67,8 @@ public class GuiSettings implements Serializable {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
     }
 
-    public String getThemeUrl() {
-        return themeUrl;
+    public Theme getTheme() {
+        return theme;
     }
 
     @Override
@@ -87,7 +90,7 @@ public class GuiSettings implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates, themeUrl);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, theme);
     }
 
     @Override
@@ -96,7 +99,7 @@ public class GuiSettings implements Serializable {
                 .add("windowWidth", windowWidth)
                 .add("windowHeight", windowHeight)
                 .add("windowCoordinates", windowCoordinates)
-                .add("theme", themeUrl)
+                .add("theme", theme)
                 .toString();
     }
 }

@@ -27,6 +27,7 @@ import seedu.address.logic.commands.FileCommand;
 import seedu.address.logic.commands.FileDeleteCommand;
 import seedu.address.logic.commands.FileOpenCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindResetCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NoteAddCommand;
@@ -80,10 +81,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_resetFind() throws Exception {
+        assertTrue(parser.parseCommand(FindCommand.COMMAND_WORD + "   ") instanceof FindResetCommand);
+    }
+
+    @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(" ")));
         assertTrue(parser.parseCommand(
                 FindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(" ")))
                 instanceof FindCommand);

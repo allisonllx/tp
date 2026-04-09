@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.ui.UiUtil;
 
 public class ThemesTest {
@@ -25,7 +26,7 @@ public class ThemesTest {
 
     @Test
     public void getTest() {
-        assertEquals(UiUtil.getUrl("DarkTheme.css").toString(), Themes.get("dark"));
+        assertEquals(UiUtil.getUrl("DarkTheme.css").toString(), Themes.get("dark").getUrl());
 
         //Non-existent theme causes assertion error
         assertThrows(AssertionError.class, () -> Themes.get("foo"));

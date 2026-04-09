@@ -10,6 +10,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.logic.commands.HelpInfo;
 
 /**
@@ -122,10 +123,10 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Sets the theme of the HelpWindow.
-     * @param themeUrl URL of the desired theme.
+     * @param theme The desired theme.
      */
-    public void setTheme(String themeUrl) {
-        stylesheets[stylesheets.length - 1] = themeUrl;
+    public void setTheme(Theme theme) {
+        stylesheets[stylesheets.length - 1] = theme.getUrl();
         stage.getScene().getStylesheets().setAll(stylesheets);
     }
 }

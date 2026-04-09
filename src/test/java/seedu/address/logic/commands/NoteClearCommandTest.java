@@ -39,11 +39,13 @@ public class NoteClearCommandTest {
 
         String expectedMessage = Messages.formatNoteOutput(
                 String.format(NoteClearCommand.MESSAGE_REMOVE_NOTES_SUCCESS, REMOVE_ONE_LINE), contactToEdit);
+        CommandResult expectedCommandResult =
+                new ScrollToIndexCommandResult(expectedMessage, INDEX_FIRST_CONTACT);
         Model testModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         testModel.setContact(model.getDisplayedContactList().get(0), editedContact);
         testModel.resetDisplayedContactList();
 
-        assertCommandSuccess(notesCommand, testModel, expectedMessage, model);
+        assertCommandSuccess(notesCommand, testModel, expectedCommandResult, model);
     }
 
     @Test

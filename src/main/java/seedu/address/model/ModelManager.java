@@ -17,6 +17,8 @@ import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactComparator;
 import seedu.address.model.contact.ContactFieldComparator;
@@ -93,13 +95,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public String getThemeUrl() {
-        return userPrefs.getThemeUrl();
+    public Theme getTheme() {
+        return userPrefs.getTheme();
     }
 
     @Override
-    public void setThemeUrl(String themeUrl) {
-        userPrefs.setThemeUrl(themeUrl);
+    public void setTheme(Theme theme) {
+        userPrefs.setTheme(theme);
     }
 
     @Override
@@ -154,6 +156,11 @@ public class ModelManager implements Model {
         addressBook.setContact(target, editedContact);
     }
 
+    @Override
+    public Index getIndexOf(Contact contact) {
+        return Index.fromZeroBased(displayedContacts.indexOf(contact));
+    }
+
     //=========== Displayed Contact List Accessors =============================================================
 
     /**
@@ -181,6 +188,7 @@ public class ModelManager implements Model {
     @Override
     public void sortDisplayedContactList(Comparator<Contact> comparator) {
         requireNonNull(comparator);
+        sortedContacts.setComparator(null);
         sortedContacts.setComparator(comparator.thenComparing(DEFAULT_DISPLAY_COMPARATOR));
     }
 

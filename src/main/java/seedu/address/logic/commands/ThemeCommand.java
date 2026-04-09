@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.commons.core.Themes;
+import seedu.address.commons.core.theme.Theme;
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -18,22 +19,21 @@ public class ThemeCommand extends Command {
             + Themes.AVAILABLE_THEMES_MESSAGE + "\n"
             + "Example: " + COMMAND_WORD + " sakura";
 
-    private final String key;
+    private final Theme theme;
 
     /**
      * @param theme Name of the theme to set to.
      */
-    public ThemeCommand(String theme) {
+    public ThemeCommand(Theme theme) {
         requireAllNonNull(theme);
-        assert Themes.contains(theme);
-        this.key = theme;
+        this.theme = theme;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setThemeUrl(Themes.get(key));
+        model.setTheme(theme);
 
-        String feedback = String.format(MESSAGE_SUCCESS, key);
+        String feedback = String.format(MESSAGE_SUCCESS, theme.getName());
         model.saveSnapshot(feedback);
         return new CommandResult(feedback);
     }
@@ -52,6 +52,6 @@ public class ThemeCommand extends Command {
 
         // state check
         ThemeCommand o = (ThemeCommand) other;
-        return key.equals(o.key);
+        return theme.equals(o.theme);
     }
 }

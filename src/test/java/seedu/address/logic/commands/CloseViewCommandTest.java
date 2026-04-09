@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
@@ -17,7 +19,7 @@ public class CloseViewCommandTest {
     @Test
     public void execute_closeView_success() {
         CommandResult expectedResult = new CommandResult(CloseViewCommand.MESSAGE_SUCCESS,
-                false, false, null, true, false);
+                null, false, null, true, false, Optional.empty());
         assertCommandSuccess(new CloseViewCommand(), model, expectedResult, expectedModel);
     }
 

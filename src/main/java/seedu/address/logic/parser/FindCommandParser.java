@@ -21,6 +21,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.FindAssociationsCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindFieldsCommand;
+import seedu.address.logic.commands.FindResetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.util.ContactPredicateBuilder;
@@ -57,6 +58,17 @@ public class FindCommandParser implements Parser<FindCommand> {
                         args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ADDRESS, PREFIX_TAG, PREFIX_LAST_CONTACTED);
 
+        boolean hasAnyKeyword = !argMultimap.getPreamble().isBlank()
+                || !argMultimap.getAllValues(PREFIX_NAME).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_PHONE).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_EMAIL).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_ADDRESS).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_TAG).isEmpty()
+                || !argMultimap.getAllValues(PREFIX_LAST_CONTACTED).isEmpty();
+
+        if (!hasAnyKeyword) {
+            return new FindResetCommand();
+        }
         // Checks that all search phrases are non-empty
         validateNonEmptyPhrases(argMultimap);
 
@@ -104,18 +116,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         boolean isAddressValid = argMultimap.getAllValues(PREFIX_ADDRESS).stream()
                 .allMatch(keyword -> !keyword.isBlank());
         boolean isTagValid = argMultimap.getAllValues(PREFIX_TAG).stream().allMatch(keyword -> !keyword.isBlank());
-        boolean hasAnyKeyword = !argMultimap.getPreamble().isBlank()
-                || !argMultimap.getAllValues(PREFIX_NAME).isEmpty()
-                || !argMultimap.getAllValues(PREFIX_PHONE).isEmpty()
-                || !argMultimap.getAllValues(PREFIX_EMAIL).isEmpty()
-                || !argMultimap.getAllValues(PREFIX_ADDRESS).isEmpty()
-                || !argMultimap.getAllValues(PREFIX_TAG).isEmpty()
-                || !argMultimap.getAllValues(PREFIX_LAST_CONTACTED).isEmpty();
 
-        if (!hasAnyKeyword) {
-            throw new ParseException(Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_KEYWORD,
-                    FindCommand.MESSAGE_USAGE));
-        }
         if (!isNameValid || !isPhoneValid || !isEmailValid || !isAddressValid || !isTagValid) {
             throw new ParseException(Messages.getCommandErrorWithUsage(Messages.MESSAGE_MISSING_KEYWORD,
                     FindCommand.MESSAGE_USAGE));

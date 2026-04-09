@@ -20,10 +20,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
@@ -196,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
 
         if (logic.getDisplayedContactList().stream().anyMatch(Contact::hasDueReminders)) {
             reminderWindow = new ReminderWindow(logic.getDisplayedContactList());
-            reminderWindow.setTheme(logic.getThemeUrl());
+            reminderWindow.setTheme(logic.getTheme());
             reminderWindow.show();
         }
 
@@ -266,14 +265,14 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the theme of the MainWindow.
-     * @param themeUrl URL of the desired theme.
+     * @param theme The desired theme.
      */
-    public void setTheme(String themeUrl) {
-        stylesheets[stylesheets.length - 1] = themeUrl;
+    public void setTheme(Theme theme) {
+        stylesheets[stylesheets.length - 1] = theme.getUrl();
         primaryStage.getScene().getStylesheets().setAll(stylesheets);
-        helpWindow.setTheme(themeUrl);
+        helpWindow.setTheme(theme);
         if (reminderWindow != null) {
-            reminderWindow.setTheme(themeUrl);
+            reminderWindow.setTheme(theme);
         }
     }
 
@@ -358,7 +357,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-        setTheme(logic.getThemeUrl());
+        setTheme(logic.getTheme());
 
         primaryStage.show();
     }
@@ -369,7 +368,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getThemeUrl());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getTheme());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -445,6 +444,22 @@ public class MainWindow extends UiPart<Stage> {
         executeCommand("theme sakura");
     }
 
+    /**
+     * Sets the theme to Jirai Kei.
+     */
+    @FXML
+    private void toggleJiraiTheme() throws CommandException, ParseException {
+        executeCommand("theme jirai");
+    }
+
+    /**
+     * Sets the theme to Techcore.
+     */
+    @FXML
+    private void toggleTechTheme() throws CommandException, ParseException {
+        executeCommand("theme tech");
+    }
+
     public ContactListPanel getContactListPanel() {
         return contactListPanel;
     }
@@ -500,16 +515,12 @@ public class MainWindow extends UiPart<Stage> {
                 showFileList();
             }
 
-            if (commandResult.getFeedbackToUser().contains(ListCommand.MESSAGE_SUCCESS)) {
-                contactListPanel.scrollToTop();
+            if (commandResult.hasScrollToIndex()) {
+                contactListPanel.scrollToIndex(commandResult.getScrollToIndex());
             }
 
-            if (commandResult.getFeedbackToUser().contains(String.format(AddCommand.MESSAGE_SUCCESS, ""))) {
-                contactListPanel.scrollToBottom();
-            }
-
-            if (!logic.getThemeUrl().equals(stylesheets[stylesheets.length - 1])) {
-                setTheme(logic.getThemeUrl());
+            if (!logic.getTheme().equals(stylesheets[stylesheets.length - 1])) {
+                setTheme(logic.getTheme());
             }
             statusBarFooter.updateSaveLocation(logic.getAddressBookFilePath());
             undoMenuItem.setDisable(!logic.modelCanUndo());

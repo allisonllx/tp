@@ -7,12 +7,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.timepoint.TimePoint;
+import seedu.address.testutil.TypicalContacts;
 
 public class NoteTest {
     @Test
@@ -30,25 +32,26 @@ public class NoteTest {
 
     @Test
     public void hasDueReminderTest() {
-        int dueDayThreshold = Note.DUE_PERIOD_DAYS - 1;
+        int dueDayThresholdAfter = Note.DUE_PERIOD_DAYS - 1;
+        int dueDayThresholdBefore = Note.DUE_PERIOD_DAYS + 1;
         assertFalse(new Note("Reminder note").hasDueReminder());
         assertFalse(new Note("Reminder note", TimePoint.of("timeString")).hasDueReminder());
         assertTrue(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS - 1))).hasDueReminder());
+                        TimePoint.of(LocalDate.now().plusDays(dueDayThresholdAfter))).hasDueReminder());
         assertFalse(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS + 1))).hasDueReminder());
+                        TimePoint.of(LocalDate.now().plusDays(dueDayThresholdBefore))).hasDueReminder());
         assertTrue(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDateTime.now().plusDays(Note.DUE_PERIOD_DAYS - 1))).hasDueReminder());
+                        TimePoint.of(LocalDateTime.now().plusDays(dueDayThresholdAfter))).hasDueReminder());
         assertFalse(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDateTime.now().plusDays(Note.DUE_PERIOD_DAYS + 1))).hasDueReminder());
+                        TimePoint.of(LocalDateTime.now().plusDays(dueDayThresholdBefore))).hasDueReminder());
     }
 
     @Test
@@ -149,6 +152,32 @@ public class NoteTest {
         Note note = new Note("worked with @{" + id1 + "}");
         Note result = note.dereferenceContact(id2, "Alice");
         assertEquals(note.value, result.value);
+    }
+
+    @Test
+    public void formatContactReferencesForDisplay_nullDisplayed_returnsOriginal() {
+        UUID id = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        String text = "x @{" + id + "} y";
+        assertEquals(text, Note.formatContactReferencesForDisplay(text, null, null));
+    }
+
+    @Test
+    public void formatContactReferencesForDisplay_uuidInDisplayedList_showsNameAndIndex() {
+        List<Contact> list = TypicalContacts.getTypicalContacts();
+        Contact second = list.get(1);
+        String text = "met @{" + second.getId() + "}";
+        assertEquals("met " + second.getName().fullName + " (@2)",
+                Note.formatContactReferencesForDisplay(text, list, list));
+    }
+
+    @Test
+    public void formatContactReferencesForDisplay_uuidNotInDisplayed_usesNameFromAll() {
+        List<Contact> all = TypicalContacts.getTypicalContacts();
+        Contact second = all.get(1);
+        List<Contact> displayed = List.of(all.get(0));
+        String text = "met @{" + second.getId() + "}";
+        assertEquals("met " + second.getName().fullName,
+                Note.formatContactReferencesForDisplay(text, displayed, all));
     }
 
     @Test

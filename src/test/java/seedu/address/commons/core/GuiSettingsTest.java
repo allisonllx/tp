@@ -11,7 +11,7 @@ public class GuiSettingsTest {
         String expected = GuiSettings.class.getCanonicalName() + "{windowWidth=" + guiSettings.getWindowWidth()
                 + ", windowHeight=" + guiSettings.getWindowHeight() + ", windowCoordinates="
                 + guiSettings.getWindowCoordinates() + ", theme="
-                + guiSettings.getThemeUrl() + "}";
+                + guiSettings.getTheme() + "}";
         assertEquals(expected, guiSettings.toString());
     }
 }
