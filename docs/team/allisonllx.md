@@ -43,7 +43,7 @@ Given below are my contributions to the project.
 <iframe src="https://nus-cs2103-ay2526-s2.github.io/tp-dashboard/?search=allisonllx&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2026-02-20T00%3A00%3A00&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&filteredFileName=" frameBorder="0" width="800px" height="147px"></iframe>
 
 ### Documentation
-- User Guide (EDIT)
+- User Guide
   - Updated `find` command usage: [#259](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/259)
 - Developer's Guide
   - Updated UML and description for `Model` component: [#261](https://github.com/AY2526S2-CS2103T-T08-1/tp/pull/261)
