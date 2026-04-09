@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Themes;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -267,8 +267,8 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the theme of the MainWindow.
      * @param theme The desired theme.
      */
-    public void setTheme(String theme) {
-        stylesheets[stylesheets.length - 1] = Themes.get(theme);
+    public void setTheme(Theme theme) {
+        stylesheets[stylesheets.length - 1] = theme.getUrl();
         primaryStage.getScene().getStylesheets().setAll(stylesheets);
         helpWindow.setTheme(theme);
         if (reminderWindow != null) {

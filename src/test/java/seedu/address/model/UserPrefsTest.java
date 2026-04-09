@@ -26,7 +26,7 @@ public class UserPrefsTest {
     @Test
     public void getThemeTest() {
         UserPrefs userPrefs = new UserPrefs();
-        assertEquals("dark", userPrefs.getTheme());
+        assertEquals("dark", userPrefs.getTheme().getName());
     }
 
     @Test

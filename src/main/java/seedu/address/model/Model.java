@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.model.contact.Contact;
 
 /**
@@ -36,12 +37,12 @@ public interface Model {
     /**
      * Returns the current user prefs' theme.
      */
-    String getTheme();
+    Theme getTheme();
 
     /**
      * Sets the current user prefs' theme.
      */
-    void setTheme(String theme);
+    void setTheme(Theme theme);
 
     /**
      * Returns the user prefs' address book file path.

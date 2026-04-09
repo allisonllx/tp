@@ -10,10 +10,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Themes;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -176,16 +174,11 @@ public class MainApp extends Application {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             if (!prefsOptional.isPresent()) {
                 logger.info("Creating new preference file " + prefsFilePath);
-            } else if (!Themes.contains(prefsOptional.get().getTheme())) {
-                throw new IllegalValueException("Invalid theme: " + prefsOptional.get().getTheme());
             }
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataLoadingException e) {
             logger.warning("Preference file at " + prefsFilePath + " could not be loaded."
                     + " Using default preferences.");
-            initializedPrefs = new UserPrefs();
-        } catch (IllegalValueException e) {
-            logger.warning("Illegal value found in " + prefsFilePath + ": " + e.getMessage());
             initializedPrefs = new UserPrefs();
         }
 
