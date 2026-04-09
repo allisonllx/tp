@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.stage.Stage;
+import seedu.address.commons.core.theme.Themes;
 
 public class ReminderWindowTest extends GuiUnitTest {
     private ReminderWindow reminderWindow;
@@ -21,7 +22,7 @@ public class ReminderWindowTest extends GuiUnitTest {
     @Test
     public void setThemeTest() throws Exception {
         runAndWait(() -> {
-            reminderWindow.setTheme("light");
+            reminderWindow.setTheme(Themes.get("light"));
             assert reminderWindow.getStage().getScene().getStylesheets()
                     .contains(UiUtil.getUrl("LightTheme.css").toString());
         });

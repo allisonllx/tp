@@ -108,7 +108,7 @@ public class NoteAddCommandTest {
         // @999 is out of range, should be left as literal text
         Note noteWithBadRef = new Note("talked to @999");
         NoteAddCommand command = new NoteAddCommand(INDEX_FIRST_CONTACT, noteWithBadRef);
-        CommandResult result = command.execute(model);
+        command.execute(model);
 
         // The note should still contain @999 as-is
         Contact updated = model.getDisplayedContactList().get(0);

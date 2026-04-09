@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Objects;
 
+import seedu.address.commons.core.theme.Theme;
+import seedu.address.commons.core.theme.Themes;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -20,7 +22,7 @@ public class GuiSettings implements Serializable {
     private final double windowHeight;
     private final Point windowCoordinates;
 
-    private final String theme;
+    private final Theme theme;
 
     /**
      * Constructs a {@code GuiSettings} with the default height, width and position.
@@ -29,13 +31,14 @@ public class GuiSettings implements Serializable {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
-        theme = DEFAULT_THEME;
+        assert Themes.contains(DEFAULT_THEME);
+        theme = Themes.get(DEFAULT_THEME);
     }
 
     /**
      * Constructs a {@code GuiSettings} with the specified height, width and theme.
      */
-    public GuiSettings(double windowWidth, double windowHeight, String theme) {
+    public GuiSettings(double windowWidth, double windowHeight, Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = null;
@@ -45,7 +48,7 @@ public class GuiSettings implements Serializable {
     /**
      * Constructs a {@code GuiSettings} with the specified height, width, position and theme.
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, String theme) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, Theme theme) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
@@ -64,7 +67,7 @@ public class GuiSettings implements Serializable {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
     }
 
-    public String getTheme() {
+    public Theme getTheme() {
         return theme;
     }
 

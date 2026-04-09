@@ -32,25 +32,26 @@ public class NoteTest {
 
     @Test
     public void hasDueReminderTest() {
-        int dueDayThreshold = Note.DUE_PERIOD_DAYS - 1;
+        int dueDayThresholdAfter = Note.DUE_PERIOD_DAYS - 1;
+        int dueDayThresholdBefore = Note.DUE_PERIOD_DAYS + 1;
         assertFalse(new Note("Reminder note").hasDueReminder());
         assertFalse(new Note("Reminder note", TimePoint.of("timeString")).hasDueReminder());
         assertTrue(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS - 1))).hasDueReminder());
+                        TimePoint.of(LocalDate.now().plusDays(dueDayThresholdAfter))).hasDueReminder());
         assertFalse(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDate.now().plusDays(Note.DUE_PERIOD_DAYS + 1))).hasDueReminder());
+                        TimePoint.of(LocalDate.now().plusDays(dueDayThresholdBefore))).hasDueReminder());
         assertTrue(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDateTime.now().plusDays(Note.DUE_PERIOD_DAYS - 1))).hasDueReminder());
+                        TimePoint.of(LocalDateTime.now().plusDays(dueDayThresholdAfter))).hasDueReminder());
         assertFalse(
                 new Note(
                         "Reminder note",
-                        TimePoint.of(LocalDateTime.now().plusDays(Note.DUE_PERIOD_DAYS + 1))).hasDueReminder());
+                        TimePoint.of(LocalDateTime.now().plusDays(dueDayThresholdBefore))).hasDueReminder());
     }
 
     @Test

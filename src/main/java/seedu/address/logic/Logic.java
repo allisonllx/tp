@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.theme.Theme;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -51,7 +52,7 @@ public interface Logic {
     /**
      * Returns the current user prefs' theme.
      */
-    String getTheme();
+    Theme getTheme();
 
     /**
      * Returns true if there exists previous snapshots for the model to undo towards.

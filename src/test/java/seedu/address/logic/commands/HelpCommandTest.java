@@ -12,7 +12,6 @@ import seedu.address.model.ModelManager;
 
 public class HelpCommandTest {
     private Model model = new ModelManager();
-    private Model expectedModel = new ModelManager();
 
     @Test
     public void execute_noArgs_showsHelpWindow() {
