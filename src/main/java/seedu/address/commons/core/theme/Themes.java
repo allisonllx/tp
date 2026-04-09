@@ -10,8 +10,8 @@ import seedu.address.ui.UiUtil;
  * Contains a map of every theme URL and its respective command word.
  */
 public final class Themes {
-    public static final String AVAILABLE_THEMES_MESSAGE = "Available themes: dark, light, book, sakura";
-    public static final String DEFAULT_THEME = UiUtil.getUrl("DarkTheme.css").toString();
+    public static final String AVAILABLE_THEMES_MESSAGE =
+            "Available themes: dark, light, book, sakura, grass, tech, jirai";
 
     private static final Map<String, Theme> AVAILABLE_THEMES;
 
@@ -23,9 +23,10 @@ public final class Themes {
         map.put("dark", new Theme("dark", UiUtil.getUrl("DarkTheme.css").toString()));
         map.put("light", new Theme("light", UiUtil.getUrl("LightTheme.css").toString()));
         map.put("book", new Theme("book", UiUtil.getUrl("ReadingMode.css").toString()));
-        map.put("sakura", new Theme("sakura", UiUtil.getUrl("Sakura.css").toString()));
-        map.put("jirai", new Theme("jirai", UiUtil.getUrl("JiraiKei.css").toString()));
+        map.put("sakura", new Theme("sakura", UiUtil.getUrl("SakuraTheme.css").toString()));
+        map.put("grass", new Theme("grass", UiUtil.getUrl("GrassTheme.css").toString()));
         map.put("tech", new Theme("tech", UiUtil.getUrl("Techcore.css").toString()));
+        map.put("jirai", new Theme("jirai", UiUtil.getUrl("JiraiKei.css").toString()));
         AVAILABLE_THEMES = Collections.unmodifiableMap(map);
     }
 

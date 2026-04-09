@@ -453,6 +453,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the theme to Grass Theme.
+     */
+    @FXML
+    private void toggleGrassTheme() throws CommandException, ParseException {
+        executeCommand("theme grass");
+    }
+
+    /**
      * Sets the theme to Techcore.
      */
     @FXML
