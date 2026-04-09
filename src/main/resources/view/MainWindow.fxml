@@ -53,8 +53,9 @@
             <MenuItem mnemonicParsing="false" onAction="#toggleLightTheme" text="light" />
             <MenuItem mnemonicParsing="false" onAction="#toggleBookTheme" text="book" />
             <MenuItem mnemonicParsing="false" onAction="#toggleSakuraTheme" text="sakura" />
-            <MenuItem mnemonicParsing="false" onAction="#toggleJiraiTheme" text="jirai" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleGrassTheme" text="grass" />
             <MenuItem mnemonicParsing="false" onAction="#toggleTechTheme" text="tech" />
+            <MenuItem mnemonicParsing="false" onAction="#toggleJiraiTheme" text="jirai" />
           </Menu>
         </MenuBar>
 
