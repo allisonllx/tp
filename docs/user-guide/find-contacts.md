@@ -35,7 +35,5 @@ Examples:
 To remove the current filters and display every contact, use the `find` command without any additional keywords.
 
 <box type="info" seamless>
-**Note: ** Changing or resetting the `find` filters has no impact on the current sort order. To reset both the applied filters and sort order at the same time, use the [`list` command]({{ baseUrl }}/user-guide/list-contacts.html) instead. 
+**Note: ** Changing or resetting the <code>find</code> filters has no impact on the current sort order. To reset both the applied filters and sort order at the same time, use the <a href="{{ baseUrl }}/user-guide/list-contacts.html"><code>list</code> command</a> instead.
 </box>
-
-<!-- TODO: Add picture of filters being cleared by using solitary `find` command. -->

@@ -11,6 +11,8 @@ Format: `file open/FILE_NAME`
 Examples:
 * If new_file.json does not exist, `file open/new_file` will create new_file.json and allow immediate access to it.
 
+![Open file]({{ baseUrl }}/images/file-open.png)
+
 # Deleting a file: `file delete/`
 
 Deletes the specified file from the data subfolder.
@@ -24,4 +26,9 @@ Format: `file delete/FILE_NAME`
 
 Examples:
 * If empty.json does not contain any contacts, `file delete/empty` will delete said file without issue.
+
+![Delete empty file]({{ baseUrl }}/images/deleteEmptyFile.png)
+
 * If oldContactList.json contains at least one contact, `file delete/oldContactList` will trigger an alert window to appear and prompt for confirmation.
+  
+![Delete file]({{ baseUrl }}/images/deleteFile.png)

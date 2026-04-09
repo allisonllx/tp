@@ -30,3 +30,5 @@ Two contacts are similar if:
 - Both contacts share the same name
 - Both contacts share the same phone number
 - Both contacts share the same email address
+
+![add contact]({{ baseUrl }}/images/addContact-similar.png)
