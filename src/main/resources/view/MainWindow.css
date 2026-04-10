@@ -90,6 +90,19 @@
     -fx-background-color: -note-cell-fill;
 }
 
+.notes-cell-background .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.notes-cell-background .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.notes-cell-background .scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 3;
+}
+
 .stack-pane {
     -fx-background-color: -main-background-color;
 }
