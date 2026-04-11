@@ -111,6 +111,10 @@
     -fx-text-fill: -main-font-color;
 }
 
+.result-display .scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: -main-font-color;
