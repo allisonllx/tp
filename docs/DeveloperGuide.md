@@ -479,16 +479,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case: UC5 - Filter contacts by criterion**
 
 **MSS**
-1. User requests to list contacts which fulfill given criteria
-2. B2B4U shows a list of all contacts which fulfill given criteria
+1. User requests to list contacts which fulfill a given criterion
+2. B2B4U shows a list of all contacts which fulfill the given criterion
 
     Use case ends.
 
 **Use case: UC6 - Sort contacts by criterion**
 
 **MSS**
-1. User requests to list contacts sorted by a given criteria
-2. B2B4U shows a list of all contacts in order of given criteria
+1. User requests to list contacts sorted by a given criterion
+2. B2B4U shows a list of all contacts in order of the given criterion
 
     Use case ends.
 
