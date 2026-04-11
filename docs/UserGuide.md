@@ -200,11 +200,17 @@ By default, B2B4U displays all contacts sorted by **most urgent reminder** first
 B2B4U also provides commands to filter and sort the contact list, which is useful when managing a large number of contacts.
 
 **Filtering:**
+
+Format: `find [KEYWORD]… [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`
+
 - Use the [`find` command]({{ baseUrl }}/user-guide/find-contacts.html) with keywords or field-specific prefixes to filter contacts (e.g. `find n/Alex t/friends`).
 - Use `find @INDEX` to find all contacts associated with the contact at that index.
 - Use [`find` without any arguments]({{ baseUrl }}/user-guide/find-contacts.html#clearing-filters) to remove all active filters.
 
 **Sorting:**
+
+Format: `sort [n/asc | desc] [p/asc | desc] [e/asc | desc] [a/asc | desc] [lu/asc | desc] [lc/asc | desc] [t/TAG_NAME:asc | desc]…`
+
 - Use the [`sort` command]({{ baseUrl }}/user-guide/sort-contacts.html) with field prefixes and `asc` or `desc` to specify the [sort direction]({{ baseUrl }}/user-guide/sort-contacts.html#sort-order-by-field) (e.g. `sort n/asc` to sort by name A–Z, `sort lc/desc` to sort by last contacted, newest first).
 - Use [`sort` without any arguments]({{ baseUrl }}/user-guide/sort-contacts.html#resetting-sort-order) to reset to the default sort order.
 
