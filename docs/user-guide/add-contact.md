@@ -31,4 +31,9 @@ Two contacts are similar if:
 - Both contacts share the same phone number
 - Both contacts share the same email address
 
+<box type="info" seamless>
+
+**Note:** Similar contact detection uses **exact matching** only. Names that appear similar to a human (e.g. "John Doe" and "John Doe Sr.") will not be flagged as similar unless they match exactly. The same applies to phone numbers and emails.
+</box>
+
 ![add contact]({{ baseUrl }}/images/addContact-similar.png)
