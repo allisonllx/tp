@@ -1,6 +1,6 @@
 # Redoing a command: `redo`
 
-Reverses the effect of an `undo` command, effectively re-applying the previously undone action.
+Reverses the effect of an [`undo` command]({{ baseUrl }}/user-guide/undo-command.html), effectively re-applying the previously undone action.
 
 Format: `redo`
 
