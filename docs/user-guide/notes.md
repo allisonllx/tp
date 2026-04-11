@@ -49,15 +49,15 @@ Example:
 
 ### Remove the first N notes
 
-Format: `note INDEX c/LINES_TO_REMOVE`
+Format: `note INDEX co/LINES_TO_REMOVE`
 
 * Removes the first `LINES_TO_REMOVE` notes from the contact at the specified `INDEX`.
 * `LINES_TO_REMOVE` must be a non-negative integer.
 * If `LINES_TO_REMOVE` exceeds the number of existing notes, all notes are removed.
 
 Examples:
-* `note 1 c/1` removes the first note from the 1st contact.
-* `note 2 c/3` removes the first 3 notes from the 2nd contact.
+* `note 1 co/1` removes the first note from the 1st contact.
+* `note 2 co/3` removes the first 3 notes from the 2nd contact.
 
 ![remove notes]({{ baseUrl }}/images/removeNotes.png)
 
