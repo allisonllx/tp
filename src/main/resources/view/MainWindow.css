@@ -257,6 +257,13 @@
     -fx-text-fill: -detail-font-color;
 }
 
+.contact-detail-panel .note-index-label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: -detail-font-color;
+    -fx-padding: 3 0 0 0;
+}
+
 .detail-text-flow {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;
