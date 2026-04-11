@@ -74,7 +74,7 @@ Example:
 
 ## Reminders
 
-By including a `/on` prefix and a time afterwards in a `note`, users can create reminders attached to a contact, which is useful to scheduling meetings and events relating to those contacts. <br>
+By including a `on/` prefix and a time afterwards in a `note`, users can create reminders attached to a contact, which is useful to scheduling meetings and events relating to those contacts. <br>
 Contacts with a reminder will gain a special `Reminder` tag and automatically be placed towards the top of the contact list.
 
 ![Reminder]({{ baseUrl }}/images/notes-reminder.png)
