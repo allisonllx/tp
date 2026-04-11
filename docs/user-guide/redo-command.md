@@ -5,8 +5,8 @@ Reverses the effect of an `undo` command, effectively re-applying the previously
 Format: `redo`
 
 * Only applicable after an `undo` command has been executed.
-* Commands that do not modify data (`help`, `view`, `close view`, `list`, `find`, `undo`, `redo`, `exit`) are ignored by redo.
-* Displays the feedback of the redone command.
+* Restores the application state to the state prior to the previous `undo` command, as if said `undo` command was never executed at all.
+* Displays the feedback of the redone command after successful execution.
 
 Examples:
 * `delete 1` then `undo` then `redo` re-deletes the 1st contact.
