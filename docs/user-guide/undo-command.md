@@ -8,7 +8,7 @@ Format: `undo`
   * Commands that modify contact list data: `add`, `edit`, `delete`, `note`, `clear`
   * Commands that change the filter/sort patterns: `list`, `find`, `sort`
   * Commands that modify application settings: `file`, `theme`
-* Commands do not fall in the above categories (`help`, `view`, `close view`, `undo`, `redo`, `exit`) are ignored by undo.
+* Commands that do not fall in the above categories (`help`, `view`, `close view`, `undo`, `redo`, `exit`) are ignored by undo.
 * Displays the feedback of the undone command after execution.
 
 Examples:
