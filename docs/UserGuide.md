@@ -15,6 +15,8 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
   - [Quick Start](#quick-start)
   - [Features](#features)
     - [Command Format](#command-format)
+    - [Flexible Time Input](#flexible-time-input)
+    - [Contact Fields and Prefixes](#contact-fields-and-prefixes)
     - [Adding Contacts](#adding-contacts)
     - [Editing Contacts](#editing-contacts)
     - [Deleting Contacts](#deleting-contacts)
@@ -105,7 +107,7 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 </box>
 
-### Flexible time input
+### Flexible Time Input
 
 A contact may contain fields that require a date/time as input.
 For this purpose, B2B4U supports flexible date and time input formats.
@@ -222,7 +224,7 @@ This does mean that if an attempt to input a date contains an input that cannot 
 This can be identified to be the case when the field's data appears just like its input, rather than in the standard format of representing a date/time in B2B4U, explained above. <br>
 If an incorrectly input date/time is indeed recorded, the user should use one of the edit commands or the [`undo`](#undo-and-redo) command to correct their mistake.
 
-### Contact fields and prefixes
+### Contact Fields and Prefixes
 
 **Name(**`n/`**):**
 - The contact's name.
