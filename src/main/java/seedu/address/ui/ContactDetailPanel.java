@@ -112,6 +112,7 @@ public class ContactDetailPanel extends UiPart<Region> {
 
         // Notes
         if (!contact.getNotes().isEmpty()) {
+            notes.getChildren().clear();
             contact.getNotes()
                     .forEach(note -> {
                         NoteLabel noteLabel = new NoteLabel(note, notes.getStyleClass().toString(), allContacts);
