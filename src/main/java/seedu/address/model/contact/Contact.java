@@ -151,8 +151,8 @@ public class Contact {
                 || containsInAddress(string)
                 || containsInNotes(string)
                 || containsInTags(string)
-                || (hasReminders() &&
-                        (string.equalsIgnoreCase("reminder") || string.equalsIgnoreCase("reminders")));
+                || (hasReminders()
+                        && (string.equalsIgnoreCase("reminder") || string.equalsIgnoreCase("reminders")));
     }
 
     /**

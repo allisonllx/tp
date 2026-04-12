@@ -91,10 +91,10 @@ public class ContactCard extends UiPart<Region> {
         } else {
             UiUtil.hide(notesContainer);
         }
-        
+
         // Set up info flow pane
         if (!(contact.getReminders().isEmpty() && contact.getLastContacted().isEmpty())) {
-            contact.getLastContacted().ifPresent(lc ->  {
+            contact.getLastContacted().ifPresent(lc -> {
                 Label lastContactedLabel = new Label("Last Contacted: " + lc);
                 info.getChildren().add(lastContactedLabel);
             });
@@ -108,7 +108,7 @@ public class ContactCard extends UiPart<Region> {
         } else {
             UiUtil.hide(info);
         }
-        
+
         // Set up tags flow pane
         if (!contact.getTags().isEmpty()) {
             contact.getTags().stream()
