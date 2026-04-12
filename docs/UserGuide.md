@@ -127,10 +127,11 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED]
 
 - At least **one** optional field must be provided.
 - Editing tags **replaces all existing tags** rather than adding to them.
+- You can remove an optional field by providing its prefix with no value (e.g. `t/` to clear all tags, `p/` to remove the phone number).
 
 **Examples:**
 - `edit 1 p/91234567 e/johndoe@example.com`
-- `edit 2 n/Betsy Crower t/`
+- `edit 2 n/Betsy Crower t/` — renames and clears all tags
 
 ### Deleting Contacts
 
