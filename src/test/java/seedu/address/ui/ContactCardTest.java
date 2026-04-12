@@ -33,7 +33,7 @@ public class ContactCardTest extends GuiUnitTest {
                     .withPhone("94351253")
                     .withEmail("alice@example.com")
                     .withAddress("123, Jurong West Ave 6, #08-111")
-                    .withLastContacted("22/02/26")
+                    .withLastContacted("22/Feb/26")
                     .withTags("friends", "teammate", "friends:1")
                     .withNotes("follow up")
                     .build(), 1, FXCollections.observableArrayList());

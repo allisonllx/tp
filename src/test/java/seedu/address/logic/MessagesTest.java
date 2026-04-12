@@ -21,7 +21,7 @@ public class MessagesTest {
                 .withPhone("94351253")
                 .withEmail("alice@example.com")
                 .withAddress("123, Jurong West Ave 6, #08-111")
-                .withLastContacted("22/02/26")
+                .withLastContacted("22/Feb/26")
                 .withTags("friend")
                 .build();
 
@@ -30,7 +30,7 @@ public class MessagesTest {
         assertTrue(formatted.contains("; Phone: 94351253"));
         assertTrue(formatted.contains("; Email: alice@example.com"));
         assertTrue(formatted.contains("; Address: 123, Jurong West Ave 6, #08-111"));
-        assertTrue(formatted.contains("; Last Contacted: 22/02/26"));
+        assertTrue(formatted.contains("; Last Contacted: 22/Feb/26"));
         assertTrue(formatted.contains("; Tags: [friend]"));
     }
 

@@ -16,14 +16,14 @@ public class LastContactedTest {
         assertFalse(LastContacted.isValidLastContacted(null));
         assertFalse(LastContacted.isValidLastContacted(""));
         assertFalse(LastContacted.isValidLastContacted("   "));
-        assertTrue(LastContacted.isValidLastContacted("22/02/26"));
+        assertTrue(LastContacted.isValidLastContacted("22/Feb/26"));
     }
 
     @Test
     public void equals() {
-        LastContacted first = new LastContacted("22/02/26");
+        LastContacted first = new LastContacted("22/Feb/26");
         LastContacted second = new LastContacted("23/02/26");
-        LastContacted firstCopy = new LastContacted("22/02/26");
+        LastContacted firstCopy = new LastContacted("22/Feb/26");
 
         assertTrue(first.equals(first));
         assertTrue(first.equals(firstCopy));
@@ -34,8 +34,8 @@ public class LastContactedTest {
 
     @Test
     public void toStringValue() {
-        LastContacted lastContacted = new LastContacted("22/02/26");
-        assertEquals("22/02/26", lastContacted.toString());
+        LastContacted lastContacted = new LastContacted("22/Feb/26");
+        assertEquals("22/Feb/26", lastContacted.toString());
     }
 
     @Test
@@ -50,14 +50,14 @@ public class LastContactedTest {
 
     @Test
     public void constructor_trimmedInput_success() {
-        LastContacted lastContacted = new LastContacted("  22/02/26  ");
-        assertEquals("22/02/26", lastContacted.toString());
+        LastContacted lastContacted = new LastContacted("  22/Feb/26  ");
+        assertEquals("22/Feb/26", lastContacted.toString());
     }
 
     @Test
     public void hashCode_equalObjects_sameHashCode() {
-        LastContacted first = new LastContacted("22/02/26");
-        LastContacted second = new LastContacted("22/02/26");
+        LastContacted first = new LastContacted("22/Feb/26");
+        LastContacted second = new LastContacted("22/Feb/26");
         assertEquals(first.hashCode(), second.hashCode());
     }
 }
