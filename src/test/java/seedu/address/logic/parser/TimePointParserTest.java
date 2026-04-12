@@ -77,6 +77,7 @@ public class TimePointParserTest {
         assertEquals("abcd ef gh ij", toTimePoint("abcd ef gh ij").getTime());
         assertEquals("9999 99 99 99", toTimePoint("9999 99 99 99").getTime());
         assertEquals("year month day time", toTimePoint("year month day time").getTime());
+        assertEquals("2020 Apr 30 10:1AM", toTimePoint("2020 Apr 30 10:1AM").getTime());
         assertEquals("2020 Apr 31 10AM", toTimePoint("2020 Apr 31 10AM").getTime());
         assertEquals("2024 Feb 29 26:00", toTimePoint("2024 Feb 29 26:00").getTime());
         assertEquals("1 2 3 4", toTimePoint("1 2 3 4").getTime());
