@@ -566,6 +566,75 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
     Expected: Similar to previous.
 
+### Adding a contact
+
+1. Adding a contact with all fields
+
+   1. Test case: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`<br>
+    Expected: New contact is added to the list. Details of the added contact shown in the status message.
+
+   2. Test case: `add n/Jane Doe`<br>
+    Expected: No contact is added. Error details shown in the status message, as at least a phone number or email is required.
+
+   3. Test case: `add n/John Doe p/98765432` followed by `add n/John Doe p/98765432`<br>
+    Expected: Second command fails with a duplicate contact error message.
+
+### Editing a contact
+
+1. Editing a contact while all contacts are being shown
+
+   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+
+   2. Test case: `edit 1 p/91234567`<br>
+    Expected: Phone number of the first contact is updated. Details of the edited contact shown in the status message.
+
+   3. Test case: `edit 1 t/`<br>
+    Expected: All tags of the first contact are removed.
+
+   4. Test case: `edit 0 p/91234567`<br>
+    Expected: No contact is edited. Error details shown in the status message.
+
+### Adding a note to a contact
+
+1. Adding notes and reminders
+
+   1. Prerequisites: List all contacts using the `list` command. At least one contact in the list.
+
+   2. Test case: `note 1 Follow up with client`<br>
+    Expected: Note is added to the first contact. Status message confirms the note was added.
+
+   3. Test case: `note 1 Meeting on/25/12/2026`<br>
+    Expected: A reminder note is added. The contact gains a `Reminder` tag.
+
+   4. Test case: `note 1 ca/`<br>
+    Expected: All notes are cleared from the first contact.
+
+### Finding contacts
+
+1. Finding contacts by keyword
+
+   1. Test case: `find alex`<br>
+    Expected: Contacts with "alex" in any field are displayed.
+
+   2. Test case: `find n/Alex t/friends`<br>
+    Expected: Contacts matching both name "Alex" and tag "friends" are displayed.
+
+   3. Test case: `find` (no arguments)<br>
+    Expected: All filters are cleared and all contacts are shown.
+
+### Sorting contacts
+
+1. Sorting contacts by field
+
+   1. Test case: `sort n/asc`<br>
+    Expected: Contacts are sorted by name in ascending order.
+
+   2. Test case: `sort lc/desc`<br>
+    Expected: Contacts are sorted by last contacted date, newest first.
+
+   3. Test case: `sort` (no arguments)<br>
+    Expected: Sort order is reset to default.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
