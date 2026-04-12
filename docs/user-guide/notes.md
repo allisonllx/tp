@@ -13,6 +13,7 @@ Format: `note INDEX NOTE [on/TIME]`
 * Notes support **contact references** using the `@INDEX` syntax. When you include `@INDEX` in a note, it creates a link to the contact at that index. The reference is displayed as the contact's name in **bold and underlined** text.
 * If a referenced contact's name changes, the displayed name updates automatically.
 * If a referenced contact is deleted, the reference is replaced with the contact's name as plain text.
+* You cannot add a note that is **identical** to one already on that contact (same text **and** the same reminder time, if any). If you try, the command fails and no change is made.
 
 Examples:
 * `note 1 Likes to swim.`
@@ -28,6 +29,7 @@ Format: `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`
 * Replaces the note at position `NOTE_INDEX` of the contact at the specified `INDEX` with `NEW_NOTE`.
 * `NOTE_INDEX` refers to the position of the note as displayed (starting from 1).
 * Optionally include `on/TIME` to set or update the reminder for the edited note.
+* After editing, the note must not match **another** note on the same contact (same text **and** the same reminder time, if any). Otherwise the command fails and the note is left unchanged.
 
 Examples:
 * `note 1 el/1 Updated note text.` replaces the 1st note of the 1st contact.
