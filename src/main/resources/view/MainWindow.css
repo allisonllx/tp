@@ -90,6 +90,19 @@
     -fx-background-color: -note-cell-fill;
 }
 
+.notes-cell-background .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.notes-cell-background .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.notes-cell-background .scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-background-insets: 3;
+}
+
 .stack-pane {
     -fx-background-color: -main-background-color;
 }
@@ -242,6 +255,13 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 12px;
     -fx-text-fill: -detail-font-color;
+}
+
+.contact-detail-panel .note-index-label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: -detail-font-color;
+    -fx-padding: 3 0 0 0;
 }
 
 .detail-text-flow {

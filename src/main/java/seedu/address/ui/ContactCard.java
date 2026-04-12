@@ -5,6 +5,7 @@ import java.util.Comparator;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -47,6 +48,8 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private VBox notesContainer;
     @FXML
+    private ScrollPane notesScrollPane;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -82,9 +85,7 @@ public class ContactCard extends UiPart<Region> {
         UiUtil.show(this.lastUpdated);
         if (!(contact.getNotes().isEmpty())) {
             NotesTextFlow notes = new NotesTextFlow(contact.getNotes(), allContacts);
-            notes.setNewMaxHeight(notesContainer.getMaxHeight()
-                    - (notesContainer.getPadding().getTop() + notesContainer.getPadding().getBottom()));
-            notesContainer.getChildren().add(notes);
+            notesScrollPane.setContent(notes);
         } else {
             UiUtil.hide(notesContainer);
         }
