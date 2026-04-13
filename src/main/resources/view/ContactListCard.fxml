@@ -32,6 +32,9 @@
                             <HBox.margin>
                                 <Insets left="5.0" />
                             </HBox.margin>
+                            <padding>
+                                <Insets bottom="6.0" />
+                            </padding>
                         </FlowPane>
                         <Pane HBox.hgrow="ALWAYS" />
                         <Label fx:id="lastUpdated" alignment="TOP_RIGHT" minWidth="-Infinity" styleClass="cell_soft_label, italic" text="\$lastUpdated">
