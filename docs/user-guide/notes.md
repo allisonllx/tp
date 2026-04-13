@@ -13,6 +13,7 @@ Format: `note INDEX NOTE [on/TIME]`
 * Notes support **contact references** using the `@INDEX` syntax. When you include `@INDEX` in a note, it creates a link to the contact at that index. The reference is displayed as the contact's name in **bold and underlined** text.
 * If a referenced contact's name changes, the displayed name updates automatically.
 * If a referenced contact is deleted, the reference is replaced with the contact's name as plain text.
+* If a contact reference is corrupted (e.g. changed to an invalid value in the data file), it will be displayed as `@Unknown` in the note.
 
 Examples:
 * `note 1 Likes to swim.`
