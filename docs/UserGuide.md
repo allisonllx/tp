@@ -111,7 +111,7 @@ To add a new contact, use the [`add` command]({{ baseUrl }}/user-guide/add-conta
 
 Format: `add n/NAME (p/PHONE | e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
-- At least **one** of `p/PHONE` or `e/EMAIL` must be provided (both are allowed).
+- At least **one** (or both) of `p/PHONE` or `e/EMAIL` must be provided.
 - Names are standardized to **Title Case**.
 - After adding, if similar contacts exist, the list will filter to show them.
 
