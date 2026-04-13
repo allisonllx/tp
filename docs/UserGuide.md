@@ -117,9 +117,9 @@ To successfully input a date, the user input must fulfill the following criteria
     - The full name of the month (e.g. `January`, `March`), case-insensitive (e.g. `january` will be accepted as `January`, `MARCH` will be accepted as `March`).
     - A three-letter abbreviation of the month (e.g. `Jan`, `Mar`), case-insensitive (e.g. `jan` will be accepted as `Jan`, `MAR` will be accepted as `Mar`).
 - The input must contain exactly one numeric parameter `DAY` which represents the day of the month:
-- `DAY` and `MONTH` must be separated by a valid `SEPERATOR`:
-  - A `SEPERATOR` can be any one of the following characters: `/`, `\`, `-`, `,` or ` `(whitespace).
-  - Additional whitespaces in between the `SEPERATOR` and the parameters are allowed.
+- `DAY` and `MONTH` must be separated by a valid `SEPARATOR`:
+  - A `SEPARATOR` can be any one of the following characters: `/`, `\`, `-`, `,` or ` `(whitespace).
+  - Additional whitespaces in between the `SEPARATOR` and the parameters are allowed.
 - `DAY` and `MONTH` must in combination form a valid date with the given year(how the year may be input is explained below).
 
 Additionally, the input may contain the following parameters:
@@ -139,12 +139,12 @@ Additionally, the input may contain the following parameters:
     - Similar to the 12 hour `HH:MM(AM/PM)` format with the colon and minute parameter is omitted.
     - Example: `11AM` which will be the same as `11:00` and `11:00AM`
   - `TIME` will only be parsed if provided alongside a valid date.
-- All parameters must be similarly separated by a valid `SEPERATOR`.
+- All parameters must be similarly separated by a valid `SEPARATOR`.
 
 The date/time input should fall into at least one of the following patterns, rather than randomly ordered:
 
 <box type="info" seamless>
-**Note:** In the following tables, `SEPERATOR` will be represented by `/`.
+**Note:** In the following tables, `SEPARATOR` will be represented by `/`.
 </box>
 
 - Partial date(containing only `DAY` and `MONTH`):
