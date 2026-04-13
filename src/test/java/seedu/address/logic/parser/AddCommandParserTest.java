@@ -63,7 +63,7 @@ public class AddCommandParserTest {
         // with last contacted
         Contact expectedContactWithLastContacted = new ContactBuilder(BOB)
                 .withTags(VALID_TAG_FRIEND)
-                .withLastContacted("22/02/26")
+                .withLastContacted("22/Feb/26")
                 .build();
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + LAST_CONTACTED_DESC_AMY + TAG_DESC_FRIEND,

@@ -32,7 +32,7 @@ public class DateTimeTimePoint extends TimePoint<LocalDateTime> {
             return false;
         }
         if (other instanceof DateTimePoint) {
-            return this.getTime().toLocalDate().isAfter(((DateTimePoint) other).getTime());
+            return this.getTime().toLocalDate().isAfter(((DateTimePoint) other).getTime()) || this.isSameDayAs(other);
         }
         if (other instanceof DateTimeTimePoint) {
             return this.getTime().isAfter(((DateTimeTimePoint) other).getTime());
@@ -46,7 +46,7 @@ public class DateTimeTimePoint extends TimePoint<LocalDateTime> {
             return false;
         }
         if (other instanceof DateTimePoint) {
-            return this.getTime().toLocalDate().isBefore(((DateTimePoint) other).getTime());
+            return this.getTime().toLocalDate().isBefore(((DateTimePoint) other).getTime()) || this.isSameDayAs(other);
         }
         if (other instanceof DateTimeTimePoint) {
             return this.getTime().isBefore(((DateTimeTimePoint) other).getTime());

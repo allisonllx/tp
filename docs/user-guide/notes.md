@@ -14,6 +14,7 @@ Format: `note INDEX NOTE [on/TIME]`
 * If a referenced contact's name changes, the displayed name updates automatically.
 * If a referenced contact is deleted, the reference is replaced with the contact's name as plain text.
 * If a contact reference is corrupted (e.g. changed to an invalid value in the data file), it will be displayed as `@Unknown` in the note.
+* You cannot add a note that is **identical** to one already on that contact (same text **and** the same reminder time, if any). If you try, the command fails and no change is made.
 
 Examples:
 * `note 1 Likes to swim.`
@@ -29,6 +30,7 @@ Format: `note INDEX el/NOTE_INDEX NEW_NOTE [on/TIME]`
 * Replaces the note at position `NOTE_INDEX` of the contact at the specified `INDEX` with `NEW_NOTE`.
 * `NOTE_INDEX` refers to the position of the note as displayed (starting from 1).
 * Optionally include `on/TIME` to set or update the reminder for the edited note.
+* After editing, the note must not match **another** note on the same contact (same text **and** the same reminder time, if any). Otherwise the command fails and the note is left unchanged.
 
 Examples:
 * `note 1 el/1 Updated note text.` replaces the 1st note of the 1st contact.
@@ -75,8 +77,9 @@ Example:
 
 ## Reminders
 
-By including a `on/` prefix and a time afterwards in a `note`, users can create reminders attached to a contact, which is useful to scheduling meetings and events relating to those contacts. <br>
-Contacts with a reminder will gain a special `Reminder` tag and automatically be placed towards the top of the contact list.
+By including a `/on` prefix and a time afterwards in a `note`, users can create reminders attached to a contact, which is useful to scheduling meetings and events relating to those contacts. <br>
+Contacts with a reminder will gain a special `Reminder` tag and automatically be placed towards the top of the contact list. <br>
+The input format for the time is [flexible]({{ baseUrl }}/UserGuide.html#flexible-time-input).
 
 ![Reminder]({{ baseUrl }}/images/notes-reminder.png)
 

@@ -107,7 +107,7 @@ public class ContactComparatorTest {
                 .withPhone("11111111")
                 .withEmail("alice@test.com")
                 .withAddress("A Street")
-                .withLastContacted("22/02/26")
+                .withLastContacted("22/Feb/26")
                 .withLastUpdated(LocalDateTime.of(2026, 2, 22, 9, 0))
                 .build();
 
@@ -137,7 +137,7 @@ public class ContactComparatorTest {
                 .withPhone("11111111")
                 .withEmail("alice@test.com")
                 .withAddress("A Street")
-                .withLastContacted("22/02/26")
+                .withLastContacted("22/Feb/26")
                 .withLastUpdated(LocalDateTime.of(2026, 2, 22, 9, 0))
                 .build();
 

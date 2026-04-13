@@ -18,7 +18,7 @@ public class TimePointParser {
     private static final String[] VALID_TIME_FORMATS = {
         "D/M", "M/D",
         "D/M/Y", "M/D/Y", "Y/M/D", "Y/D/M", "T/D/M", "T/M/D", "D/M/T", "M/D/T",
-        "T/D/M/Y", "T/M/D/Y", "T/Y/M/D", "T/Y/D/M", "D/M/Y/T", "M/D/T/Y", "M/D/Y/T", "Y/M/D/T", "Y/D/M/T",
+        "T/D/M/Y", "T/M/D/Y", "T/Y/M/D", "T/Y/D/M", "D/M/Y/T", "M/D/Y/T", "Y/M/D/T", "Y/D/M/T",
     };
 
     private static final char[] VALID_SEPARATOR_WILDCARDS = {'/', ' ', '-', '\\', ','};
@@ -250,9 +250,6 @@ public class TimePointParser {
         if (timeString == null) {
             return -1;
         }
-        if (Parser.isInteger(timeString) && timeString.length() == 4) {
-            return digitsToHourMinute(timeString);
-        }
         if (timeString.contains("AM")) {
             return amToHourMinute(timeString);
         }
@@ -330,6 +327,9 @@ public class TimePointParser {
         String[] tokens = timeString.split(":");
         if (Parser.isIntegerArray(tokens) && tokens.length == 2) {
             int hour = Integer.parseInt(tokens[0]);
+            if (tokens[1].length() != 2) {
+                return -1;
+            }
             int minute = Integer.parseInt(tokens[1]);
             if (hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59) {
                 return hour * 100 + minute;
@@ -346,14 +346,6 @@ public class TimePointParser {
     public static int toMonth(String month) {
         if (month == null) {
             return -1;
-        }
-        if (Parser.isInteger(month)) {
-            int monthInt = Integer.parseInt(month);
-            if (monthInt >= 1 && monthInt <= 12) {
-                return monthInt;
-            } else {
-                return -1;
-            }
         }
         for (int i = 1; i <= 12; i++) {
             if (TimePoint.MONTHS[i - 1].equals(month) || TimePoint.MTHS[i - 1].equals(month)) {

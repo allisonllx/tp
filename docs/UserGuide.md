@@ -15,6 +15,8 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
   - [Quick Start](#quick-start)
   - [Features](#features)
     - [Command Format](#command-format)
+    - [Flexible Time Input](#flexible-time-input)
+    - [Contact Fields and Prefixes](#contact-fields-and-prefixes)
     - [Adding Contacts](#adding-contacts)
     - [Editing Contacts](#editing-contacts)
     - [Deleting Contacts](#deleting-contacts)
@@ -105,13 +107,171 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 </box>
 
+### Flexible Time Input
+
+A contact may contain fields that require a date/time as input.
+For this purpose, B2B4U supports flexible date and time input formats.
+To successfully input a date, the user input must fulfill the following criteria:
+- The input must contain exactly one word parameter `MONTH` which represents the month:
+  - Valid formats for `MONTH`: 
+    - The full name of the month (e.g. `January`, `March`), case-insensitive (e.g. `january` will be accepted as `January`, `MARCH` will be accepted as `March`).
+    - A three-letter abbreviation of the month (e.g. `Jan`, `Mar`), case-insensitive (e.g. `jan` will be accepted as `Jan`, `MAR` will be accepted as `Mar`).
+- The input must contain exactly one numeric parameter `DAY` which represents the day of the month:
+- `DAY` and `MONTH` must be separated by a valid `SEPARATOR`:
+  - A `SEPARATOR` can be any one of the following characters: `/`, `\`, `-`, `,` or ` `(whitespace).
+  - Additional whitespaces in between the `SEPARATOR` and the parameters are allowed.
+- `DAY` and `MONTH` must in combination form a valid date with the given year(how the year may be input is explained below).
+
+Additionally, the input may contain the following parameters:
+- Exactly one 4-digit numeric parameter `YEAR` which represents the year:
+  - If `YEAR` is absent, the current year will be used for the date on default.
+  - As mentioned above, `YEAR` must form a valid date with the given `DAY` and `MONTH`.
+- Exactly one parameter `TIME` which represents the time of day, which can be any one of the following formats:
+  - 24 hour `HH:MM` format:
+     - If the hour can be represented as a single digit, the first zero can be omitted. (e.g. 07:30 and 7:30 will both be accepted as 7:30AM)
+     - The time must be valid: `HH` must be between 0 and 23(inclusive), `MM` must be between 00 and 59(inclusive).
+  - 12 hour `HH:MM(AM/PM)` format:
+    - The constraints for the `HH:MM` are similar to 24 hour `HH:MM` format, with the exception that `HH` must be between 1 and 12(inclusive).
+    - There must be exactly one Meridiem suffix(`AM` or `PM`) at the end of the time.
+    - The Meridiem suffix must be directly attached to the clock time(`HH:MM`) and cannot be separated by any other character(s).
+    - Example: `7:30AM`, `12:00PM`, `11:59PM`
+  - 12 hour simplified `HH(AM/PM)` format:
+    - Similar to the 12 hour `HH:MM(AM/PM)` format with the colon and minute parameter is omitted.
+    - Example: `11AM` which will be the same as `11:00` and `11:00AM`
+  - `TIME` will only be parsed if provided alongside a valid date.
+- All parameters must be similarly separated by a valid `SEPARATOR`.
+
+The date/time input should fall into at least one of the following patterns, rather than randomly ordered:
+
+<box type="info" seamless>
+**Note:** In the following tables, `SEPARATOR` will be represented by `/`.
+</box>
+
+- Partial date(containing only `DAY` and `MONTH`):
+
+| Pattern   | Format      | Example  |
+|-----------|-------------|----------|
+| Day-month | `DAY/MONTH` | `31 Oct` |
+| Month-day | `MONTH/DAY` | `Oct 31` |
+
+- Date only(containing only `DAY`, `MONTH` and `YEAR`):
+
+| Pattern               | Format           | Example       |
+|-----------------------|------------------|---------------|
+| Little-endian         | `DAY/MONTH/YEAR` | `31 Oct 2026` |
+| Middle-endian         | `MONTH/DAY/YEAR` | `Oct 31 2026` |
+| Big-endian            | `YEAR/MONTH/DAY` | `2026 Oct 31` |
+| Reverse middle-endian | `YEAR/DAY/MONTH` | `2026 31 Oct` |
+
+- Partial date + time(containing only `DAY`, `MONTH` and `TIME`):
+
+| Pattern                 | Format           | Example         |
+|-------------------------|------------------|-----------------|
+| Time-prefixed day-month | `TIME/DAY/MONTH` | `12:00 31 Oct`  |
+| Time-prefixed month-day | `TIME/MONTH/DAY` | `12:00 Oct 31`  |
+| Time-suffixed day-month | `DAY/MONTH/TIME` | `31 Oct 12:00`  |
+| Time-suffixed month-day | `MONTH/DAY/TIME` | `Oct 31 12:00`  |
+
+- Full date + time(containing `DAY`, `MONTH`, `YEAR`, and `TIME`):
+
+| Pattern                             | Format                | Example             |
+|-------------------------------------|-----------------------|---------------------|
+| Time-prefixed little-endian         | `TIME/DAY/MONTH/YEAR` | `12:00 31 Oct 2026` |
+| Time-prefixed middle-endian         | `TIME/MONTH/DAY/YEAR` | `12:00 Oct 31 2026` |
+| Time-prefixed big-endian            | `TIME/YEAR/MONTH/DAY` | `12:00 2026 Oct 31` |
+| Time-prefixed reverse middle-endian | `TIME/YEAR/DAY/MONTH` | `12:00 2026 31 Oct` |
+| Time-suffixed little-endian         | `DAY/MONTH/YEAR/TIME` | `12:00 31 Oct 2026` |
+| Time-suffixed middle-endian         | `MONTH/DAY/YEAR/TIME` | `Oct 31 2026 12:00` |
+| Time-suffixed big-endian            | `YEAR/MONTH/DAY/TIME` | `2026 Oct 31 12:00` |
+| Time-suffixed reverse middle-endian | `YEAR/DAY/MONTH/TIME` | `2026 31 Oct 12:00` |
+
+<box type="info" seamless>
+**Note:** For additional ease of input, B2B4U also allows the following input keywords which can be parsed as a date based on the current system time.
+
+| Keyword                               | Result                                            |
+|---------------------------------------|---------------------------------------------------|
+| `today`                               | Current system date                               |
+| `tomorrow`                            | The day after the current system date             |
+| `next week`                           | 7 days after the current system date              |
+| `sunday` or `sun`                     | The first Sunday after the current system date    |
+| `monday` or `mon`                     | The first Monday after the current system date    |
+| `tuesday`, `tues` or `tue`            | The first Tuesday after the current system date   |
+| `wednesday` or `wed`                  | The first Wednesday after the current system date |
+| `thursday`, `thurs`, `thur`, or `thu` | The first Thursday after the current system date  |
+| `friday` or `fri`                     | The first Friday after the current system date    |
+| `saturday` or `sat`                   | The first Saturday after the current system date  |
+
+The keyword input is case-insensitive. <br>
+Only one of such keywords may be used in a singular input regarding time, and if used, it can replace the above "month" and "day" input requirements entirely. <br>
+Example: On 24 March 2026, inputting `next week 12PM` for a [reminder]({{ baseUrl }}/user-guide/notes.html#reminders) sets the reminder for 12:00PM 31 March 2026.
+</box>
+
+Once a valid date or time hsa been accepted as input, it will be displayed by B2B4U in the following formats:
+- A date is displayed in "`Mth` `DAY`, `YEAR`" format, wherein `Mth` is the month abbreviated to three letters with only its first letter capitalised.
+  - Example: 31 October 2026 will be displayed as "Oct 31, 2026".
+- A date with time is displayed in "`HH:mm`, `Mth` `DAY`, `YEAR`" format.
+  - Example: 12:00 noon on 31 October 2026 will be displayed as "12:00, Oct 31, 2026".
+<box type="info" seamless>
+**Note:** Both of the above display formats are also accepted input formats by B2B4U.
+</box>
+
+To allow for user freedom, it is not necessary that the user creates an input that is a valid date, or even an input that resembles a time for a field related to time. <br>
+This allows freedom for the following use cases:
+- If the user cannot remember clearly the last time they had contacted someone but wants to note down that is has been a while since they were in contact, they can edit their contact's `LastContacted` field to the phrase "over a year ago".
+- If the user is planning to meet someone sometime in December, however it is currently January and much of their other plans are yet to be set in stone, they can add a reminder with its time set to "sometime in December", then edit its date once they have finalised on a more concrete timing.
+
+This does mean that if an attempt to input a date contains an input that cannot be successfully parsed as one, it will be recorded as is.
+This can be identified to be the case when the field's data appears just like its input, rather than in the standard format of representing a date/time in B2B4U, explained above. <br>
+If an incorrectly input date/time is indeed recorded, the user should use one of the edit commands or the [`undo`](#undo-and-redo) command to correct their mistake.
+
+### Contact Fields and Prefixes
+
+**Name(**`n/`**):**
+- The contact's name.
+- Can only contain alphanumeric characters and spaces.
+
+**Phone number(**`p/`**):**
+- The contact's phone number.
+- Can only contain '+' and digits.
+- Without a country code, should be 5-14 digits long. 
+- With a country code (starting with '+'), should be 8-15 digits long.
+
+**Email(**`e/`**):**
+- The contact's email address.
+- Should be of the format `local-part@domain`
+  - Constraints of `local-part`:
+    - Must contain only alphanumeric characters and the special characters `.`, `_`, `%`, `+`, and `-`.
+    - Must start and end with an alphanumeric character.
+    - Is at least 1 character long.
+    - Cannot have consecutive periods.
+  - `domain` consists of one or more `label`s separated by periods. Constraints of `label`:
+    - Must start and end with an alphanumeric character.
+    - Must contain only alphanumeric characters or hyphens.
+    - Is at least 1 character long
+  - The last domain label (top-level domain) must be at least 2 characters long, and must be alphabetic.
+
+**Address(**`a/`**):**
+- The contact's address.
+- Can take any values, but should not be blank.
+
+**Last Contacted(**`lc/`**):**
+- The last time the user has contacted this person.
+- A non-blank [time-related input](#flexible-time-input).
+
+**Tag(**`t/`**):**
+- A tag to add onto the contact.
+- Can only contain alphanumeric characters.
+
+**Notes:**
+- See [Managing Notes for a Contact](#managing-notes-for-a-contact).
+
 ### Adding Contacts
 
 To add a new contact, use the [`add` command]({{ baseUrl }}/user-guide/add-contact.html).
 
-Format: `add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
+Format: `add n/NAME (p/PHONE | e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
-- At least **one** of `p/PHONE` or `e/EMAIL` must be provided.
+- At least **one** (or both) of `p/PHONE` or `e/EMAIL` must be provided.
 - Names are standardized to **Title Case**.
 - After adding, if similar contacts exist, the list will filter to show them.
 
@@ -190,7 +350,8 @@ Notes support **contact references** using the `@INDEX` syntax, which creates a 
 
 #### Reminders
 
-Any note with a scheduled time (set using `on/TIME`) becomes a reminder. Contacts with active reminders gain a `Reminder` tag, which turns red when the reminder is due within **7 days**. During this window, a pop-up notification will also appear each time you launch B2B4U.
+Any note with a scheduled time (set using `on/TIME`) becomes a reminder. Contacts with active reminders gain a `Reminder` tag, which turns red when the reminder is due within **7 days**. During this window, a pop-up notification will also appear each time you launch B2B4U. <br>
+The input format of `TIME` is [flexible](#flexible-time-input).
 
 ![reminder]({{ baseUrl }}/images/reminder.png)
 
@@ -300,7 +461,7 @@ Install B2B4U on the new computer, then replace the empty data file it creates w
 | Action                   | Format         | Parameters                                                                                                                    | Examples                                                                                           |
 | ------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **Help**                 | `help`         | `[COMMAND]`                                                                                                                   | `help add`                                                                                         |
-| **Add contact**          | `add`          | `n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`                                                         | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Add contact**          | `add`          | `n/NAME (p/PHONE \| e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`                                                         | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
 | **Edit contact**         | `edit`         | `INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`                                                 | `edit 2 n/James Lee e/jameslee@example.com`                                                        |
 | **Delete contact**       | `delete`       | `INDEX`                                                                                                                       | `delete 3`                                                                                         |
 | **Clear all contacts**   | `clear`        |                                                                                                                               |                                                                                                    |

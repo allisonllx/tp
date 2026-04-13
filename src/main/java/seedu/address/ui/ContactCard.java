@@ -36,6 +36,8 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private FlowPane info;
+    @FXML
     private Label id;
     @FXML
     private Label phone;
@@ -89,28 +91,32 @@ public class ContactCard extends UiPart<Region> {
         } else {
             UiUtil.hide(notesContainer);
         }
-        if (!(contact.getTags().isEmpty()
-                && contact.getReminders().isEmpty()
-                && contact.getLastContacted().isEmpty())) {
+
+        // Set up info flow pane
+        if (!(contact.getReminders().isEmpty() && contact.getLastContacted().isEmpty())) {
+            contact.getLastContacted().ifPresent(lc -> {
+                Label lastContactedLabel = new Label("Last Contacted: " + lc);
+                info.getChildren().add(lastContactedLabel);
+            });
+            if (!contact.getReminders().isEmpty()) {
+                Label reminderLabel = new Label("Reminder");
+                if (contact.hasDueReminders()) {
+                    reminderLabel.getStyleClass().add("warning-label");
+                }
+                info.getChildren().add(reminderLabel);
+            }
+        } else {
+            UiUtil.hide(info);
+        }
+
+        // Set up tags flow pane
+        if (!contact.getTags().isEmpty()) {
             contact.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.name))
                     .forEach(tag -> tags.getChildren().add(
                         tag instanceof RankedTag
                             ? new RankedTagLabel((RankedTag) tag)
                             : new Label(tag.name)));
-
-            if (!contact.getLastContacted().isEmpty()) {
-                Label lastContactedLabel = new Label("Last Contacted: " + contact.getLastContacted().get());
-                tags.getChildren().add(lastContactedLabel);
-            }
-
-            if (!contact.getReminders().isEmpty()) {
-                Label reminderLabel = new Label("Reminder");
-                if (contact.hasDueReminders()) {
-                    reminderLabel.getStyleClass().add("warning-label");
-                }
-                tags.getChildren().add(reminderLabel);
-            }
         } else {
             UiUtil.hide(tags);
         }

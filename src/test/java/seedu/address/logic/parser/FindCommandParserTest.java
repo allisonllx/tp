@@ -142,8 +142,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_findLastContactedOnDay_test() throws ParseException {
-        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_ON + "22/02/2026");
-        String expectedMessage = "Found 2 contacts matching 'lc/on/22/02/2026'";
+        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_ON + "22/Feb/2026");
+        String expectedMessage = "Found 2 contacts matching 'lc/on/22/Feb/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsSameDayAs(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
@@ -153,19 +153,19 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_findLastContactedBeforeDate_test() throws ParseException {
-        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/02/2026");
-        String expectedMessage = "Found 1 contacts matching 'lc/before/22/02/2026'";
+        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/Feb/2026");
+        String expectedMessage = "Found 3 contacts matching 'lc/before/22/Feb/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsBefore(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DANIEL), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(GEORGE, FIONA, DANIEL), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findLastContactedBeforeDateTime_test() throws ParseException {
-        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/02/2026 14:00");
-        String expectedMessage = "Found 2 contacts matching 'lc/before/22/02/2026 14:00'";
+        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/Feb/2026 14:00");
+        String expectedMessage = "Found 2 contacts matching 'lc/before/22/Feb/2026 14:00'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsBefore(TimePoint.of(LocalDateTime.of(2026, 2, 22, 14, 0)));
         expectedModel.filterDisplayedContactList(predicate);
@@ -175,19 +175,19 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_findLastContactedAfterDate_test() throws ParseException {
-        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/02/2026");
-        String expectedMessage = "Found 1 contacts matching 'lc/after/22/02/2026'";
+        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/Feb/2026");
+        String expectedMessage = "Found 3 contacts matching 'lc/after/22/Feb/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsAfter(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA), model.getDisplayedContactList());
     }
 
     @Test
     public void parse_findLastContactedAfterDateTime_test() throws ParseException {
-        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/02/2026 14:00");
-        String expectedMessage = "Found 2 contacts matching 'lc/after/22/02/2026 14:00'";
+        FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/Feb/2026 14:00");
+        String expectedMessage = "Found 2 contacts matching 'lc/after/22/Feb/2026 14:00'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsAfter(TimePoint.of(LocalDateTime.of(2026, 2, 22, 14, 0)));
         expectedModel.filterDisplayedContactList(predicate);
