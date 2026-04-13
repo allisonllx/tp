@@ -27,10 +27,15 @@
                                 <Region fx:constant="USE_PREF_SIZE" />
                             </minWidth>
                         </Label>
-                        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
                         <FlowPane fx:id="info" translateY="2.0">
                             <HBox.margin>
-                                <Insets left="5.0" />
+                                <Insets left="5.0" right="5.0"/>
                             </HBox.margin>
                             <padding>
                                 <Insets bottom="6.0" />
