@@ -154,12 +154,12 @@ public class FindCommandParserTest {
     @Test
     public void parse_findLastContactedBeforeDate_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_BEFORE + "22/02/2026");
-        String expectedMessage = "Found 1 contacts matching 'lc/before/22/02/2026'";
+        String expectedMessage = "Found 3 contacts matching 'lc/before/22/02/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsBefore(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DANIEL), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(GEORGE, FIONA, DANIEL), model.getDisplayedContactList());
     }
 
     @Test
@@ -176,12 +176,12 @@ public class FindCommandParserTest {
     @Test
     public void parse_findLastContactedAfterDate_test() throws ParseException {
         FindCommand command = parser.parse(" " + PREFIX_LAST_CONTACTED + PREFIX_AFTER + "22/02/2026");
-        String expectedMessage = "Found 1 contacts matching 'lc/after/22/02/2026'";
+        String expectedMessage = "Found 3 contacts matching 'lc/after/22/02/2026'";
         Predicate<Contact> predicate =
                 contact -> contact.lastContactedIsAfter(TimePoint.of(LocalDate.of(2026, 2, 22)));
         expectedModel.filterDisplayedContactList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL), model.getDisplayedContactList());
+        assertEquals(Arrays.asList(CARL, GEORGE, FIONA), model.getDisplayedContactList());
     }
 
     @Test

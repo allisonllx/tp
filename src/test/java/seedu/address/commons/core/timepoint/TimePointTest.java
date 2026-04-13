@@ -87,6 +87,7 @@ public class TimePointTest {
         assertFalse(stringDate.isAfter(null));
 
         //Date formatted TimePoint checks only for the day
+        assertTrue(date1.isAfter(dateTime1));
         assertTrue(date2.isAfter(date1));
         assertTrue(date2.isAfter(TimePoint.of(LocalDate.of(2024, 5, 10))));
         assertTrue(date2.isAfter(dateTime1));
@@ -96,7 +97,6 @@ public class TimePointTest {
         assertFalse(date1.isAfter(date1));
         assertFalse(date1.isAfter(stringDate));
         assertFalse(date2.isAfter(stringDate));
-        assertFalse(date1.isAfter(dateTime1));
         assertFalse(date1.isAfter(dateTime2));
         assertFalse(date2.isAfter(null));
 
@@ -106,9 +106,9 @@ public class TimePointTest {
         assertTrue(dateTimeDiffTime.isAfter(dateTime1));
         assertTrue(dateTime2.isAfter(dateTimeDiffTime));
         assertTrue(dateTime2.isAfter(date1));
+        assertTrue(dateTime1.isAfter(date1));
 
         //DateTime formatted TimePoint returns false when given same time, later times or null
-        assertFalse(dateTime1.isAfter(date1));
         assertFalse(dateTime1.isAfter(dateTime1));
         assertFalse(dateTime1.isAfter(date2));
         assertFalse(dateTime1.isAfter(dateTime2));
@@ -137,15 +137,15 @@ public class TimePointTest {
 
         //Date formatted TimePoint checks only for the day
         assertTrue(date1.isBefore(date2));
+        assertTrue(date1.isBefore(dateTime));
         assertTrue(date1.isBefore(TimePoint.of(LocalDate.of(2024, 5, 12))));
+        assertTrue(date1.isBefore(dateTimeDiffTime));
         assertTrue(date1.isBefore(dateTimeDiffDay));
 
         //Date formatted TimePoint returns false when given same day, later dates or null
         assertFalse(date1.isBefore(date1));
         assertFalse(date1.isBefore(stringDate));
         assertFalse(date2.isBefore(stringDate));
-        assertFalse(date1.isBefore(dateTime));
-        assertFalse(date1.isBefore(dateTimeDiffTime));
         assertFalse(date2.isBefore(null));
 
         //DateTime formatted TimePoint checks for both date and time if possible, if given only a date,
@@ -154,9 +154,9 @@ public class TimePointTest {
         assertTrue(dateTimeDiffTime.isBefore(dateTimeDiffDay));
         assertTrue(dateTime.isBefore(date2));
         assertTrue(dateTimeDiffTime.isBefore(date2));
+        assertTrue(dateTime.isBefore(date1));
 
         //DateTime formatted TimePoint returns false when given same time, later times or null
-        assertFalse(dateTime.isBefore(date1));
         assertFalse(dateTime.isBefore(dateTime));
         assertFalse(dateTimeDiffTime.isBefore(dateTime));
         assertFalse(dateTimeDiffDay.isBefore(dateTime));
