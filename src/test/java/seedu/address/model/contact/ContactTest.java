@@ -26,7 +26,7 @@ public class ContactTest {
     private static final Contact JOHN = new ContactBuilder()
             .withName("John Smith").withPhone("94455028").withEmail("john@email.com")
             .withAddress("Block 470, J Street 92").withTags("friends", "contractor")
-            .withNotes("Met in 2024 February.", "Meet on/22/04/2024 13:20").withLastContacted("22/04/2026").build();
+            .withNotes("Met in 2024 February.", "Meet on/22 Apr 2024 13:20").withLastContacted("22, Apr, 2026").build();
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {

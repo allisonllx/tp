@@ -43,7 +43,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
                     .withPhone("12345678")
                     .withEmail("test@example.com")
                     .withAddress("123 Test St")
-                    .withLastContacted("22/02/26")
+                    .withLastContacted("22/Feb/26")
                     .withTags("tag1", "tag2")
                     .withNotes("Test notes")
                     .build();
@@ -104,7 +104,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
             ContactDetailPanel panel = new ContactDetailPanel(EMPTY_LIST);
             Contact lastContactedOnlyContact = new ContactBuilder()
                     .withName("Last Contacted Only")
-                    .withLastContacted("22/02/26")
+                    .withLastContacted("22/Feb/26")
                     .build();
             assertDoesNotThrow(() -> panel.setContact(lastContactedOnlyContact));
         });
@@ -224,7 +224,7 @@ public class ContactDetailPanelTest extends GuiUnitTest {
                     .withPhone("12345678")
                     .withEmail("full@test.com")
                     .withAddress("Full Address")
-                    .withLastContacted("22/02/26")
+                    .withLastContacted("22/Feb/26")
                     .withTags("tag1")
                     .withNotes("Full notes")
                     .build();
