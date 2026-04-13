@@ -2,11 +2,11 @@
 
 Adds a contact to the contact list.
 
-Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
+Format: `add n/NAME (p/PHONE | e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A contact can have any number of tags (including 0). At least one of `p/PHONE_NUMBER` or `e/EMAIL` must be provided.
+**Tip:** A contact can have any number of tags (including 0). You must include **at least one** of `p/PHONE` or `e/EMAIL` (the parentheses mean “one or both”); you may supply both.
 </box>
 
 Examples:
@@ -25,5 +25,10 @@ Two contacts are similar if:
 - Both contacts share the same name
 - Both contacts share the same phone number
 - Both contacts share the same email address
+
+<box type="info" seamless>
+
+**Note:** Similar contact detection uses **exact matching** only. Names that appear similar to a human (e.g. "John Doe" and "John Doe Sr.") will not be flagged as similar unless they match exactly. The same applies to phone numbers and emails.
+</box>
 
 ![add contact]({{ baseUrl }}/images/addContact-similar.png)
