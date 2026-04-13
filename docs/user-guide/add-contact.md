@@ -2,11 +2,11 @@
 
 Adds a contact to the contact list.
 
-Format: `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
+Format: `add n/NAME (p/PHONE | e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
 <box type="tip" seamless>
 
-**Tip:** A contact can have any number of tags (including 0). At least one of `p/PHONE_NUMBER` or `e/EMAIL` must be provided.
+**Tip:** A contact can have any number of tags (including 0). You must include **at least one** of `p/PHONE` or `e/EMAIL` (the parentheses mean “one or both”); you may supply both.
 </box>
 
 * Names are standardised to Title Case (e.g. `john doe` becomes `John Doe`).

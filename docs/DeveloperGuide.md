@@ -414,8 +414,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | consultant              | save availability information for selected contacts as a calendar and filter contacts based on availability | later on, I know when they can be contacted in person rather than needing to double-check ahead of time |
 | `*`      | beginner user           | pick up advanced functionalities gradually                                                                  | utilize more of the features provided                                                                   |
 
-*{More to be added}*
-
 ### Use cases
 
 (For all use cases below, the **System** is the `B2B4U` and the **Actor** is the `user`, unless specified otherwise)
@@ -492,8 +490,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-*{More to be added}*
-
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -508,8 +504,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 10. GUI should work well for standard screen resolutions 1920x1080 and higher, and for screen scales 100% and 125%.
 11. GUI should be usable for resolutions 1280x720 and higher, and for screen scales 150%.
 12. Should be packaged in a single JAR file of 100MB or less in size.
-
-*{More to be added}*
 
 ### Glossary
 
@@ -647,3 +641,45 @@ testers are expected to do more *exploratory* testing.
 
    3. Test case: Corrupt data file (e.g. by adding random text to the file) and launch the app. <br>
     Expected: App loads with no contacts. The data file is overwritten when a contact is added.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+### Difficulty Level
+Compared to AB3, our project had a greater degree of complexity, as it involved functionality beyond the minimal requirements of a basic contact management application,
+notably a file management system and the undo/redo feature. Alongside the changes to the user interface, this project required a great amount of refactoring to allow for the features we planned.
+
+### Challenges faced
+**Command structure:**
+While implementing commands that affected elements beyond the contact list (i.e. file management commands, setting the theme, opening/closing the view panel),
+we have had to reevaluate what can be done within the scope of the `Command`'s `execute` function which could not directly access the UI elements,
+and took care to not break software engineering principles while altering the behaviour of classes outside of those directly related to command-execution.
+
+**GUI implementation:**
+Implementing GUI elements that displayed information with clarity within the constraints of JavaFX's provided tools proved to be a struggle.
+For example, while JavaFX's `Label` can truncate text with ellipses, it was not versatile enough to contain highlighted text seamlessly, unlike `TextFlow` which could not truncate text.
+In the end, some compromises had to be made to create an interface that was as user-friendly as we can feasibly put together.
+
+### Effort required
+**Design and Refactoring:**
+Restructuring the GUI to be more user-friendly and allow for features such as custom themes,
+as well as altering the functionality of commands and field constraints of contacts required careful refactoring and the creation of new class structures.
+
+**Testing and Debugging:**
+To ensure the reliability of our system, we wrote comprehensive test cases to verify that each feature and command functioned correctly.
+
+### Achievements
+In conclusion, our team successfully designed and implemented key features, resolved bugs, and navigated potential integration challenges.
+While we initially encountered difficulties with more complex components such as file access and GUI restructuring,
+effective collaboration allowed us to overcome these hurdles and accomplish our objectives for B2B4U.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+
+Team size: 5
+
+1. **Allow user to select "AND" and "OR" basis for `find` command:** The current `find` command applies all the search filters on an "AND" basis, meaning only contacts that match every parameter in the command will be displayed. We plan to add the option for users to search on an "OR" basis as well, such that any contact that matches at least one of the parameter will be displayed.
+
+2. **Allow user to set reminder alert time:** Currently, users will only be notified of reminders that are due within 7 days. We plan to add functionality for the user to adjust when they would like to be reminded for their reminders, such that they can be notified earlier or later than a week prior.

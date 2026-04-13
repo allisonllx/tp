@@ -109,9 +109,9 @@ Business to Business for You (B2B4U) is a **desktop app for managing contacts, o
 
 To add a new contact, use the [`add` command]({{ baseUrl }}/user-guide/add-contact.html).
 
-Format: `add n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
+Format: `add n/NAME (p/PHONE | e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…​`
 
-- At least **one** of `p/PHONE` or `e/EMAIL` must be provided.
+- At least **one** (or both) of `p/PHONE` or `e/EMAIL` must be provided.
 - Names are standardized to **Title Case**.
 - After adding, if similar contacts exist, the list will filter to show them.
 
@@ -300,7 +300,7 @@ Install B2B4U on the new computer, then replace the empty data file it creates w
 | Action                   | Format         | Parameters                                                                                                                    | Examples                                                                                           |
 | ------------------------ | -------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **Help**                 | `help`         | `[COMMAND]`                                                                                                                   | `help add`                                                                                         |
-| **Add contact**          | `add`          | `n/NAME [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`                                                         | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Add contact**          | `add`          | `n/NAME (p/PHONE \| e/EMAIL) [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`                                                         | `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
 | **Edit contact**         | `edit`         | `INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [lc/LAST_CONTACTED] [t/TAG]…`                                                 | `edit 2 n/James Lee e/jameslee@example.com`                                                        |
 | **Delete contact**       | `delete`       | `INDEX`                                                                                                                       | `delete 3`                                                                                         |
 | **Clear all contacts**   | `clear`        |                                                                                                                               |                                                                                                    |
