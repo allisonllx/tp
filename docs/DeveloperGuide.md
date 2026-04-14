@@ -494,8 +494,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to append a note (and optionally a reminder time) to a contact identified by index in the displayed list.
-2. B2B4U validates the contact index and parses the note text (including any `@INDEX` references to other contacts in that list).
+1. User requests to append a note to a contact identified by index in the displayed list.
+2. B2B4U validates the contact index and parses the note text.
 3. B2B4U saves the new note on the contact.
 4. B2B4U displays confirmation with the contact’s updated notes.
 
@@ -508,6 +508,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+* 1b. User provides `on/TIME` together with the note.
+  * 1b1. B2B4U parses and stores the note as a reminder.
+
+    Use case resumes at step 3.
+
 * 2a. The new note is identical to an existing note on the same contact (same text and same reminder, if any).
   * 2a1. B2B4U shows an error message; the contact’s notes are unchanged.
 
@@ -517,6 +522,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 2b1. B2B4U shows an error message.
 
     Use case ends.
+
+* 2c. Note text includes one or more `@INDEX` references.
+  * 2c1. B2B4U resolves each valid `@INDEX` to the corresponding contact reference before saving.
+
+    Use case resumes at step 3.
 
 **Use case: UC8 - Edit a note**
 
@@ -545,7 +555,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to <u>view contacts (UC3)</u> and remove one or more note lines from a contact, or clear all notes for that contact.
+1. User requests to remove one or more note lines from a contact, or clear all notes for that contact.
 2. B2B4U validates the contact index (and note indices or counts, as applicable).
 3. B2B4U updates the contact’s note list.
 4. B2B4U displays confirmation.
@@ -586,7 +596,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to switch the active contact data to another file (by file name).
-2. B2B4U validates the file name, updates the active file path, and loads data from that file (or starts a new empty list if the file does not yet exist).
+2. B2B4U validates the file name, updates the active file path, and loads data from that file.
 3. B2B4U displays the resulting contact list.
 
     Use case ends.
@@ -599,7 +609,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 * 2a. The file exists but its contents cannot be loaded as valid data.
-  * 2a1. B2B4U starts with an empty contact list for that file and continues (user may correct the file externally).
+  * 2a1. B2B4U starts with an empty contact list for that file and continues.
+
+    Use case ends.
+
+* 2b. The requested file does not yet exist.
+  * 2b1. B2B4U starts with a new empty contact list for that file and continues.
 
     Use case ends.
 
@@ -608,8 +623,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to delete a contact data file by name.
-2. B2B4U removes the file from storage.
-3. B2B4U displays confirmation.
+2. If the target file is non-empty, B2B4U requests confirmation from the user before continuing.
+3. User confirms deletion.
+4. B2B4U removes the file from storage.
+5. B2B4U displays confirmation.
 
     Use case ends.
 
@@ -624,6 +641,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1b1. B2B4U shows an error message.
 
     Use case ends.
+
+* 2a. The target file is empty.
+  * 2a1. B2B4U skips confirmation and proceeds with deletion.
+
+    Use case resumes at step 4.
+
+* 3a. User denies confirmation.
+  * 3a1. B2B4U aborts deletion and shows an error message.
+
+    Use case ends.
+
+* 3b. Confirmation is pending.
+  * 3b1. The app remains blocked by the confirmation dialog until the user provides a response.
+
+    Use case resumes at step 3.
 
 ### Non-Functional Requirements
 
